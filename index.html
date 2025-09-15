@@ -6,13 +6,19 @@
     <title>The NestEgg by Perdignus LLC</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.gstatic" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --primary-color: #264d41; /* Updated to match logo green */
+            --secondary-color: #f4f0e8; /* Soft Cream */
+            --text-color: #1a202c;
+            --accent-color: #d9a443; /* Muted Gold */
+        }
         body {
             font-family: 'Inter', sans-serif;
             background-color: #f8f9fa;
-            color: #1a202c;
+            color: var(--text-color);
         }
         .fade-in {
             opacity: 0;
@@ -37,6 +43,11 @@
             -webkit-backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.2);
         }
+        /* Custom Tailwind-like utilities for our primary color */
+        .bg-primary { background-color: var(--primary-color); }
+        .text-primary { color: var(--primary-color); }
+        .hover\:bg-primary-dark:hover { background-color: #1a3a2e; } /* A darker shade of the primary for hover */
+
     </style>
 </head>
 <body class="overflow-x-hidden">
@@ -56,9 +67,9 @@
             <div class="container mx-auto px-6 flex flex-col md:flex-row items-center justify-between">
                 <div class="md:w-1/2 mb-10 md:mb-0 text-center md:text-left">
                     <h2 class="text-4xl lg:text-5xl font-bold text-gray-800 leading-tight mb-4 fade-in">It's more than just a birdhouse.</h2>
-                    <h1 class="text-5xl lg:text-6xl font-bold text-green-800 leading-tight mb-6 fade-in" style="transition-delay: 150ms;">It's a NestEgg.</h1>
+                    <h1 class="text-5xl lg:text-6xl font-bold text-primary leading-tight mb-6 fade-in" style="transition-delay: 150ms;">It's a NestEgg.</h1>
                     <p class="text-lg text-gray-600 mb-8 fade-in" style="transition-delay: 300ms;">A reimagined birdhouse fighting pollution and habitat loss in one fell swoop.</p>
-                    <a href="#about" class="bg-green-800 text-white font-bold py-3 px-8 rounded-lg hover:bg-green-900 transition-transform transform hover:scale-105 inline-block fade-in" style="transition-delay: 450ms;">Discover How</a>
+                    <a href="#about" class="bg-primary text-white font-bold py-3 px-8 rounded-lg hover:bg-primary-dark transition-transform transform hover:scale-105 inline-block fade-in" style="transition-delay: 450ms;">Discover How</a>
                 </div>
                 <div class="md:w-1/2 h-96 w-full fade-in" style="transition-delay: 600ms;">
                     <div id="canvas-container" class="h-full w-full rounded-lg overflow-hidden">
@@ -77,21 +88,21 @@
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
                     <div class="text-center p-6 bg-white rounded-xl shadow-lg fade-in">
                         <div class="flex justify-center mb-4">
-                                <img src="Reccyled Material icon.png" class="w-16 h-16 text-green-800">
+                                <img src="Reccyled Material icon.png" class="w-16 h-16 text-primary">
                         </div>
-                        <h3 class="text-xl font-semibold mb-2">Recycled Materials</h3>
-                        <p class="text-gray-600">Handmade with zero emissions from Necterra™, our proprietary blend of recycled, biodegradable fibers and natural binders. It avoids deforestation and reduces landfill waste.. It avoids deforestation and reduces landfill waste.</p>
+                        <h3 class="text-xl font-semibold mb-2">Proprietary Necterra™ Material</h3>
+                        <p class="text-gray-600">Handmade with zero emissions from Necterra™, our proprietary blend of recycled, biodegradable fibers and natural binders.</p>
                     </div>
                     <div class="text-center p-6 bg-white rounded-xl shadow-lg fade-in" style="transition-delay: 150ms;">
                         <div class="flex justify-center mb-4">
-                           <svg class="w-16 h-16 text-green-800" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10l-2 1m0 0l-2-1m2 1v2.5M20 7l-2 1m2-1l-2-1m2 1v2.5M12 21a9 9 0 110-18 9 9 0 010 18z"></path></svg>
+                           <svg class="w-16 h-16 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10l-2 1m0 0l-2-1m2 1v2.5M20 7l-2 1m2-1l-2-1m2 1v2.5M12 21a9 9 0 110-18 9 9 0 010 18z"></path></svg>
                         </div>
                         <h3 class="text-xl font-semibold mb-2">Biomimetic Design</h3>
                         <p class="text-gray-600">Based on university research, it mimics the thermal regulation, spatial dimensions, and protection of natural cavity nests for a safer, more effective home.</p>
                     </div>
                     <div class="text-center p-6 bg-white rounded-xl shadow-lg fade-in" style="transition-delay: 300ms;">
                         <div class="flex justify-center mb-4">
-                           <svg class="w-16 h-16 text-green-800" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                           <svg class="w-16 h-16 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
                         </div>
                         <h3 class="text-xl font-semibold mb-2">Modular System</h3>
                         <p class="text-gray-600">A flexible design allows homeowners to mount it almost anywhere and support a wide variety of different bird species year after year.</p>
@@ -110,7 +121,7 @@
                 </div>
                 <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
                     <div class="fade-in">
-                        <h3 class="text-2xl font-bold text-green-800 mb-4">A Home is Hard to Find</h3>
+                        <h3 class="text-2xl font-bold text-primary mb-4">A Home is Hard to Find</h3>
                         <p class="text-gray-600 mb-4">
                             The primary driver of this decline is habitat loss. For cavity-nesting birds like chickadees, wrens, and bluebirds, the removal of dead trees means the removal of potential homes. These birds can't create their own nests and rely entirely on finding existing cavities to raise their young.
                         </p>
@@ -122,16 +133,17 @@
                         <h4 class="text-center text-lg font-semibold text-gray-700">Birds You Can Directly Help:</h4>
                         <div class="p-6 bg-white rounded-xl shadow-lg">
                             <ul class="space-y-3 text-gray-600">
-                                <li class="flex items-center"><span class="text-green-800 mr-3">✔</span> House Wrens</li>
-                                <li class="flex items-center"><span class="text-green-800 mr-3">✔</span> Chickadees</li>
-                                <li class="flex items-center"><span class="text-green-800 mr-3">✔</span> Tufted Titmice</li>
-                                <li class="flex items-center"><span class="text-green-800 mr-3">✔</span> Nuthatches & Bluebirds</li>
+                                <li class="flex items-center"><span class="text-primary mr-3">✔</span> House Wrens</li>
+                                <li class="flex items-center"><span class="text-primary mr-3">✔</span> Chickadees</li>
+                                <li class="flex items-center"><span class="text-primary mr-3">✔</span> Tufted Titmice</li>
+                                <li class="flex items-center"><span class="text-primary mr-3">✔</span> Nuthatches & Bluebirds</li>
                             </ul>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
+        
         <section id="gallery" class="py-20">
             <div class="container mx-auto px-6">
                 <div class="text-center mb-12">
@@ -152,12 +164,12 @@
             </div>
         </section>
         
-        <section id="contact" class="py-20 bg-green-800 text-white">
+        <section id="contact" class="py-20 bg-primary text-white">
             <div class="container mx-auto px-6 text-center">
                 <h2 class="text-3xl font-bold mb-4 fade-in">Ready to Make a Difference?</h2>
                 <p class="text-lg opacity-80 max-w-2xl mx-auto mb-8 fade-in" style="transition-delay: 150ms;">We are preparing for our initial launch. Contact us to get on the priority list for product updates and to learn how you can help support local bird populations.</p>
                 <a href="mailto:contact@perdignus.com?subject=Interest in The NestEgg" 
-                   class="bg-white text-green-800 font-bold py-3 px-8 rounded-lg hover:bg-gray-200 transition-transform transform hover:scale-105 inline-block fade-in" style="transition-delay: 300ms;">
+                   class="bg-white text-primary font-bold py-3 px-8 rounded-lg hover:bg-gray-200 transition-transform transform hover:scale-105 inline-block fade-in" style="transition-delay: 300ms;">
                    Get In Touch
                 </a>
             </div>
