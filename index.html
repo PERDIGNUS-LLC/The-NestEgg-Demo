@@ -41,24 +41,19 @@
 </head>
 <body class="overflow-x-hidden">
 
-    <!-- Header -->
     <header class="fixed top-0 left-0 right-0 z-50 glassmorphism">
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
             <div class="flex items-center space-x-3">
-                <!-- Using IMG tag to use the official logo file -->
                 <img src="OFFICIAL NE.png" alt="The NestEgg Logo" class="w-12 h-12">
-                <h1 class="text-3x1 font-bold text-gray-800">The NestEgg</h1>
+                <h1 class="text-3xl font-bold text-gray-800">The NestEgg</h1>
             </div>
             <a href="#contact" class="px-4 py-2 text-sm font-medium text-gray-700 bg-white/50 rounded-lg hover:bg-white transition-colors">Contact</a>
         </nav>
     </header>
 
     <main>
-        <!-- Hero Section -->
-        <!-- MODIFIED THIS LINE: Added universal top padding (pt-24) to the entire section -->
         <section class="min-h-screen flex items-center bg-gray-100 pt-24">
             <div class="container mx-auto px-6 flex flex-col md:flex-row items-center justify-between">
-                <!-- MODIFIED THIS LINE: Removed the old, ineffective padding -->
                 <div class="md:w-1/2 mb-10 md:mb-0 text-center md:text-left">
                     <h2 class="text-4xl lg:text-5xl font-bold text-gray-800 leading-tight mb-4 fade-in">It's more than just a birdhouse.</h2>
                     <h1 class="text-5xl lg:text-6xl font-bold text-green-800 leading-tight mb-6 fade-in" style="transition-delay: 150ms;">It's a NestEgg.</h1>
@@ -66,7 +61,6 @@
                     <a href="#about" class="bg-green-800 text-white font-bold py-3 px-8 rounded-lg hover:bg-green-900 transition-transform transform hover:scale-105 inline-block fade-in" style="transition-delay: 450ms;">Discover How</a>
                 </div>
                 <div class="md:w-1/2 h-96 w-full fade-in" style="transition-delay: 600ms;">
-                    <!-- 3D Animation Canvas -->
                     <div id="canvas-container" class="h-full w-full rounded-lg overflow-hidden">
                         <canvas id="nestegg-canvas"></canvas>
                     </div>
@@ -74,7 +68,6 @@
             </div>
         </section>
 
-        <!-- About Section -->
         <section id="about" class="py-20">
             <div class="container mx-auto px-6">
                 <div class="text-center mb-12">
@@ -82,15 +75,13 @@
                     <p class="text-gray-600 max-w-2xl mx-auto fade-in" style="transition-delay: 150ms;">The NestEgg is a direct response to the climate crisis. By rethinking materials and design, we've created a product that actively heals the environment.</p>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
-                    <!-- Feature 1 -->
                     <div class="text-center p-6 bg-white rounded-xl shadow-lg fade-in">
                         <div class="flex justify-center mb-4">
-                             <img src="Reccyled Material icon.png" class="w-16 h-16 text-green-800">
+                                <img src="Reccyled Material icon.png" class="w-16 h-16 text-green-800">
                         </div>
                         <h3 class="text-xl font-semibold mb-2">Recycled Materials</h3>
                         <p class="text-gray-600">Handmade with zero emissions from Papercrete—a blend of recycled paper and concrete. It avoids deforestation and reduces landfill waste.</p>
                     </div>
-                    <!-- Feature 2 -->
                     <div class="text-center p-6 bg-white rounded-xl shadow-lg fade-in" style="transition-delay: 150ms;">
                         <div class="flex justify-center mb-4">
                            <svg class="w-16 h-16 text-green-800" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10l-2 1m0 0l-2-1m2 1v2.5M20 7l-2 1m2-1l-2-1m2 1v2.5M12 21a9 9 0 110-18 9 9 0 010 18z"></path></svg>
@@ -98,7 +89,6 @@
                         <h3 class="text-xl font-semibold mb-2">Biomimetic Design</h3>
                         <p class="text-gray-600">Based on university research, it mimics the thermal regulation, spatial dimensions, and protection of natural cavity nests for a safer, more effective home.</p>
                     </div>
-                    <!-- Feature 3 -->
                     <div class="text-center p-6 bg-white rounded-xl shadow-lg fade-in" style="transition-delay: 300ms;">
                         <div class="flex justify-center mb-4">
                            <svg class="w-16 h-16 text-green-800" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
@@ -110,32 +100,58 @@
             </div>
         </section>
 
-        <!-- Gallery Section -->
-        <section id="gallery" class="py-20 bg-gray-100">
+        <section id="crisis" class="py-20 bg-gray-100">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold text-gray-800 mb-2 fade-in">The Silent Crisis</h2>
+                    <p class="text-gray-600 max-w-3xl mx-auto fade-in" style="transition-delay: 150ms;">
+                        Your NestEgg is more than a product; it's a vital intervention. According to the 2022 State of the Birds report, North America has lost **3 billion birds** since 1970. This isn't a distant problem—it's a housing crisis happening in our own backyards.
+                    </p>
+                </div>
+                <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+                    <div class="fade-in">
+                        <h3 class="text-2xl font-bold text-green-800 mb-4">A Home is Hard to Find</h3>
+                        <p class="text-gray-600 mb-4">
+                            The primary driver of this decline is habitat loss. For cavity-nesting birds like chickadees, wrens, and bluebirds, the removal of dead trees means the removal of potential homes. These birds can't create their own nests and rely entirely on finding existing cavities to raise their young.
+                        </p>
+                        <p class="text-gray-600">
+                            By providing a NestEgg, you directly counteract this habitat loss, giving local bird populations a safe, durable place to thrive.
+                        </p>
+                    </div>
+                    <div class="flex flex-col space-y-4 fade-in" style="transition-delay: 300ms;">
+                        <h4 class="text-center text-lg font-semibold text-gray-700">Birds You Can Directly Help:</h4>
+                        <div class="p-6 bg-white rounded-xl shadow-lg">
+                            <ul class="space-y-3 text-gray-600">
+                                <li class="flex items-center"><span class="text-green-800 mr-3">✔</span> House Wrens</li>
+                                <li class="flex items-center"><span class="text-green-800 mr-3">✔</span> Chickadees</li>
+                                <li class="flex items-center"><span class="text-green-800 mr-3">✔</span> Tufted Titmice</li>
+                                <li class="flex items-center"><span class="text-green-800 mr-3">✔</span> Nuthatches & Bluebirds</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="gallery" class="py-20">
             <div class="container mx-auto px-6">
                 <div class="text-center mb-12">
                     <h2 class="text-3xl font-bold text-gray-800 mb-2 fade-in">See The NestEgg in Action</h2>
                     <p class="text-gray-600 max-w-2xl mx-auto fade-in" style="transition-delay: 150ms;">Explore the beauty and potential of The NestEgg. More designs and photos coming soon.</p>
                 </div>
-                <!-- IMPORTANT: This is where your renderings will go. -->
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <!-- Placeholder 1 -->
                     <div class="aspect-w-1 aspect-h-1 bg-white rounded-lg shadow-lg flex items-center justify-center border-2 border-dashed border-gray-300 fade-in">
                         <span class="text-gray-400">Your Rendering Here</span>
                     </div>
-                     <!-- Placeholder 2 -->
-                    <div class="aspect-w-1 aspect-h-1 bg-white rounded-lg shadow-lg flex items-center justify-center border-2 border-dashed border-gray-300 fade-in" style="transition-delay: 150ms;">
+                     <div class="aspect-w-1 aspect-h-1 bg-white rounded-lg shadow-lg flex items-center justify-center border-2 border-dashed border-gray-300 fade-in" style="transition-delay: 150ms;">
                         <span class="text-gray-400">Your Rendering Here</span>
                     </div>
-                     <!-- Placeholder 3 -->
-                    <div class="aspect-w-1 aspect-h-1 bg-white rounded-lg shadow-lg flex items-center justify-center border-2 border-dashed border-gray-300 fade-in" style="transition-delay: 300ms;">
+                     <div class="aspect-w-1 aspect-h-1 bg-white rounded-lg shadow-lg flex items-center justify-center border-2 border-dashed border-gray-300 fade-in" style="transition-delay: 300ms;">
                         <span class="text-gray-400">Your Rendering Here</span>
                     </div>
                 </div>
             </div>
         </section>
         
-        <!-- Contact Section -->
         <section id="contact" class="py-20 bg-green-800 text-white">
             <div class="container mx-auto px-6 text-center">
                 <h2 class="text-3xl font-bold mb-4 fade-in">Ready to Make a Difference?</h2>
@@ -149,16 +165,14 @@
 
     </main>
 
-    <!-- Footer -->
     <footer class="bg-gray-800 text-white py-6">
         <div class="container mx-auto px-6 text-center text-sm">
             <p>&copy; 2025 Perdignus LLC. All Rights Reserved.</p>
-            <p>The NestEgg is a brand of Perdignus LLC.</p>
+            <p>The NestEgg is a brand of Perdignus LLC. Data on bird populations sourced from the 2022 State of the Birds Report.</p>
         </div>
     </footer>
 
 
-    <!-- Three.js and animation script -->
     <script type="importmap">
         {
             "imports": {
@@ -248,6 +262,3 @@
 
 </body>
 </html>
-
-
-
