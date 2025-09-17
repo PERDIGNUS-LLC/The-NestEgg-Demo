@@ -29,14 +29,6 @@
             opacity: 1;
             transform: translateY(0);
         }
-        #nestegg-canvas {
-            width: 100%;
-            height: 100%;
-            cursor: grab;
-        }
-        #nestegg-canvas:active {
-            cursor: grabbing;
-        }
         .glassmorphism {
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
@@ -71,10 +63,8 @@
                     <p class="text-lg text-gray-600 mb-8 fade-in" style="transition-delay: 300ms;">A reimagined birdhouse fighting pollution and habitat loss in one fell swoop.</p>
                     <a href="#about" class="bg-primary text-white font-bold py-3 px-8 rounded-lg hover:bg-primary-dark transition-transform transform hover:scale-105 inline-block fade-in" style="transition-delay: 450ms;">Discover How</a>
                 </div>
-                <div class="md:w-1/2 h-96 w-full fade-in" style="transition-delay: 600ms;">
-                    <div id="canvas-container" class="h-full w-full rounded-lg overflow-hidden">
-                        <canvas id="nestegg-canvas"></canvas>
-                    </div>
+                <div class="md:w-1/2 h-96 w-full flex items-center justify-center fade-in" style="transition-delay: 600ms;">
+                    
                 </div>
             </div>
         </section>
@@ -182,26 +172,6 @@
             </div>
         </section>
         
-        <section id="gallery" class="py-20">
-            <div class="container mx-auto px-6">
-                <div class="text-center mb-12">
-                    <h2 class="text-3xl font-bold text-gray-800 mb-2 fade-in">See The NestEgg in Action</h2>
-                    <p class="text-gray-600 max-w-2xl mx-auto fade-in" style="transition-delay: 150ms;">Explore the beauty and potential of The NestEgg. More designs and photos coming soon.</p>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <div class="aspect-w-1 aspect-h-1 bg-white rounded-lg shadow-lg flex items-center justify-center border-2 border-dashed border-gray-300 fade-in">
-                        <span class="text-gray-400">Your Rendering Here</span>
-                    </div>
-                     <div class="aspect-w-1 aspect-h-1 bg-white rounded-lg shadow-lg flex items-center justify-center border-2 border-dashed border-gray-300 fade-in" style="transition-delay: 150ms;">
-                        <span class="text-gray-400">Your Rendering Here</span>
-                    </div>
-                     <div class="aspect-w-1 aspect-h-1 bg-white rounded-lg shadow-lg flex items-center justify-center border-2 border-dashed border-gray-300 fade-in" style="transition-delay: 300ms;">
-                        <span class="text-gray-400">Your Rendering Here</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-        
         <section id="contact" class="py-20 bg-primary text-white">
             <div class="container mx-auto px-6 text-center">
                 <h2 class="text-3xl font-bold mb-4 fade-in">Ready to Make a Difference?</h2>
@@ -221,94 +191,6 @@
             <p>The NestEgg is a brand of Perdignus LLC. Data on bird populations sourced from the 2022 State of the Birds Report.</p>
         </div>
     </footer>
-
-
-    <script type="importmap">
-        {
-            "imports": {
-                "three": "https://cdn.jsdelivr.net/npm/three@0.163.0/build/three.module.js",
-                "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.163.0/examples/jsm/"
-            }
-        }
-    </script>
-
-    <script type="module">
-        import * as THREE from 'three';
-        import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-
-        // Scene setup
-        const scene = new THREE.Scene();
-        scene.background = new THREE.Color(0xf8f9fa); // Match body background
-
-        const canvasContainer = document.getElementById('canvas-container');
-        const camera = new THREE.PerspectiveCamera(75, canvasContainer.clientWidth / canvasContainer.clientHeight, 0.1, 1000);
-        camera.position.z = 5;
-
-        const renderer = new THREE.WebGLRenderer({
-            canvas: document.getElementById('nestegg-canvas'),
-            antialias: true,
-            alpha: true
-        });
-        renderer.setSize(canvasContainer.clientWidth, canvasContainer.clientHeight);
-        renderer.setPixelRatio(window.devicePixelRatio);
-        
-        // Lighting
-        const ambientLight = new THREE.AmbientLight(0xffffff, 1.5);
-        scene.add(ambientLight);
-        
-        const directionalLight = new THREE.DirectionalLight(0xffffff, 2.5);
-        directionalLight.position.set(5, 10, 7.5);
-        scene.add(directionalLight);
-
-        // Controls
-        const controls = new OrbitControls(camera, renderer.domElement);
-        controls.enableDamping = true;
-        controls.dampingFactor = 0.05;
-        controls.enableZoom = false;
-        controls.autoRotate = true;
-        controls.autoRotateSpeed = 1.0;
-
-        // Create the NestEgg model (Updated to an ovoid/egg shape)
-        const geometry = new THREE.SphereGeometry(2, 32, 16);
-        geometry.scale(1, 1.2, 1); // Stretch the sphere to make it egg-shaped
-        const material = new THREE.MeshStandardMaterial({
-            color: 0xe0e0e0, 
-            roughness: 0.8,
-            metalness: 0.1
-        });
-        const nestEgg = new THREE.Mesh(geometry, material);
-        scene.add(nestEgg);
-
-        // Animation loop
-        function animate() {
-            requestAnimationFrame(animate);
-            controls.update();
-            renderer.render(scene, camera);
-        }
-
-        // Handle window resizing
-        function onWindowResize() {
-            camera.aspect = canvasContainer.clientWidth / canvasContainer.clientHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(canvasContainer.clientWidth, canvasContainer.clientHeight);
-        }
-        window.addEventListener('resize', onWindowResize, false);
-
-        // Fade-in animations on scroll
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, { threshold: 0.1 });
-
-        document.querySelectorAll('.fade-in').forEach(el => {
-            observer.observe(el);
-        });
-
-        animate();
-    </script>
 
 </body>
 </html>
