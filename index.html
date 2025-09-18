@@ -10,10 +10,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #264d41; /* Updated to match logo green */
-            --secondary-color: #f4f0e8; /* Soft Cream */
+            --primary-color: #264d41;
+            --secondary-color: #f4f0e8;
             --text-color: #1a202c;
-            --accent-color: #d9a443; /* Muted Gold */
+            --accent-color: #d9a443;
         }
         body {
             font-family: 'Inter', sans-serif;
@@ -32,17 +32,32 @@
         .glassmorphism {
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.2);
         }
-        /* Custom Tailwind-like utilities for our primary color */
         .bg-primary { background-color: var(--primary-color); }
         .text-primary { color: var(--primary-color); }
-        .hover\:bg-primary-dark:hover { background-color: #1a3a2e; } /* A darker shade of the primary for hover */
+        .hover\:bg-primary-dark:hover { background-color: #1a3a2e; }
         .bg-accent-color { background-color: var(--accent-color); }
         .hover\:bg-yellow-600:hover { background-color: #b8862e; }
         .focus\:border-accent-color:focus { border-color: var(--accent-color); }
 
+        /* Styles for the Thank You popup */
+        #thank-you-popup {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translate(-50%, 200%);
+            background-color: var(--primary-color);
+            color: white;
+            padding: 16px 32px;
+            border-radius: 50px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            z-index: 1000;
+            transition: transform 0.5s ease-in-out;
+        }
+        #thank-you-popup.show {
+            transform: translate(-50%, 0);
+        }
     </style>
 </head>
 <body class="overflow-x-hidden">
@@ -180,9 +195,10 @@
                     Join the official waitlist to get notified the moment The NestEgg is available for purchase.
                 </p>
                 <div class="max-w-md mx-auto fade-in" style="transition-delay: 300ms;">
-                    
-                    <form action="https://formspree.io/f/mkgvlydd" method="POST" class="w-full">
+                    <form action="https://formspree.io/f/YOUR_UNIQUE_CODE" method="POST" class="w-full">
                         <div class="flex flex-col space-y-4">
+                            <input type="hidden" name="_next" value="https://your-github-username.github.io/your-repo-name?form-success=true">
+
                             <input type="text" name="name" placeholder="Your Name" required class="p-3 rounded-lg bg-white text-gray-800 border-2 border-transparent focus:border-accent-color focus:outline-none ring-2 ring-transparent focus:ring-accent-color">
                             <input type="email" name="email" placeholder="Your Email Address" required class="p-3 rounded-lg bg-white text-gray-800 border-2 border-transparent focus:border-accent-color focus:outline-none ring-2 ring-transparent focus:ring-accent-color">
                             <button type="submit" class="bg-accent-color text-white font-bold py-3 px-8 rounded-lg hover:bg-yellow-600 transition-transform transform hover:scale-105">
@@ -190,12 +206,10 @@
                             </button>
                         </div>
                     </form>
-
                     <p class="text-xs mt-4 opacity-70">We respect your privacy and will only email you about product availability.</p>
                 </div>
             </div>
         </section>
-
     </main>
 
     <footer class="bg-gray-800 text-white py-6">
@@ -205,7 +219,12 @@
         </div>
     </footer>
 
+    <div id="thank-you-popup">
+        Thanks for joining the waitlist!
+    </div>
+
     <script>
+        // Fade-in animation script
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -216,6 +235,18 @@
 
         document.querySelectorAll('.fade-in').forEach(el => {
             observer.observe(el);
+        });
+
+        // Thank You popup script
+        window.addEventListener('load', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.has('form-success')) {
+                const popup = document.getElementById('thank-you-popup');
+                popup.classList.add('show');
+                setTimeout(() => {
+                    popup.classList.remove('show');
+                }, 4000); // Popup will disappear after 4 seconds
+            }
         });
     </script>
 
