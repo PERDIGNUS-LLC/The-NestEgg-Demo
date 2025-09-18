@@ -41,7 +41,6 @@
         .hover\:bg-yellow-600:hover { background-color: #b8862e; }
         .focus\:border-accent-color:focus { border-color: var(--accent-color); }
 
-        /* Styles for the Thank You popup */
         #thank-you-popup {
             position: fixed;
             bottom: 20px;
@@ -68,7 +67,10 @@
                 <img src="OFFICIAL NE.png" alt="The NestEgg Logo" class="w-12 h-12">
                 <h1 class="text-3xl font-bold text-gray-800">The NestEgg</h1>
             </div>
-            <a href="#waitlist" class="px-4 py-2 text-sm font-medium text-gray-700 bg-white/50 rounded-lg hover:bg-white transition-colors">Join Waitlist</a>
+            <div class="space-x-2">
+                <a href="mailto:perdignusllc@gmail.com" class="px-4 py-2 text-sm font-medium text-gray-700 bg-white/50 rounded-lg hover:bg-white transition-colors">Contact</a>
+                <a href="#waitlist" class="px-4 py-2 text-sm font-medium text-gray-700 bg-white/50 rounded-lg hover:bg-white transition-colors">Join Waitlist</a>
+            </div>
         </nav>
     </header>
 
@@ -123,8 +125,8 @@
                                 <circle cx="50" cy="50" r="15" stroke="currentColor" stroke-width="4"/>
                             </svg>
                         </div>
-                        <h3 class="text-xl font-semibold mb-2">Modular System</h3>
-                        <p class="text-gray-600">A flexible design allows homeowners to mount it almost anywhere and support a wide variety of different bird species year after year.</p>
+                        <h3 class="text-xl font-semibold mb-2">Modular Entrance System</h3>
+                        <p class="text-gray-600">Our patent-pending system uses interchangeable gaskets to change the entrance hole size. This strategic design excludes larger, aggressive birds and creates a dedicated sanctuary for smaller native species.</p>
                     </div>
                 </div>
             </div>
@@ -198,7 +200,6 @@
                     <form action="https://formspree.io/f/YOUR_UNIQUE_CODE" method="POST" class="w-full">
                         <div class="flex flex-col space-y-4">
                             <input type="hidden" name="_next" value="https://your-github-username.github.io/your-repo-name?form-success=true">
-
                             <input type="text" name="name" placeholder="Your Name" required class="p-3 rounded-lg bg-white text-gray-800 border-2 border-transparent focus:border-accent-color focus:outline-none ring-2 ring-transparent focus:ring-accent-color">
                             <input type="email" name="email" placeholder="Your Email Address" required class="p-3 rounded-lg bg-white text-gray-800 border-2 border-transparent focus:border-accent-color focus:outline-none ring-2 ring-transparent focus:ring-accent-color">
                             <button type="submit" class="bg-accent-color text-white font-bold py-3 px-8 rounded-lg hover:bg-yellow-600 transition-transform transform hover:scale-105">
@@ -224,7 +225,6 @@
     </div>
 
     <script>
-        // Fade-in animation script
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -237,7 +237,6 @@
             observer.observe(el);
         });
 
-        // Thank You popup script
         window.addEventListener('load', () => {
             const urlParams = new URLSearchParams(window.location.search);
             if (urlParams.has('form-success')) {
@@ -245,7 +244,7 @@
                 popup.classList.add('show');
                 setTimeout(() => {
                     popup.classList.remove('show');
-                }, 4000); // Popup will disappear after 4 seconds
+                }, 4000);
             }
         });
     </script>
