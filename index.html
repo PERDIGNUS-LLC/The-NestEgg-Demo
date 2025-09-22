@@ -9,8 +9,6 @@
     <link rel="preconnect" href="https://fonts.gstatic" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
     
-    <script src="https://www.paypal.com/sdk/js?client-id=AerCtS57reh8oO8AotId4lGXk_G-6xo92P25w-dDKQwRGPc6SGkQb78Z8KViMzA46Jjtw8OSmE3HPqTl&components=hosted-buttons&disable-funding=venmo,card"></script>
-
     <style>
         :root {
             --primary-color: #264d41;
@@ -60,6 +58,23 @@
         #thank-you-popup.show {
             transform: translate(-50%, 0);
         }
+
+        /* PayPal Single Button Styles */
+        .pp-4VK8Y427WKRSY{
+            text-align:center;
+            border:none;
+            border-radius:0.25rem;
+            min-width:11.625rem;
+            padding:0 2rem;
+            height:2.625rem;
+            font-weight:bold;
+            background-color:#FFD140;
+            color:#000000;
+            font-family:"Helvetica Neue",Arial,sans-serif;
+            font-size:1rem;
+            line-height:1.25rem;
+            cursor:pointer;
+        }
     </style>
 </head>
 <body class="overflow-x-hidden">
@@ -72,7 +87,7 @@
             </div>
             <div class="flex items-center space-x-2">
                 <a href="mailto:perdignusllc@gmail.com" class="px-4 py-2 text-sm font-medium text-gray-700 bg-white/50 rounded-lg hover:bg-white transition-colors text-center">Contact</a>
-                <a href="#purchase" class="px-4 py-2 text-sm font-bold text-white bg-accent-color rounded-lg hover:bg-yellow-600 transition-colors text-center">Buy Now</a>
+                <a href="https://www.paypal.com/ncp/payment/4VK8Y427WKRSY" target="_blank" class="px-4 py-2 text-sm font-bold text-white bg-accent-color rounded-lg hover:bg-yellow-600 transition-colors text-center">Buy Now</a>
             </div>
         </nav>
     </header>
@@ -87,11 +102,11 @@
                     <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-800 leading-tight mb-4 fade-in">It's more than just a birdhouse.</h2>
                     <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-primary leading-tight mb-6 fade-in" style="transition-delay: 150ms;">It's a NestEgg<sup>&trade;</sup>.</h1>
                     <p class="text-lg text-gray-600 mb-8 fade-in" style="transition-delay: 300ms;">A reimagined birdhouse fighting pollution and habitat loss in one fell swoop.</p>
-                    <a href="#purchase" class="bg-accent-color text-white font-bold py-3 px-8 rounded-lg hover:bg-yellow-600 transition-transform transform hover:scale-105 inline-block fade-in" style="transition-delay: 450ms;">Order Now</a>
+                    <a href="https://www.paypal.com/ncp/payment/4VK8Y427WKRSY" target="_blank" class="bg-accent-color text-white font-bold py-3 px-8 rounded-lg hover:bg-yellow-600 transition-transform transform hover:scale-105 inline-block fade-in" style="transition-delay: 450ms;">Order Now</a>
                 </div>
-                <div class="md:w-1/2 p-4 w-full flex items-center justify-center fade-in" style="transition-delay: 600ms;">
-                    <img src="NestEgg in Tree.png" alt="A rendering of the NestEgg birdhouse" class="max-w-full h-auto rounded-lg shadow-2xl">
-                </div>
+                <div class="md:w-1/2 p-4 w-full flex items-start justify-center fade-in" style="transition-delay: 600ms;">
+                    <img src="NestEgg in Tree.png" alt="A rendering of the NestEgg birdhouse" class="max-w-full h-auto rounded-lg shadow-2xl md:mt-[-50px]"> 
+                    </div>
             </div>
         </section>
 
@@ -230,12 +245,12 @@
                         <li class="flex items-center"><span class="text-primary mr-3">✔</span> Full Set of Modular Entrance Inserts</li>
                         <li class="flex items-center"><span class="text-primary mr-3">✔</span> Adjustable Sling Harness for Mounting</li>
                     </ul>
-                    <div id="paypal-container-4VK8Y427WKRSY"></div>
-                    <script>
-                      paypal.HostedButtons({
-                        hostedButtonId: "4VK8Y427WKRSY",
-                      }).render("#paypal-container-4VK8Y427WKRSY")
-                    </script>
+                    
+                    <form action="https://www.paypal.com/ncp/payment/4VK8Y427WKRSY" method="post" target="_blank" style="display:inline-grid;justify-items:center;align-content:start;gap:0.5rem;">
+                      <input class="pp-4VK8Y427WKRSY" type="submit" value="Buy Now" />
+                      <img src=https://www.paypalobjects.com/images/Debit_Credit_APM.svg alt="cards" />
+                      <section style="font-size: 0.75rem;"> Powered by <img src="https://www.paypalobjects.com/paypal-ui/logos/svg/paypal-wordmark-color.svg" alt="paypal" style="height:0.875rem;vertical-align:middle;"/></section>
+                    </form>
                 </div>
             </div>
         </section>
