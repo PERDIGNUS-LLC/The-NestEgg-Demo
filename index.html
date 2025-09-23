@@ -64,23 +64,11 @@
 </head>
 <body class="overflow-x-hidden">
 
-    <header class="fixed top-0 left-0 right-0 z-50 glassmorphism">
-        <nav class="container mx-auto px-6 py-3 flex flex-col md:flex-row justify-between items-center">
-            <div class="flex items-center space-x-3 mb-3 md:mb-0">
-                <img src="OFFICIAL NE.png" alt="The NestEgg Logo" class="w-12 h-12">
-                <h1 class="text-3xl font-bold text-gray-800">The NestEgg<sup>&trade;</sup></h1>
-            </div>
-            <div class="flex items-center space-x-2">
-                <a href="Birds.html" class="px-4 py-2 text-sm font-medium text-gray-700 bg-white/50 rounded-lg hover:bg-white transition-colors text-center">Bird Guide</a>
-                <a href="mailto:perdignusllc@gmail.com" class="px-4 py-2 text-sm font-medium text-gray-700 bg-white/50 rounded-lg hover:bg-white transition-colors text-center">Contact</a>
-                <button class="checkout-button px-4 py-2 text-sm font-bold text-white bg-accent-color rounded-lg hover:bg-yellow-600 transition-colors text-center">Buy Now</button>
-            </div>
-        </nav>
-    </header>
+    <div id="header-placeholder"></div>
 
     <main>
         <section class="min-h-screen flex items-center bg-gray-100 pt-40 md:pt-24">
-            <div class="container mx-auto px-6 flex flex-col md:flex-row md:items-start justify-between">
+            <div class="container mx-auto px-6 flex flex-col md:flex-row md:items-center justify-between">
                 <div class="md:w-1/2 mb-10 md:mb-0 text-center md:text-left">
                     <div class="inline-block bg-yellow-200 text-yellow-800 font-semibold px-4 py-2 rounded-full mb-4 text-sm fade-in">
                         🏆 2025 Start Garden Top 100 Winner
@@ -91,7 +79,7 @@
                     <button class="checkout-button bg-accent-color text-white font-bold py-3 px-8 rounded-lg hover:bg-yellow-600 transition-transform transform hover:scale-105 inline-block fade-in" style="transition-delay: 450ms;">Order Now</button>
                 </div>
                 <div class="md:w-1/2 p-4 w-full flex items-center justify-center fade-in" style="transition-delay: 600ms;">
-                    <img src="NestEgg in Tree.png" alt="A rendering of the NestEgg birdhouse" class="max-w-full h-auto rounded-lg shadow-2xl md:-mt-6">
+                    <img src="NestEgg in Tree.png" alt="A rendering of the NestEgg birdhouse" class="max-w-full h-auto rounded-lg shadow-2xl">
                 </div>
             </div>
         </section>
@@ -274,12 +262,7 @@
         </section>
     </main>
 
-    <footer class="bg-gray-800 text-white py-6">
-        <div class="container mx-auto px-6 text-center text-sm">
-            <p>&copy; 2025 Perdignus LLC. All Rights Reserved.</p>
-            <p>The NestEgg<sup>&trade;</sup> is a brand of Perdignus LLC. Data on bird populations sourced from the 2022 State of the Birds Report.</p>
-        </div>
-    </footer>
+    <div id="footer-placeholder"></div>
 
     <div id="thank-you-popup">
         Thanks for joining the waitlist!
@@ -331,5 +314,6 @@
         });
     </script>
 
+    <script src="main.js"></script>
 </body>
 </html>
