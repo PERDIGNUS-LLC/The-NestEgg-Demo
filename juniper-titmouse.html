@@ -8,34 +8,15 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --primary-color: #264d41;
-            --secondary-color: #f4f0e8;
-            --text-color: #1a202c;
-            --accent-color: #d9a443;
-        }
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f8f9fa;
-            color: var(--text-color);
-        }
-        .glassmorphism {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-        .bg-primary { background-color: var(--primary-color); }
-        .text-primary { color: var(--primary-color); }
-    </style>
+    <script src="https://js.stripe.com/v3/"></script>
+    <style>/* ... CSS styles ... */</style>
 </head>
-<body class="overflow-x-hidden">
-
-    <header class="sticky top-0 left-0 right-0 z-50 glassmorphism">
-        <nav class="container mx-auto px-6 py-3 flex justify-between items-center">
-            <a href="index.html" class="flex items-center space-x-3">
+<body>
+    <header class="sticky top-0 left-0 right-0 z-50 glassmorphism border-b border-white/20">
+        <nav class="container mx-auto px-4 sm:px-6 py-3 flex justify-between items-center">
+            <a href="index.html" class="flex items-center space-x-3 flex-shrink-0">
                 <img src="OFFICIAL NE.png" alt="The NestEgg Logo" class="w-12 h-12">
-                <h1 class="text-3xl font-bold text-gray-800">The NestEgg<sup>&trade;</sup></h1>
+                <h1 class="text-2xl md:text-3xl font-bold text-gray-800">The NestEgg<sup>&trade;</sup></h1>
             </a>
             <div class="flex items-center space-x-2">
                 <a href="Birds.html" class="px-4 py-2 text-sm font-medium text-gray-700 bg-white/50 rounded-lg hover:bg-white transition-colors text-center">Back to Bird List</a>
@@ -44,13 +25,10 @@
     </header>
 
     <main class="container mx-auto px-6 py-12 md:py-20">
-        
         <div class="max-w-4xl mx-auto">
             <div class="flex flex-col md:flex-row items-center gap-8 mb-12">
                 <div class="md:w-1/3">
-                    <div class="w-full aspect-square bg-gray-200 rounded-lg flex items-center justify-center">
-                         <span class="text-gray-500">Image of Juniper Titmouse</span>
-                    </div>
+                    <img src="https://i.ibb.co/bF9p2Rj/juniper-titmouse.jpg" alt="Juniper Titmouse" class="w-full h-auto aspect-square object-cover rounded-lg shadow-lg">
                 </div>
                 <div class="md:w-2/3 text-center md:text-left">
                     <p class="text-lg font-semibold text-yellow-700">Of Conservation Concern</p>
@@ -59,37 +37,36 @@
                 </div>
             </div>
 
+            <div class="text-center my-12">
+                <button class="checkout-button inline-block bg-accent-color text-white font-bold py-4 px-10 rounded-lg hover:bg-yellow-600 transition-transform transform hover:scale-105 text-xl">
+                    Help This Bird - Order Now
+                </button>
+            </div>
+
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                
                 <div class="bg-white p-6 rounded-lg shadow-md">
                     <h2 class="text-xl font-bold text-primary mb-3">Mounting Location</h2>
                     <p class="text-gray-700">Place the NestEgg<sup>&trade;</sup> within **pinyon-juniper woodlands** or areas with scattered juniper trees. They are less likely to use houses in very open, exposed areas far from their preferred tree cover.</p>
                 </div>
-
                 <div class="bg-white p-6 rounded-lg shadow-md">
                     <h2 class="text-xl font-bold text-primary mb-3">Mounting Height</h2>
                     <p class="text-gray-700">The ideal height is between **4 and 15 feet** from the ground, attached securely to a juniper tree trunk or a sturdy fence post within the woodland.</p>
                 </div>
-
                 <div class="bg-white p-6 rounded-lg shadow-md">
                     <h2 class="text-xl font-bold text-primary mb-3">Entrance Orientation</h2>
                     <p class="text-gray-700">Orientation is flexible, but facing the entrance **away from direct, intense afternoon sun and prevailing winds** is recommended. A north or east-facing direction is often best.</p>
                 </div>
-
                 <div class="bg-white p-6 rounded-lg shadow-md">
                     <h2 class="text-xl font-bold text-primary mb-3">Proximity to Others</h2>
                     <p class="text-gray-700">Juniper Titmice are territorial during the breeding season. Space NestEggs<sup>&trade;</sup> out, keeping them at least **150-200 feet** from each other.</p>
                 </div>
-                
             </div>
             
             <div class="bg-white p-6 rounded-lg shadow-md mt-8">
                 <h2 class="text-xl font-bold text-primary mb-3">Known Nesting Period</h2>
                 <p class="text-gray-700">The nesting season typically runs from **late March through July**, with most egg-laying occurring in April and May.</p>
             </div>
-
         </div>
-
     </main>
 
     <footer class="bg-gray-800 text-white py-6 mt-12">
@@ -98,5 +75,18 @@
         </div>
     </footer>
 
+    <script type="text/javascript">
+        const stripe = Stripe('pk_live_51SAWWc4r07ISOh8OcVgregz2KMNhcOa3oiiTrc3Sbm6PSZWqudP4bjvHykoLY2Dvc8S6TgNjdBEW0vPJQtJjNBVx0029IAXZvE');
+        const checkoutButton = document.querySelector('.checkout-button');
+        
+        checkoutButton.addEventListener('click', function () {
+            stripe.redirectToCheckout({
+                lineItems: [{ price: 'price_1SAZoR4r07ISOh8O9rWFyXle', quantity: 1 }],
+                mode: 'payment',
+                successUrl: window.location.origin + '/index.html?purchase=success',
+                cancelUrl: window.location.href,
+            });
+        });
+    </script>
 </body>
 </html>
