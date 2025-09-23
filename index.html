@@ -1,181 +1,361 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>The NestEgg&trade; by Perdignus LLC</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The NestEgg&trade; by Perdignus LLC</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
 
-  <style>
-    :root {
-      --primary-color: #264d41;
-      --secondary-color: #f4f0e8;
-      --text-color: #1a202c;
-      --accent-color: #d9a443;
-    }
-    body {
-      font-family: 'Inter', sans-serif;
-      background-color: #f8f9fa;
-      color: var(--text-color);
-    }
-    .fade-in {
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-    }
-    .fade-in.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    .glassmorphism {
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-    }
-    .bg-primary { background-color: var(--primary-color); }
-    .text-primary { color: var(--primary-color); }
-    .hover\:bg-primary-dark:hover { background-color: #1a3a2e; }
-    .bg-accent-color { background-color: var(--accent-color); }
-    .hover\:bg-yellow-600:hover { background-color: #b8862e; }
-    .focus\:border-accent-color:focus { border-color: var(--accent-color); }
+    <style>
+        :root {
+            --primary-color: #264d41;
+            --secondary-color: #f4f0e8;
+            --text-color: #1a202c;
+            --accent-color: #d9a443;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f9fa;
+            color: var(--text-color);
+        }
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .glassmorphism {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .bg-primary { background-color: var(--primary-color); }
+        .text-primary { color: var(--primary-color); }
+        .hover\:bg-primary-dark:hover { background-color: #1a3a2e; }
+        .bg-accent-color { background-color: var(--accent-color); }
+        .hover\:bg-yellow-600:hover { background-color: #b8862e; }
+        .focus\:border-accent-color:focus { border-color: var(--accent-color); }
 
-    #thank-you-popup {
-      position: fixed;
-      bottom: 20px;
-      left: 50%;
-      transform: translate(-50%, 200%);
-      background-color: var(--primary-color);
-      color: white;
-      padding: 16px 32px;
-      border-radius: 50px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-      z-index: 1000;
-      transition: transform 0.5s ease-in-out;
-    }
-    #thank-you-popup.show {
-      transform: translate(-50%, 0);
-    }
-  </style>
+        #thank-you-popup {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translate(-50%, 200%);
+            background-color: var(--primary-color);
+            color: white;
+            padding: 16px 32px;
+            border-radius: 50px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            z-index: 1000;
+            transition: transform 0.5s ease-in-out;
+        }
+        #thank-you-popup.show {
+            transform: translate(-50%, 0);
+        }
+    </style>
 </head>
 <body class="overflow-x-hidden">
 
-  <header class="fixed top-0 left-0 right-0 z-50 glassmorphism">
-    <nav class="container mx-auto px-6 py-3 flex flex-col md:flex-row justify-between items-center">
-      <div class="flex items-center space-x-3 mb-3 md:mb-0">
-        <img src="OFFICIAL NE.png" alt="The NestEgg Logo" class="w-12 h-12">
-        <h1 class="text-3xl font-bold text-gray-800">The NestEgg<sup>&trade;</sup></h1>
-      </div>
-      <div class="flex items-center space-x-2">
-        <a href="Birds.html" class="px-4 py-2 text-sm font-medium text-gray-700 bg-white/50 rounded-lg hover:bg-white transition-colors text-center">Bird Guide</a>
-        <a href="mailto:perdignusllc@gmail.com" class="px-4 py-2 text-sm font-medium text-gray-700 bg-white/50 rounded-lg hover:bg-white transition-colors text-center">Contact</a>
-        <!-- header Buy Now goes straight to Stripe -->
-        <button class="header-buy px-4 py-2 text-sm font-bold text-white bg-accent-color rounded-lg hover:bg-yellow-600 transition-colors text-center">Buy Now</button>
-      </div>
-    </nav>
-  </header>
+    <header class="fixed top-0 left-0 right-0 z-50 glassmorphism">
+        <nav class="container mx-auto px-6 py-3 flex flex-col md:flex-row justify-between items-center">
+            <div class="flex items-center space-x-3 mb-3 md:mb-0">
+                <img src="OFFICIAL NE.png" alt="The NestEgg Logo" class="w-12 h-12">
+                <h1 class="text-3xl font-bold text-gray-800">The NestEgg<sup>&trade;</sup></h1>
+            </div>
+            <div class="flex items-center space-x-2">
+                <a href="Birds.html" class="px-4 py-2 text-sm font-medium text-gray-700 bg-white/50 rounded-lg hover:bg-white transition-colors text-center">Bird Guide</a>
+                <a href="mailto:perdignusllc@gmail.com" class="px-4 py-2 text-sm font-medium text-gray-700 bg-white/50 rounded-lg hover:bg-white transition-colors text-center">Contact</a>
+                <!-- header Buy Now opens Stripe payment link -->
+                <button class="header-buy-now px-4 py-2 text-sm font-bold text-white bg-accent-color rounded-lg hover:bg-yellow-600 transition-colors text-center">Buy Now</button>
+            </div>
+        </nav>
+    </header>
 
-  <main>
-    <section class="min-h-screen flex items-center bg-gray-100 pt-40 md:pt-24">
-      <div class="container mx-auto px-6 flex flex-col md:flex-row md:items-start justify-between">
-        <div class="md:w-1/2 mb-10 md:mb-0 text-center md:text-left">
-          <div class="inline-block bg-yellow-200 text-yellow-800 font-semibold px-4 py-2 rounded-full mb-4 text-sm fade-in">
-            🏆 2025 Start Garden Top 100 Winner
-          </div>
-          <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-800 leading-tight mb-4 fade-in">It's more than just a birdhouse.</h2>
-          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-primary leading-tight mb-6 fade-in" style="transition-delay: 150ms;">It's a NestEgg<sup>&trade;</sup></h1>
-          <p class="text-lg text-gray-600 mb-8 fade-in" style="transition-delay: 300ms;">A reimagined birdhouse fighting pollution and habitat loss in one fell swoop.</p>
-          <!-- hero Order Now scrolls -->
-          <button class="order-scroll bg-accent-color text-white font-bold py-3 px-8 rounded-lg hover:bg-yellow-600 transition-transform transform hover:scale-105 inline-block fade-in" style="transition-delay: 450ms;">Order Now</button>
-        </div>
-        <div class="md:w-1/2 p-4 w-full flex items-center justify-center fade-in" style="transition-delay: 600ms;">
-          <img src="NestEgg in Tree.png" alt="A rendering of the NestEgg birdhouse" class="max-w-full h-auto rounded-lg shadow-2xl md:-mt-6">
-        </div>
-      </div>
-    </section>
+    <main>
+        <section class="min-h-screen flex items-center bg-gray-100 pt-40 md:pt-24">
+            <div class="container mx-auto px-6 flex flex-col md:flex-row md:items-start justify-between">
+                <div class="md:w-1/2 mb-10 md:mb-0 text-center md:text-left">
+                    <div class="inline-block bg-yellow-200 text-yellow-800 font-semibold px-4 py-2 rounded-full mb-4 text-sm fade-in">
+                        🏆 2025 Start Garden Top 100 Winner
+                    </div>
+                    <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-800 leading-tight mb-4 fade-in">It's more than just a birdhouse.</h2>
+                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-primary leading-tight mb-6 fade-in" style="transition-delay: 150ms;">It's a NestEgg<sup>&trade;</sup></h1>
+                    <p class="text-lg text-gray-600 mb-8 fade-in" style="transition-delay: 300ms;">A reimagined birdhouse fighting pollution and habitat loss in one fell swoop.</p>
+                    <!-- hero Order Now scrolls to purchase section -->
+                    <button class="order-scroll bg-accent-color text-white font-bold py-3 px-8 rounded-lg hover:bg-yellow-600 transition-transform transform hover:scale-105 inline-block fade-in" style="transition-delay: 450ms;">Order Now</button>
+                </div>
+                <div class="md:w-1/2 p-4 w-full flex items-center justify-center fade-in" style="transition-delay: 600ms;">
+                    <img src="NestEgg in Tree.png" alt="A rendering of the NestEgg birdhouse" class="max-w-full h-auto rounded-lg shadow-2xl md:-mt-6">
+                </div>
+            </div>
+        </section>
 
-    <!-- sections above unchanged -->
+        <section id="about" class="py-20">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold text-gray-800 mb-2 fade-in">A Revolution in Conservation</h2>
+                    <p class="text-gray-600 max-w-3xl mx-auto fade-in" style="transition-delay: 150ms;">
+                        There's a deep irony in modern conservation: even the birdhouses meant to help are often part of the problem. Traditional wooden houses contribute to deforestation and emissions, a cycle that The NestEgg<sup>&trade;</sup> is designed to break. We believe helping birds shouldn't come at the expense of their habitat.
+                    </p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+                    <div class="text-left md:text-center p-6 bg-white rounded-xl shadow-lg fade-in">
+                        <div class="flex justify-center mb-4">
+                            <img src="Reccyled Material icon.png" class="w-16 h-16 text-primary">
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2">Proprietary Necterra™ Material</h3>
+                        <p class="text-gray-600">Handmade with zero emissions from Necterra™, our proprietary blend of recycled, biodegradable fibers and natural binders. Each NestEgg<sup>&trade;</sup> diverts a baseball's worth of recyclable material from the standard municipal waste processing cycle, turning waste into a warm, safe home.</p>
+                    </div>
+                    <div class="text-left md:text-center p-6 bg-white rounded-xl shadow-lg fade-in" style="transition-delay: 150ms;">
+                        <div class="flex justify-center mb-4">
+                           <svg class="w-16 h-16 text-primary mx-auto" viewBox="0 0 105 65" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M40 25H65V0H40V25Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                                <path d="M40 25V65H0V25H40Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                                <path d="M40 25H65C82.6751 25 97.5 39.8249 97.5 57.5V65H40V25Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                                <path d="M65 25C65 11.1929 53.8071 0 40 0" stroke="currentColor" stroke-width="2"/>
+                                <path d="M40 25C22.3249 25 7.5 39.8249 7.5 57.5V65" stroke="currentColor" stroke-width="2"/>
+                                <path d="M40 65C40 47.3249 54.8249 32.5 72.5 32.5H97.5" stroke="currentColor" stroke-width="2"/>
+                           </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2">Biomimetic Design</h3>
+                        <p class="text-gray-600">The NestEgg’s outward appearance offers an immediately recognizable habitat for cavity nesters. Internally, The NestEgg™ utilizes University & Ornithology backed research to mimic the spatial dimensions, thermal regulation, and protection of natural cavity nests for a safer, more effective home. </p>
+                    </div>
+                    <div class="text-left md:text-center p-6 bg-white rounded-xl shadow-lg fade-in" style="transition-delay: 300ms;">
+                        <div class="flex justify-center mb-4">
+                           <svg class="w-16 h-16 text-primary mx-auto" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="50" cy="50" r="45" stroke="currentColor" stroke-width="4"/>
+                                <circle cx="50" cy="50" r="30" stroke="currentColor" stroke-width="4" stroke-dasharray="8 6"/>
+                                <circle cx="50" cy="50" r="15" stroke="currentColor" stroke-width="4"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2">Modular Entrance System</h3>
+                        <p class="text-gray-600">Our patent-pending system employs precision-engineered inserts that fit securely into the primary opening. These interchangeable rings define a species-specific entrance diameter, strategically excluding larger, aggressive birds and creating a dedicated sanctuary for smaller native species.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-    <section id="purchase" class="py-20 bg-gray-200">
-      <div class="container mx-auto px-6 text-center">
-        <h2 class="text-3xl font-bold text-gray-800 mb-2 fade-in">Order the Founder's Edition</h2>
-        <p class="text-gray-600 max-w-2xl mx-auto mb-8 fade-in" style="transition-delay:150ms;">Be part of our first production run and get exclusive access to The NestEgg<sup>&trade;</sup>.</p>
-        <div id="founders-edition" class="max-w-sm mx-auto bg-white rounded-xl shadow-lg p-8 fade-in" style="transition-delay:300ms;">
-          <h3 class="text-2xl font-bold text-primary">The NestEgg<sup>&trade;</sup>- Founder's Edition</h3>
-          <p class="text-4xl font-bold text-gray-800 my-4">$79.00 <span class="text-base font-normal text-gray-500">(+ Shipping)</span></p>
-          <ul class="text-left space-y-2 text-gray-600 mb-6">
-            <li class="flex items-center"><span class="text-primary mr-3">✔</span> One (1) NestEgg<sup>&trade;</sup> Birdhouse</li>
-            <li class="flex items-center"><span class="text-primary mr-3">✔</span> Full Set of Modular Entrance Inserts</li>
-            <li class="flex items-center"><span class="text-primary mr-3">✔</span> Adjustable Sling Harness for Mounting</li>
-          </ul>
-          <button class="checkout-button w-full bg-blue-600 text-white font-bold py-3 px-8 rounded-lg hover:bg-blue-700 transition-colors">
-            Pay with Card
-          </button>
-          <p class="text-xs mt-2 text-gray-500">Secure payments powered by Stripe</p>
-        </div>
-      </div>
-    </section>
+        <section id="crisis" class="py-20 bg-gray-100">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold text-gray-800 mb-2 fade-in">The Silent Crisis</h2>
+                    <p class="text-gray-600 max-w-3xl mx-auto fade-in" style="transition-delay: 150ms;">
+                        Your NestEgg<sup>&trade;</sup> is more than a product; it's a vital intervention. According to the 2022 State of the Birds report, North America has lost **3 billion birds** since 1970. This isn't a distant problem—it's a housing crisis happening in our own backyards.
+                    </p>
+                </div>
+                <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 items-start">
+                    <div class="fade-in">
+                        <h3 class="text-2xl font-bold text-primary mb-4">A Home is Hard to Find</h3>
+                        <p class="text-gray-600 mb-4">
+                            But habitat loss is only half the story. The scarcity of natural nesting sites forces a critical choice. If a bird doesn't feel absolutely certain about the safety of its nest, it may refuse to reproduce, forgoing generational continuity.
+                        </p>
+                        <p class="text-gray-600">
+                           This timeless predicament often ends in one of two ways: the nest falls prey to devastation by larger competitors, or the birds abandon it altogether. Both outcomes equate to population decline. The NestEgg<sup>&trade;</sup> is engineered to solve this dilemma, providing the security smaller birds need to thrive.
+                        </p>
+                    </div>
+                    <div>
+                        <div class="mb-6 fade-in" style="transition-delay: 300ms;">
+                            <h4 class="text-lg font-semibold text-red-700 mb-2 text-center md:text-left">Federally Endangered</h4>
+                            <div class="p-4 bg-white rounded-xl shadow-lg">
+                                <ul class="space-y-2 text-gray-600 text-sm">
+                                    <li><strong>Red-cockaded Woodpecker</strong> (Requires living, old-growth pine trees)</li>
+                                </ul>
+                            </div>
+                        </div>
+                       <div class="mb-6 fade-in" style="transition-delay: 450ms;">
+                            <h4 class="text-lg font-semibold text-yellow-700 mb-2 text-center md:text-left">Of Conservation Concern</h4>
+                            <div class="p-4 bg-white rounded-xl shadow-lg">
+                                <ul class="space-y-2 text-gray-600 text-sm">
+                                    <li>Brown-headed Nuthatch</li>
+                                    <li>Bridled Titmouse</li>
+                                    <li>Juniper Titmouse</li>
+                                    <li>Lewis's Woodpecker</li>
+                                    <li>Lucy’s Warbler</li>
+                                    <li>Prothonotary Warbler</li>
+                                    <li>Pygmy Nuthatch</li>
+                                    <li>Great Crested Flycatcher</li>
+                                    <li>Boreal Chickadee</li>
+                                </ul>
+                            </div>
+                        </div>
+                       <div class="fade-in" style="transition-delay: 600ms;">
+                            <h4 class="text-lg font-semibold text-gray-700 mb-2 text-center md:text-left">Common Nesters</h4>
+                            <div class="p-4 bg-white rounded-xl shadow-lg">
+                                <ul class="space-y-2 text-gray-600 text-sm">
+                                    <li>Eastern, Western & Mountain Bluebirds</li>
+                                    <li>Black-capped & Mountain Chickadees</li>
+                                    <li>Chestnut-backed Chickadee</li>
+                                    <li>Oak, Juniper & Bridled Titmice</li>
+                                    <li>White-breasted & Red-breasted Nuthatches</li>
+                                    <li>House & Carolina Wrens</li>
+                                    <li>Violet-green & Tree Swallows</li>
+                                    <li>Purple Martin</li>
+                                    <li>Ash-throated & Brown-crested Flycatchers</li>
+                                    <li>Mourning Dove, Eastern & Say's Phoebes* <span class="text-xs italic opacity-70">(*Not cavity nesters)</span></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="mt-8 text-center md:text-right">
+                            <a href="Birds.html" class="inline-block bg-primary text-white font-bold py-3 px-8 rounded-lg hover:bg-primary-dark transition-transform transform hover:scale-105">
+                                Learn more about the bird you want to help
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The NestEgg&trade; by Perdignus LLC</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
 
-    <!-- rest of sections unchanged -->
-  </main>
-
-  <footer class="bg-gray-800 text-white py-6">
-    <div class="container mx-auto px-6 text-center text-sm">
-      <p>&copy; 2025 Perdignus LLC. All Rights Reserved.</p>
-      <p>The NestEgg<sup>&trade;</sup> is a brand of Perdignus LLC. Data on bird populations sourced from the 2022 State of the Birds Report.</p>
-    </div>
-  </footer>
-
-  <div id="thank-you-popup">Thanks for joining the waitlist!</div>
-
-  <script>
-    // Fade-in animation
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
+    <style>
+        :root {
+            --primary-color: #264d41;
+            --secondary-color: #f4f0e8;
+            --text-color: #1a202c;
+            --accent-color: #d9a443;
         }
-      });
-    }, { threshold: 0.1 });
-    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f9fa;
+            color: var(--text-color);
+        }
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .glassmorphism {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .bg-primary { background-color: var(--primary-color); }
+        .text-primary { color: var(--primary-color); }
+        .hover\:bg-primary-dark:hover { background-color: #1a3a2e; }
+        .bg-accent-color { background-color: var(--accent-color); }
+        .hover\:bg-yellow-600:hover { background-color: #b8862e; }
+        .focus\:border-accent-color:focus { border-color: var(--accent-color); }
 
-    // Thank You popup
-    window.addEventListener('load', () => {
-      const urlParams = new URLSearchParams(window.location.search);
-      if (urlParams.has('form-success')) {
-        const popup = document.getElementById('thank-you-popup');
-        popup.classList.add('show');
-        setTimeout(() => popup.classList.remove('show'), 4000);
-      }
-    });
+        #thank-you-popup {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translate(-50%, 200%);
+            background-color: var(--primary-color);
+            color: white;
+            padding: 16px 32px;
+            border-radius: 50px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            z-index: 1000;
+            transition: transform 0.5s ease-in-out;
+        }
+        #thank-you-popup.show {
+            transform: translate(-50%, 0);
+        }
+    </style>
+</head>
+<body class="overflow-x-hidden">
 
-    // Hero Order Now smooth scroll to Founder's Edition
-    document.querySelectorAll('.order-scroll').forEach(button => {
-      button.addEventListener('click', (e) => {
-        e.preventDefault();
-        const target = document.getElementById('founders-edition');
-        if (!target) return;
-        const header = document.querySelector('header');
-        const headerHeight = header ? header.offsetHeight : 0;
-        const targetTop = target.getBoundingClientRect().top + window.pageYOffset - headerHeight - 16;
-        window.scrollTo({ top: targetTop, behavior: 'smooth' });
-      });
-    });
+    <header class="fixed top-0 left-0 right-0 z-50 glassmorphism">
+        <nav class="container mx-auto px-6 py-3 flex flex-col md:flex-row justify-between items-center">
+            <div class="flex items-center space-x-3 mb-3 md:mb-0">
+                <img src="OFFICIAL NE.png" alt="The NestEgg Logo" class="w-12 h-12">
+                <h1 class="text-3xl font-bold text-gray-800">The NestEgg<sup>&trade;</sup></h1>
+            </div>
+            <div class="flex items-center space-x-2">
+                <a href="Birds.html" class="px-4 py-2 text-sm font-medium text-gray-700 bg-white/50 rounded-lg hover:bg-white transition-colors text-center">Bird Guide</a>
+                <a href="mailto:perdignusllc@gmail.com" class="px-4 py-2 text-sm font-medium text-gray-700 bg-white/50 rounded-lg hover:bg-white transition-colors text-center">Contact</a>
+                <button class="header-buy-now px-4 py-2 text-sm font-bold text-white bg-accent-color rounded-lg hover:bg-yellow-600 transition-colors text-center">Buy Now</button>
+            </div>
+        </nav>
+    </header>
 
-    // Header Buy Now -> Stripe
-    const stripePaymentLink = "https://buy.stripe.com/8x23coguJ2VF0frcG07Re00";
-    document.querySelector('.header-buy').addEventListener('click', () => {
-      window.location.href = stripePaymentLink;
-    });
+    <main>
+        <section class="min-h-screen flex items-center bg-gray-100 pt-40 md:pt-24">
+            <div class="container mx-auto px-6 flex flex-col md:flex-row md:items-start justify-between">
+                <div class="md:w-1/2 mb-10 md:mb-0 text-center md:text-left">
+                    <div class="inline-block bg-yellow-200 text-yellow-800 font-semibold px-4 py-2 rounded-full mb-4 text-sm fade-in">
+                        🏆 2025 Start Garden Top 100 Winner
+                    </div>
+                    <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-800 leading-tight mb-4 fade-in">It's more than just a birdhouse.</h2>
+                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-primary leading-tight mb-6 fade-in" style="transition-delay: 150ms;">It's a NestEgg<sup>&trade;</sup></h1>
+                    <p class="text-lg text-gray-600 mb-8 fade-in" style="transition-delay: 300ms;">A reimagined birdhouse fighting pollution and habitat loss in one fell swoop.</p>
+                    <button class="order-scroll bg-accent-color text-white font-bold py-3 px-8 rounded-lg hover:bg-yellow-600 transition-transform transform hover:scale-105 inline-block fade-in" style="transition-delay: 450ms;">Order Now</button>
+                </div>
+                <div class="md:w-1/2 p-4 w-full flex items-center justify-center fade-in" style="transition-delay: 600ms;">
+                    <img src="NestEgg in Tree.png" alt="A rendering of the NestEgg birdhouse" class="max-w-full h-auto rounded-lg shadow-2xl md:-mt-6">
+                </div>
+            </div>
+        </section>
 
-    // Checkout button -> Stripe
-    document.querySelectorAll('.checkout-button').forEach(button => {
-      button.addEventListener('click', () => {
-        window.location.href = stripePaymentLink;
-      });
-    });
-  </script>
-</body>
-</html>
+        <section id="about" class="py-20">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold text-gray-800 mb-2 fade-in">A Revolution in Conservation</h2>
+                    <p class="text-gray-600 max-w-3xl mx-auto fade-in" style="transition-delay: 150ms;">
+                        There's a deep irony in modern conservation: even the birdhouses meant to help are often part of the problem. Traditional wooden houses contribute to deforestation and emissions, a cycle that The NestEgg<sup>&trade;</sup> is designed to break. We believe helping birds shouldn't come at the expense of their habitat.
+                    </p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+                    <div class="text-left md:text-center p-6 bg-white rounded-xl shadow-lg fade-in">
+                        <div class="flex justify-center mb-4">
+                            <img src="Reccyled Material icon.png" class="w-16 h-16 text-primary">
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2">Proprietary Necterra™ Material</h3>
+                        <p class="text-gray-600">Handmade with zero emissions from Necterra™, our proprietary blend of recycled, biodegradable fibers and natural binders. Each NestEgg<sup>&trade;</sup> diverts a baseball's worth of recyclable material from the standard municipal waste processing cycle, turning waste into a warm, safe home.</p>
+                    </div>
+                    <div class="text-left md:text-center p-6 bg-white rounded-xl shadow-lg fade-in" style="transition-delay: 150ms;">
+                        <div class="flex justify-center mb-4">
+                           <svg class="w-16 h-16 text-primary mx-auto" viewBox="0 0 105 65" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M40 25H65V0H40V25Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                                <path d="M40 25V65H0V25H40Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                                <path d="M40 25H65C82.6751 25 97.5 39.8249 97.5 57.5V65H40V25Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                                <path d="M65 25C65 11.1929 53.8071 0 40 0" stroke="currentColor" stroke-width="2"/>
+                                <path d="M40 25C22.3249 25 7.5 39.8249 7.5 57.5V65" stroke="currentColor" stroke-width="2"/>
+                                <path d="M40 65C40 47.3249 54.8249 32.5 72.5 32.5H97.5" stroke="currentColor" stroke-width="2"/>
+                           </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2">Biomimetic Design</h3>
+                        <p class="text-gray-600">The NestEgg’s outward appearance offers an immediately recognizable habitat for cavity nesters. Internally, The NestEgg™ utilizes University & Ornithology backed research to mimic the spatial dimensions, thermal regulation, and protection of natural cavity nests for a safer, more effective home. </p>
+                    </div>
+                    <div class="text-left md:text-center p-6 bg-white rounded-xl shadow-lg fade-in" style="transition-delay: 300ms;">
+                        <div class="flex justify-center mb-4">
+                           <svg class="w-16 h-16 text-primary mx-auto" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="50" cy="50" r="45" stroke="currentColor" stroke-width="4"/>
+                                <circle cx="50" cy="50" r="30" stroke="currentColor" stroke-width="4" stroke-dasharray="8 6"/>
+                                <circle cx="50" cy="50" r="15" stroke="currentColor" stroke-width="4"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2">Modular Entrance System</h3>
+                        <p class="text-gray-600">Our patent-pending system employs precision-engineered inserts that fit securely into the primary opening. These interchangeable rings define a species-specific entrance diameter, strategically excluding larger, aggressive birds and creating a dedicated sanctuary for smaller native species.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="crisis" class="py-20 bg-gray-100">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold text-gray-800 mb-2 fade-in">The Silent Crisis</h2>
+                    <p class="text-gray-600 max-w-3xl mx-auto fade-in" style="transition-delay: 150ms;">
+                        Your NestEgg<sup>&trade;</sup> is more than a product; it's a vital intervention. According to the 2022 State of the Birds report, North America has lost **3 billion birds** since 1970. This isn't a distant problem—it's a housing crisis happening in our own backyards.
+                    </p>
+                </div>
