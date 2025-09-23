@@ -8,8 +8,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
-    
-    <script src="https://js.stripe.com/v3/"></script>
 
     <style>
         :root {
@@ -73,7 +71,8 @@
             <div class="flex items-center space-x-2">
                 <a href="Birds.html" class="px-4 py-2 text-sm font-medium text-gray-700 bg-white/50 rounded-lg hover:bg-white transition-colors text-center">Bird Guide</a>
                 <a href="mailto:perdignusllc@gmail.com" class="px-4 py-2 text-sm font-medium text-gray-700 bg-white/50 rounded-lg hover:bg-white transition-colors text-center">Contact</a>
-                <button class="checkout-button px-4 py-2 text-sm font-bold text-white bg-accent-color rounded-lg hover:bg-yellow-600 transition-colors text-center">Buy Now</button>
+                <!-- header Buy Now now scrolls down to #purchase -->
+                <button class="order-scroll px-4 py-2 text-sm font-bold text-white bg-accent-color rounded-lg hover:bg-yellow-600 transition-colors text-center">Buy Now</button>
             </div>
         </nav>
     </header>
@@ -88,7 +87,8 @@
                     <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-800 leading-tight mb-4 fade-in">It's more than just a birdhouse.</h2>
                     <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-primary leading-tight mb-6 fade-in" style="transition-delay: 150ms;">It's a NestEgg<sup>&trade;</sup></h1>
                     <p class="text-lg text-gray-600 mb-8 fade-in" style="transition-delay: 300ms;">A reimagined birdhouse fighting pollution and habitat loss in one fell swoop.</p>
-                    <button class="checkout-button bg-accent-color text-white font-bold py-3 px-8 rounded-lg hover:bg-yellow-600 transition-transform transform hover:scale-105 inline-block fade-in" style="transition-delay: 450ms;">Order Now</button>
+                    <!-- hero Order Now scrolls to purchase -->
+                    <button class="order-scroll bg-accent-color text-white font-bold py-3 px-8 rounded-lg hover:bg-yellow-600 transition-transform transform hover:scale-105 inline-block fade-in" style="transition-delay: 450ms;">Order Now</button>
                 </div>
                 <div class="md:w-1/2 p-4 w-full flex items-center justify-center fade-in" style="transition-delay: 600ms;">
                     <img src="NestEgg in Tree.png" alt="A rendering of the NestEgg birdhouse" class="max-w-full h-auto rounded-lg shadow-2xl md:-mt-6">
@@ -243,6 +243,7 @@
                         <li class="flex items-center"><span class="text-primary mr-3">✔</span> Full Set of Modular Entrance Inserts</li>
                         <li class="flex items-center"><span class="text-primary mr-3">✔</span> Adjustable Sling Harness for Mounting</li>
                     </ul>
+                    <!-- checkout button will redirect to your Stripe Payment Link -->
                     <button class="checkout-button w-full bg-blue-600 text-white font-bold py-3 px-8 rounded-lg hover:bg-blue-700 transition-colors">
                         Pay with Card
                     </button>
@@ -310,23 +311,27 @@
                 }, 4000);
             }
         });
-    </script>
-    
-    <script type="text/javascript">
-        const stripe = Stripe('pk_live_51SAWWc4r07ISOh8OcVgregz2KMNhcOa3oiiTrc3Sbm6PSZWqudP4bjvHykoLY2Dvc8S6TgNjdBEW0vPJQtJjNBVx0029IAXZvE');
-        const checkoutButtons = document.querySelectorAll('.checkout-button');
-        
-        checkoutButtons.forEach(button => {
-            button.addEventListener('click', function () {
-                stripe.redirectToCheckout({
-                    lineItems: [{
-                        price: 'price_1SAZoR4r07ISOh8O9rWFyXle',
-                        quantity: 1
-                    }],
-                    mode: 'payment',
-                    successUrl: window.location.href + '?session_id={CHECKOUT_SESSION_ID}',
-                    cancelUrl: window.location.href,
-                });
+
+        // Smooth scroll for "Order Now" and header "Buy Now" buttons
+        document.querySelectorAll('.order-scroll').forEach(button => {
+            button.addEventListener('click', (e) => {
+                e.preventDefault();
+                const target = document.getElementById('purchase');
+                if (!target) return;
+                // account for fixed header height so the section isn't hidden
+                const header = document.querySelector('header');
+                const headerHeight = header ? header.offsetHeight : 0;
+                const targetTop = target.getBoundingClientRect().top + window.pageYOffset - headerHeight - 16;
+                window.scrollTo({ top: targetTop, behavior: 'smooth' });
+            });
+        });
+
+        // Redirect checkout buttons to your Stripe Payment Link
+        const stripePaymentLink = "https://buy.stripe.com/8x23coguJ2VF0frcG07Re00";
+        document.querySelectorAll('.checkout-button').forEach(button => {
+            button.addEventListener('click', (e) => {
+                // If you prefer opening in a new tab: use window.open(stripePaymentLink, '_blank');
+                window.location.href = stripePaymentLink;
             });
         });
     </script>
