@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <script src="https://js.stripe.com/v3/"></script>
     <style>
         :root {
             --primary-color: #264d41;
@@ -45,7 +46,6 @@
     </header>
 
     <main class="container mx-auto px-6 py-12 md:py-20">
-        
         <div class="max-w-4xl mx-auto">
             <div class="flex flex-col md:flex-row items-center gap-8 mb-12">
                 <div class="md:w-1/3">
@@ -59,42 +59,35 @@
             </div>
 
             <div class="text-center my-12">
-                <a href="https://www.paypal.com/ncp/payment/4VK8Y427WKRSY" target="_blank" class="inline-block bg-accent-color text-white font-bold py-4 px-10 rounded-lg hover:bg-yellow-600 transition-transform transform hover:scale-105 text-xl">
+                <button class="checkout-button inline-block bg-accent-color text-white font-bold py-4 px-10 rounded-lg hover:bg-yellow-600 transition-transform transform hover:scale-105 text-xl">
                     Help This Bird - Order Now
-                </a>
+                </button>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                
                 <div class="bg-white p-6 rounded-lg shadow-md">
                     <h2 class="text-xl font-bold text-primary mb-3">Mounting Location</h2>
                     <p class="text-gray-700">Place the NestEgg<sup>&trade;</sup> on a pole or tree trunk at the edge of a wooded area, specifically with mature pine trees nearby. They prefer open pine forests and avoid dense, closed-canopy woods.</p>
                 </div>
-
                 <div class="bg-white p-6 rounded-lg shadow-md">
                     <h2 class="text-xl font-bold text-primary mb-3">Mounting Height</h2>
                     <p class="text-gray-700">The ideal height is between **5 and 15 feet** from the ground. This keeps them safe from ground predators but within their preferred nesting range.</p>
                 </div>
-
                 <div class="bg-white p-6 rounded-lg shadow-md">
                     <h2 class="text-xl font-bold text-primary mb-3">Entrance Orientation</h2>
                     <p class="text-gray-700">Face the entrance hole away from prevailing winds, typically towards the **south or east**. This provides protection from harsh weather and takes advantage of morning sun for warmth.</p>
                 </div>
-
                 <div class="bg-white p-6 rounded-lg shadow-md">
                     <h2 class="text-xl font-bold text-primary mb-3">Proximity to Others</h2>
                     <p class="text-gray-700">These birds are not highly territorial with their own species. If placing multiple NestEggs<sup>&trade;</sup> for Nuthatches, they can be placed as close as **50-75 feet** apart.</p>
                 </div>
-                
             </div>
             
             <div class="bg-white p-6 rounded-lg shadow-md mt-8">
                 <h2 class="text-xl font-bold text-primary mb-3">Known Nesting Period</h2>
                 <p class="text-gray-700">The primary nesting season for the Brown-headed Nuthatch is from **late March through early June**. Nest building can begin as early as March, with eggs typically laid in April.</p>
             </div>
-
         </div>
-
     </main>
 
     <footer class="bg-gray-800 text-white py-6 mt-12">
@@ -103,5 +96,21 @@
         </div>
     </footer>
 
+    <script type="text/javascript">
+        const stripe = Stripe('pk_live_51SAWWc4r07ISOh8OcVgregz2KMNhcOa3oiiTrc3Sbm6PSZWqudP4bjvHykoLY2Dvc8S6TgNjdBEW0vPJQtJjNBVx0029IAXZvE');
+        const checkoutButton = document.querySelector('.checkout-button');
+        
+        checkoutButton.addEventListener('click', function () {
+            stripe.redirectToCheckout({
+                lineItems: [{
+                    price: 'price_1SAZoR4r07ISOh8O9rWFyXle',
+                    quantity: 1
+                }],
+                mode: 'payment',
+                successUrl: window.location.origin + '/index.html?purchase=success', // Redirects to homepage on success
+                cancelUrl: window.location.href, // Returns to the same bird page on cancel
+            });
+        });
+    </script>
 </body>
 </html>
