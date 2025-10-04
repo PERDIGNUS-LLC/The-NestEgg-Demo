@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Red-cockaded Woodpecker - The NestEgg&trade;</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <script src="https://js.stripe.com/v3/"></script>
+    <style>
+        :root {
+            --primary-color: #264d41;
+            --secondary-color: #f4f0e8;
+            --text-color: #1a202c;
+            --accent-color: #d9a443;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f9fa;
+            color: var(--text-color);
+        }
+        .glassmorphism {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+        .bg-primary { background-color: var(--primary-color); }
+        .text-primary { color: var(--text-color); }
+        .bg-accent-color { background-color: var(--accent-color); }
+        .hover\:bg-yellow-600:hover { background-color: #b8862e; }
+    </style>
+</head>
+<body class="overflow-x-hidden">
+
+    <header class="sticky top-0 left-0 right-0 z-50 glassmorphism border-b border-white/20">
+        <nav class="container mx-auto px-4 sm:px-6 py-3 flex justify-between items-center">
+            <a href="index.html" class="flex items-center space-x-3 flex-shrink-0">
+                <img src="OFFICIAL NE.png" alt="The NestEgg Logo" class="w-12 h-12">
+                <h1 class="text-2xl md:text-3xl font-bold text-gray-800">The NestEgg<sup>&trade;</sup></h1>
+            </a>
+            <div class="flex items-center space-x-2">
+                <a href="Birds.html" class="px-4 py-2 text-sm font-medium text-gray-700 bg-white/50 rounded-lg hover:bg-white transition-colors text-center">Back to Bird List</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto px-6 py-12 md:py-20">
+        
+        <div class="max-w-4xl mx-auto">
+            <div class="flex flex-col md:flex-row items-center gap-8 mb-12">
+                <div class="md:w-1/3">
+                    <img src="https://encyclopediaofalabama.org/wp-content/uploads/2023/04/Red-cockaded-Woodpecker-1-984x1300.jpg" alt="Red-cockaded Woodpecker" class="w-full h-auto aspect-square object-cover rounded-lg shadow-lg">
+                </div>
+                <div class="md:w-2/3 text-center md:text-left">
+                    <p class="text-lg font-semibold text-red-700">Federally Endangered</p>
+                    <h1 class="text-4xl md:text-5xl font-bold text-primary mt-2">Red-cockaded Woodpecker</h1>
+                    <p class="text-lg text-gray-600 mt-4">A rare, non-migratory woodpecker of the southeastern United States, unique for its complex social structure and for being the only woodpecker to excavate cavities exclusively in living pine trees.</p>
+                </div>
+            </div>
+
+            <div class="text-center my-12">
+                <button class="checkout-button inline-block bg-accent-color text-white font-bold py-4 px-10 rounded-lg hover:bg-yellow-600 transition-transform transform hover:scale-105 text-xl">
+                    Help This Bird - Order Now
+                </button>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h2 class="text-xl font-bold text-primary mb-3">Mounting Location</h2>
+                    <p class="text-gray-700">The NestEgg<sup>&trade;</sup> must be placed in **mature, open pine savannas**, especially those with old-growth longleaf pines. Proximity to existing family groups (clusters) is ideal. They will not use houses in dense or young forests.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h2 class="text-xl font-bold text-primary mb-3">Mounting Height</h2>
+                    <p class="text-gray-700">These woodpeckers nest high in mature trees. Artificial cavities like the NestEgg<sup>&trade;</sup> should be installed between **15 and 30 feet** from the ground on the trunk of a large, living pine tree.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h2 class="text-xl font-bold text-primary mb-3">Entrance Orientation</h2>
+                    <p class="text-gray-700">There is no strong preference for orientation, but facing the entrance towards a more open area and away from dense limbs is beneficial.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h2 class="text-xl font-bold text-primary mb-3">Proximity to Others</h2>
+                    <p class="text-gray-700">These birds live in family groups called clusters. While new cavities can be added near an existing cluster, separate clusters should be at least **a half-mile apart** due to their large territorial requirements.</p>
+                </div>
+                
+            </div>
+            
+            <div class="bg-white p-6 rounded-lg shadow-md mt-8">
+                <h2 class="text-xl font-bold text-primary mb-3">Known Nesting Period</h2>
+                <p class="text-gray-700">The primary nesting season is from **late April through July**. Egg-laying peaks in May.</p>
+            </div>
+
+        </div>
+
+    </main>
+
+    <footer class="bg-gray-800 text-white py-6 mt-12">
+        <div class="container mx-auto px-6 text-center text-sm">
+            <p>&copy; 2025 Perdignus LLC. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script type="text/javascript">
+        const stripe = Stripe('pk_live_51SAWWc4r07ISOh8OcVgregz2KMNhcOa3oiiTrc3Sbm6PSZWqudP4bjvHykoLY2Dvc8S6TgNjdBEW0vPJQtJjNBVx0029IAXZvE');
+        const checkoutButton = document.querySelector('.checkout-button');
+        
+        if (checkoutButton) {
+            checkoutButton.addEventListener('click', function () {
+                stripe.redirectToCheckout({
+                    lineItems: [{
+                        price: 'price_1SAZoR4r07ISOh8O9rWFyXle',
+                        quantity: 1
+                    }],
+                    mode: 'payment',
+                    successUrl: window.location.origin + '/index.html?purchase=success', // Redirects to homepage on success
+                    cancelUrl: window.location.href, // Returns to the same bird page on cancel
+                });
+            });
+        }
+    </script>
+</body>
+</html>
