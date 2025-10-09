@@ -6,35 +6,36 @@
     <title>Bird Species - The NestEgg&trade;</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic" crossorigin>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
+        /* --- Refined Naturalist Palette --- */
         :root {
-            --primary-color: #264d41;
-            --secondary-color: #f4f0e8;
-            --text-color: #1a202c;
-            --accent-color: #d9a443;
+            --primary-color: #2d3a32;   /* Forest Green */
+            --secondary-color: #f4f4f2; /* Off-White */
+            --text-color: #3a3d40;      /* Charcoal Gray */
+            --accent-color: #6b8ca4;    /* Slate Blue */
         }
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f8f9fa;
+            background-color: var(--secondary-color);
             color: var(--text-color);
         }
         .glassmorphism {
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(244, 244, 242, 0.6); /* Use Off-White with transparency */
             backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(45, 58, 50, 0.1);
         }
-        .bg-primary { background-color: var(--primary-color); }
-        .text-primary { color: var(--text-color); }
+        .text-primary-color { color: var(--primary-color); }
     </style>
 </head>
 <body class="overflow-x-hidden">
 
-    <header class="sticky top-0 left-0 right-0 z-50 glassmorphism border-b border-white/20">
+    <header class="sticky top-0 left-0 right-0 z-50 glassmorphism">
         <nav class="container mx-auto px-4 sm:px-6 py-3 flex justify-between items-center">
             <a href="index.html" class="flex items-center space-x-3 flex-shrink-0">
                 <img src="OFFICIAL NE.png" alt="The NestEgg Logo" class="w-12 h-12">
-                <h1 class="text-2xl md:text-3xl font-bold text-gray-800">The NestEgg<sup>&trade;</sup></h1>
+                <h1 class="text-2xl md:text-3xl font-bold" style="color: var(--primary-color);">The NestEgg<sup>&trade;</sup></h1>
             </a>
             <div class="flex items-center space-x-2">
                  <a href="index.html" class="px-4 py-2 text-sm font-medium text-gray-700 bg-white/50 rounded-lg hover:bg-white transition-colors text-center">Back to Homepage</a>
@@ -46,7 +47,7 @@
         
         <div class="max-w-4xl mx-auto">
             <div class="text-center mb-12">
-                <h1 class="text-4xl md:text-5xl font-bold text-primary">Meet the Birds</h1>
+                <h1 class="text-4xl md:text-5xl font-bold text-primary-color">Meet the Birds</h1>
                 <p class="text-lg text-gray-600 mt-4">Learn about the species The NestEgg<sup>&trade;</sup> is designed to help. Click any highlighted bird to view its specific nesting and placement guide.</p>
             </div>
 
@@ -57,39 +58,39 @@
                     <div class="p-4 bg-white rounded-xl shadow-lg">
                         <ul class="space-y-3 text-gray-700">
                             <li>
-              <a href="red-cockaded-woodpecker.html" class="text-primary font-semibold hover:underline">
-    <strong>Red-cockaded Woodpecker</strong>
-  </a>
-  <span class="text-gray-500 text-sm font-normal">(Requires living, old-growth pine trees)</span>
-</li>
+                                <a href="red-cockaded-woodpecker.html" class="text-primary-color font-semibold hover:underline">
+                                    <strong>Red-cockaded Woodpecker</strong>
+                                </a>
+                                <span class="text-gray-500 text-sm font-normal">(Requires living, old-growth pine trees)</span>
+                            </li>
                         </ul>
                     </div>
                 </div>
 
                 <div>
-                    <h2 class="text-2xl font-bold text-yellow-700 mb-4 border-b-2 border-yellow-200 pb-2">Of Conservation Concern</h2>
+                    <h2 class="text-2xl font-bold text-primary-color mb-4 border-b-2 border-green-200 pb-2">Of Conservation Concern</h2>
                     <div class="p-4 bg-white rounded-xl shadow-lg">
                         <ul class="space-y-3 text-gray-700">
-                            <li><a href="brown-headed-nuthatch.html" class="text-primary font-semibold hover:underline">Brown-headed Nuthatch</a></li>
-                            <li><a href="bridled-titmouse.html" class="text-primary font-semibold hover:underline">Bridled Titmouse</a></li>
-                            <li><a href="juniper-titmouse.html" class="text-primary font-semibold hover:underline">Juniper Titmouse</a></li>
-                            <li><a href="lewis-woodpecker.html" class="text-primary font-semibold hover:underline">Lewis's Woodpecker</a></li>
-                            <li><a href="lucys-warbler.html" class="text-primary font-semibold hover:underline">Lucy’s Warbler</a></li>
-                            <li><a href="prothonotary-warbler.html" class="text-primary font-semibold hover:underline">Prothonotary Warbler</a></li>
-                            <li><a href="pygmy-nuthatch.html" class="text-primary font-semibold hover:underline">Pygmy Nuthatch</a></li>
-                            <li><a href="great-crested-flycatcher.html" class="text-primary font-semibold hover:underline">Great Crested Flycatcher</a></li>
-                            <li><a href="boreal-chickadee.html" class="text-primary font-semibold hover:underline">Boreal Chickadee</a></li>
+                            <li><a href="brown-headed-nuthatch.html" class="text-primary-color font-semibold hover:underline">Brown-headed Nuthatch</a></li>
+                            <li><a href="bridled-titmouse.html" class="text-primary-color font-semibold hover:underline">Bridled Titmouse</a></li>
+                            <li><a href="juniper-titmouse.html" class="text-primary-color font-semibold hover:underline">Juniper Titmouse</a></li>
+                            <li><a href="lewis-woodpecker.html" class="text-primary-color font-semibold hover:underline">Lewis's Woodpecker</a></li>
+                            <li><a href="lucys-warbler.html" class="text-primary-color font-semibold hover:underline">Lucy’s Warbler</a></li>
+                            <li><a href="prothonotary-warbler.html" class="text-primary-color font-semibold hover:underline">Prothonotary Warbler</a></li>
+                            <li><a href="pygmy-nuthatch.html" class="text-primary-color font-semibold hover:underline">Pygmy Nuthatch</a></li>
+                            <li><a href="great-crested-flycatcher.html" class="text-primary-color font-semibold hover:underline">Great Crested Flycatcher</a></li>
+                            <li><a href="boreal-chickadee.html" class="text-primary-color font-semibold hover:underline">Boreal Chickadee</a></li>
                         </ul>
                     </div>
                 </div>
 
                 <div>
-                    <h2 class="text-2xl font-bold text-gray-700 mb-4 border-b-2 border-gray-200 pb-2">Common Nesters</h2>
+                    <h2 class="text-2xl font-bold mb-4 border-b-2 border-gray-200 pb-2" style="color: var(--text-color);">Common Nesters</h2>
                     <div class="p-4 bg-white rounded-xl shadow-lg">
                         <ul class="space-y-3 text-gray-700">
-                            <li><a href="bluebirds.html" class="text-primary font-semibold hover:underline">Eastern, Western & Mountain Bluebirds</a><li>
-                            <li><a href="chickadees.html" class="text-primary font-semibold hover:underline">Black-capped & Mountain Chickadees</a><li>
-                            <li><a href="chestnut-backed-chickadee.html" class="text-primary font-semibold hover:underline">Chestnut-backed Chickadee</a><li>
+                            <li><a href="bluebirds.html" class="text-primary-color font-semibold hover:underline">Eastern, Western & Mountain Bluebirds</a></li>
+                            <li><a href="chickadees.html" class="text-primary-color font-semibold hover:underline">Black-capped & Mountain Chickadees</a></li>
+                            <li><a href="chestnut-backed-chickadee.html" class="text-primary-color font-semibold hover:underline">Chestnut-backed Chickadee</a></li>
                             <li>Oak, Juniper & Bridled Titmice</li>
                             <li>White-breasted & Red-breasted Nuthatches</li>
                             <li>House & Carolina Wrens</li>
@@ -106,7 +107,7 @@
 
     </main>
 
-    <footer class="bg-gray-800 text-white py-6 mt-12">
+    <footer class="text-white py-6 mt-12" style="background-color: var(--text-color);">
         <div class="container mx-auto px-6 text-center text-sm">
             <p>&copy; 2025 Perdignus LLC. All Rights Reserved.</p>
         </div>
