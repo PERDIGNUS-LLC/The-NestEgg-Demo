@@ -20,7 +20,7 @@
         }
         body {
             font-family: 'Inter', sans-serif;
-            background-color: var(--secondary-color); /* Use Off-White for main page background */
+            background-color: var(--secondary-color);
             color: var(--text-color);
         }
         .font-serif-elegant {
@@ -35,10 +35,28 @@
             opacity: 1;
             transform: translateY(0);
         }
-        .glassmorphism {
-            background: rgba(244, 244, 242, 0.6); /* Use Off-White with transparency */
+        /* --- REFINED HEADER STYLE --- */
+        header {
+            background: rgba(244, 244, 242, 0.8); /* Slightly more opaque for better legibility */
             backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(45, 58, 50, 0.1);
+        }
+        header nav a {
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        header nav a:not(.cta-button)::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 1px;
+            bottom: -4px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+        header nav a:hover:not(.cta-button)::after {
+            width: 100%;
         }
         /* --- Custom Color Classes --- */
         .bg-primary { background-color: var(--primary-color); }
@@ -68,35 +86,36 @@
 </head>
 <body class="overflow-x-hidden">
 
-    <header class="fixed top-0 left-0 right-0 z-50 glassmorphism">
-        <nav class="container mx-auto px-6 py-3 flex flex-col md:flex-row justify-between items-center">
-            <div class="flex items-center space-x-3 mb-3 md:mb-0">
-                <img src="OFFICIAL NE.png" alt="The NestEgg Logo" class="w-12 h-12">
-                <h1 class="text-3xl font-bold" style="color: var(--primary-color);">The NestEgg<sup>&trade;</sup></h1>
+    <header class="fixed top-0 left-0 right-0 z-50 border-b border-black/10">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="flex items-center space-x-3">
+                <img src="OFFICIAL NE.png" alt="The NestEgg Logo" class="w-10 h-10">
+                <span class="font-serif-elegant text-2xl font-bold" style="color: var(--primary-color);">The NestEgg&trade;</span>
+            </a>
+            
+            <div class="hidden md:flex items-center space-x-8 text-sm uppercase tracking-wider">
+                <a href="#about" class="font-medium" style="color: var(--text-color);">The Design</a>
+                <a href="#crisis" class="font-medium" style="color: var(--text-color);">The Crisis</a>
+                <a href="#founder" class="font-medium" style="color: var(--text-color);">The Founder</a>
             </div>
-            <div class="flex items-center space-x-2">
-                <a href="Birds.html" class="px-4 py-2 text-sm font-medium text-gray-700 bg-white/50 rounded-lg hover:bg-white transition-colors text-center">Bird Guide</a>
-                <a href="mailto:perdignusllc@gmail.com" class="px-4 py-2 text-sm font-medium text-gray-700 bg-white/50 rounded-lg hover:bg-white transition-colors text-center">Contact</a>
-                <button class="order-scroll px-4 py-2 text-sm font-bold text-white bg-accent-color rounded-lg hover:bg-accent-dark transition-colors text-center">Buy Now</button>
+            
+            <div class="flex items-center">
+                <button class="order-scroll px-6 py-2 text-sm font-bold text-white bg-accent-color rounded-full hover:bg-accent-dark transition-colors cta-button">
+                    Order Now
+                </button>
             </div>
         </nav>
     </header>
-
     <main>
         <section class="min-h-screen flex flex-col justify-center items-center text-center px-6 relative" style="background-image: url('NestEgg in Tree.png'); background-size: cover; background-position: center;">
-            
             <div class="absolute inset-0 bg-black opacity-30"></div>
-        
             <div class="relative z-10 text-white">
-        
                 <h1 class="font-serif-elegant text-6xl md:text-8xl font-bold tracking-wider">
                     The NestEgg&trade;
                 </h1>
-        
                 <p class="text-lg md:text-xl tracking-widest uppercase mt-4" style="letter-spacing: 0.2em;">
-                    Sustainable &bull; Protective &bull; Biomimetic
+                    Engineered &bull; Enduring &bull; Intentional
                 </p>
-        
             </div>
         </section>
         <section id="about" class="py-20 bg-white">
@@ -273,13 +292,21 @@
         </section>
     </main>
 
-    <footer class="text-white py-6" style="background-color: var(--text-color);">
-        <div class="container mx-auto px-6 text-center text-sm">
-            <p>&copy; 2025 Perdignus LLC. All Rights Reserved.</p>
-            <p>The NestEgg<sup>&trade;</sup> is a brand of Perdignus LLC. Data on bird populations sourced from the 2022 State of the Birds Report.</p>
+    <footer class="py-12" style="background-color: var(--text-color);">
+        <div class="container mx-auto px-6 text-center text-gray-400">
+            <a href="#" class="flex items-center justify-center space-x-3 mb-6">
+                <img src="OFFICIAL NE.png" alt="The NestEgg Logo" class="w-10 h-10">
+                <span class="font-serif-elegant text-2xl font-bold text-white">The NestEgg&trade;</span>
+            </a>
+            <div class="flex justify-center items-center space-x-6 text-xs uppercase tracking-wider mb-6">
+                <a href="Birds.html" class="hover:text-white transition-colors">Bird Guide</a>
+                <a href="#purchase" class="hover:text-white transition-colors">Order</a>
+                <a href="mailto:perdignusllc@gmail.com" class="hover:text-white transition-colors">Contact</a>
+            </div>
+            <p class="text-xs">&copy; 2025 Perdignus LLC. All Rights Reserved.</p>
+            <p class="text-xs mt-1">A solution to the avian housing crisis.</p>
         </div>
     </footer>
-
     <div id="thank-you-popup">
         Thanks for joining the waitlist!
     </div>
@@ -310,7 +337,7 @@
             }
         });
 
-        // Smooth scroll for "Order Now" and header "Buy Now" buttons
+        // Smooth scroll for "Order Now" buttons
         document.querySelectorAll('.order-scroll').forEach(button => {
             button.addEventListener('click', (e) => {
                 e.preventDefault();
