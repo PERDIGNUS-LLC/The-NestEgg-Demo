@@ -1,16 +1,21 @@
-// This is the content for main.js
 document.addEventListener("DOMContentLoaded", function() {
     // Fetch and insert the header
     fetch("header.html")
         .then(response => response.text())
         .then(data => {
-            document.getElementById("header-placeholder").innerHTML = data;
+            const headerPlaceholder = document.getElementById("header-placeholder");
+            if (headerPlaceholder) {
+                headerPlaceholder.innerHTML = data;
+            }
         });
 
     // Fetch and insert the footer
     fetch("footer.html")
         .then(response => response.text())
         .then(data => {
-            document.getElementById("footer-placeholder").innerHTML = data;
+            const footerPlaceholder = document.getElementById("footer-placeholder");
+            if (footerPlaceholder) {
+                footerPlaceholder.innerHTML = data;
+            }
         });
 });
