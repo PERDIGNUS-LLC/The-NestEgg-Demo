@@ -17,34 +17,27 @@
         .page-hero { max-width: 1100px; margin: 2rem auto; text-align: center; }
         .page-hero h1 { font-family: var(--serif); font-size: 2.8rem; }
         .birds-grid { max-width: 1100px; margin: 2rem auto 4rem; padding: 0 1rem; display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; }
-        
-        /* Card Flip Styles */
         .card-scene { perspective: 1000px; cursor: pointer; }
-        .card { width: 100%; height: 300px; position: relative; transform-style: preserve-3d; transition: transform 0.6s; }
+        .card { width: 100%; height: 340px; position: relative; transform-style: preserve-3d; transition: transform 0.6s; } /* Increased height */
         .card.is-flipped { transform: rotateY(180deg); }
         .card-face { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; background: var(--card); border-radius: 12px; box-shadow: 0 6px 18px var(--shadow); overflow: hidden; }
         .card-face-front { display: flex; flex-direction: column; }
-        .card-face-front img { width: 100%; height: 220px; object-fit: cover; object-position: top; }
-        .card-face-front h3 { font-family: var(--serif); text-align: center; margin: 1rem 0; font-size: 1.2rem; }
-        .card-face-back { transform: rotateY(180deg); padding: 1rem; display: flex; flex-direction: column; font-size: 0.85rem; color: var(--muted); }
-        .card-face-back h4 { font-family: var(--serif); margin: 0 0 0.5rem; color: var(--charcoal); }
+        .card-face-front img { width: 100%; height: 240px; object-fit: cover; object-position: top; }
+        .card-face-front h3 { font-family: var(--serif); text-align: center; margin: 1.5rem 0; font-size: 1.2rem; }
+        .card-face-back { transform: rotateY(180deg); padding: 1.2rem; display: flex; flex-direction: column; font-size: 0.8rem; color: var(--muted); }
+        .card-face-back h4 { font-family: var(--serif); margin: 0 0 0.5rem; color: var(--charcoal); font-size: 1rem; }
         .card-face-back p { margin: 0 0 0.8rem; }
-        .help-btn { background: var(--slate-blue); color: white; border: none; padding: 0.6rem; border-radius: 8px; font-weight: 700; width: 100%; cursor: pointer; margin-top: auto; }
+        .help-btn { background: var(--slate-blue); color: white; border: none; padding: 0.7rem; border-radius: 8px; font-weight: 700; width: 100%; cursor: pointer; margin-top: auto; }
         
         @media (max-width: 900px) { .birds-grid { grid-template-columns: repeat(3, 1fr); } }
-        @media (max-width: 680px) { .birds-grid { grid-template-columns: repeat(2, 1fr); } }
-        @media (max-width: 480px) { .birds-grid { grid-template-columns: 1fr; } }
+        @media (max-width: 680px) { .birds-grid { grid-template-columns: repeat(2, 1fr); padding: 0 2rem; } }
+        @media (max-width: 480px) { .birds-grid { grid-template-columns: 1fr; padding: 0 2rem; } }
     </style>
 </head>
 <body>
     <div id="header-placeholder"></div>
-
-    <section class="page-hero">
-        <h1>The Birds We Build For</h1>
-    </section>
-
+    <section class="page-hero"><h1>The Birds We Build For</h1></section>
     <main id="birdsGrid" class="birds-grid"></main>
-
     <div id="footer-placeholder"></div>
 
     <script src="main.js" defer></script>
@@ -56,7 +49,6 @@
                 birdsData.forEach(bird => {
                     const scene = document.createElement('div');
                     scene.className = 'card-scene';
-
                     const card = document.createElement('div');
                     card.className = 'card';
                     card.innerHTML = `
@@ -72,10 +64,8 @@
                             <button class="help-btn" data-product="${bird.product}" data-price-id="${bird.priceId}">Help This Bird</button>
                         </div>
                     `;
-                    
                     scene.appendChild(card);
                     grid.appendChild(scene);
-
                     scene.addEventListener('click', (e) => {
                         if (!e.target.classList.contains('help-btn')) {
                             card.classList.toggle('is-flipped');
