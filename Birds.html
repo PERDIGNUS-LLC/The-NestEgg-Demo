@@ -1,197 +1,89 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width,initial-scale=1"/>
-    <title>The Birds We Build For | THE NestEgg™</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The Birds | THE NestEgg™</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <script src="https://js.stripe.com/v3/"></script>
     <style>
         :root {
-            --primary-green: #165044;
-            --slate-blue: #6b8ca4;
-            --charcoal: #2c2c2c;
-            --muted: #6e6e6e;
-            --bg: #faf9f7;
-            --card: #ffffff;
+            --primary-green: #165044; --slate-blue: #6b8ca4; --charcoal: #2c2c2c;
+            --muted: #6e6e6e; --bg: #faf9f7; --card: #ffffff;
             --shadow: rgba(18, 24, 20, 0.06);
-            --serif: 'Playfair Display', serif;
-            --brand: 'Cinzel', serif;
-            --sans: 'Inter', sans-serif;
+            --serif: 'Playfair Display', serif; --sans: 'Inter', sans-serif;
         }
-        * { box-sizing: border-box; }
-        body {
-            margin: 0;
-            font-family: var(--sans);
-            background: var(--bg);
-            color: var(--charcoal);
-            -webkit-font-smoothing: antialiased;
-        }
-        header {
-            backdrop-filter: blur(6px);
-            background: rgba(255, 255, 255, 0.90);
-            border-bottom: 1px solid rgba(18, 24, 20, 0.04);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 14px 20px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 16px;
-        }
-        .brand-link {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            text-decoration: none;
-        }
-        .brand-link img {
-            width: 48px;
-            height: 48px;
-            object-fit: contain;
-        }
-        .brand-title {
-            font-family: var(--brand);
-            font-weight: 700;
-            font-size: 18px;
-            color: var(--charcoal);
-            letter-spacing: .02em;
-        }
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 24px; /* Increased spacing */
-        }
-        .nav-links a, .cart-btn {
-            font-family: 'Inter', sans-serif;
-            font-weight: 600;
-            color: var(--charcoal);
-            text-decoration: none;
-            padding: 6px 8px;
-        }
-        .cart-btn {
-            background: var(--primary-green);
-            border: none;
-            color: white;
-            padding: 8px 12px;
-            border-radius: 10px;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            cursor: pointer;
-            box-shadow: 0 8px 20px rgba(22, 80, 68, 0.12);
-        }
-        .page-hero {
-            max-width: 1200px;
-            margin: 2rem auto 1rem;
-            padding: 1rem 1.5rem;
-            text-align: center;
-        }
-        .page-hero h1 {
-            font-family: var(--serif);
-            font-weight: 700;
-            font-size: 2.5rem;
-            margin: 0;
-            color: var(--charcoal);
-        }
-        .birds-grid {
-            max-width: 1200px;
-            margin: 2rem auto 4rem;
-            padding: 0 1.5rem;
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 2rem; /* Increased gap */
-        }
-        .card {
-            background: var(--card);
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 6px 18px var(--shadow);
-            display: flex;
-            flex-direction: column;
-            transition: transform .2s ease, box-shadow .2s ease;
-        }
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 28px rgba(12, 16, 14, 0.1);
-        }
-        .card-media { height: 160px; } /* Smaller card image */
-        .card-media img { width: 100%; height: 100%; object-fit: cover; }
-        .card-body { padding: 1rem; flex-grow: 1; display: flex; flex-direction: column; }
-        .bird-name { font-family: var(--serif); font-size: 1.1rem; margin: 0 0 0.5rem 0; font-weight: 700; }
-        .bird-blurb { color: var(--muted); font-size: 0.9rem; line-height: 1.5; margin-bottom: 1rem; flex-grow: 1; }
-        .btn-primary {
-            background: var(--slate-blue);
-            color: white;
-            border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 700;
-            width: 100%;
-        }
-        @media (max-width: 1024px) { .birds-grid { grid-template-columns: repeat(3, 1fr); } }
-        @media (max-width: 768px) { .birds-grid { grid-template-columns: repeat(2, 1fr); } }
-        @media (max-width: 500px) { .birds-grid { grid-template-columns: 1fr; } }
+        body { margin: 0; font-family: var(--sans); background: var(--bg); color: var(--charcoal); }
+        .page-hero { max-width: 1100px; margin: 2rem auto; text-align: center; }
+        .page-hero h1 { font-family: var(--serif); font-size: 2.8rem; }
+        .birds-grid { max-width: 1100px; margin: 2rem auto 4rem; padding: 0 1rem; display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; }
+        
+        /* Card Flip Styles */
+        .card-scene { perspective: 1000px; cursor: pointer; }
+        .card { width: 100%; height: 300px; position: relative; transform-style: preserve-3d; transition: transform 0.6s; }
+        .card.is-flipped { transform: rotateY(180deg); }
+        .card-face { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; background: var(--card); border-radius: 12px; box-shadow: 0 6px 18px var(--shadow); overflow: hidden; }
+        .card-face-front { display: flex; flex-direction: column; }
+        .card-face-front img { width: 100%; height: 220px; object-fit: cover; object-position: top; }
+        .card-face-front h3 { font-family: var(--serif); text-align: center; margin: 1rem 0; font-size: 1.2rem; }
+        .card-face-back { transform: rotateY(180deg); padding: 1rem; display: flex; flex-direction: column; font-size: 0.85rem; color: var(--muted); }
+        .card-face-back h4 { font-family: var(--serif); margin: 0 0 0.5rem; color: var(--charcoal); }
+        .card-face-back p { margin: 0 0 0.8rem; }
+        .help-btn { background: var(--slate-blue); color: white; border: none; padding: 0.6rem; border-radius: 8px; font-weight: 700; width: 100%; cursor: pointer; margin-top: auto; }
+        
+        @media (max-width: 900px) { .birds-grid { grid-template-columns: repeat(3, 1fr); } }
+        @media (max-width: 680px) { .birds-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 480px) { .birds-grid { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
+    <div id="header-placeholder"></div>
 
-    <header>
-        <nav class="nav-container">
-            <a href="index.html" class="brand-link" aria-label="THE NestEgg home">
-                <img src="OFFICIAL NE.png" alt="THE NestEgg™ logo">
-                <span class="brand-title">THE NestEgg<sup>&trade;</sup></span>
-            </a>
-            <div class="nav-links">
-                <a href="index.html">Home</a>
-                <a href="Birds.html">Birds</a>
-                <a href="founder.html">Founder</a>
-                <button id="cartBtn" class="cart-btn">
-                    Cart <span id="navCartCount" style="background:rgba(255,255,255,0.12);padding:4px 8px;border-radius:999px;">0</span>
-                </button>
-            </div>
-        </nav>
-    </header>
-
-    <section class="page-hero" aria-labelledby="birds-title">
-        <h1 id="birds-title">The Birds We Build For</h1>
+    <section class="page-hero">
+        <h1>The Birds We Build For</h1>
     </section>
 
-    <main class="birds-grid" id="birdsGrid" aria-live="polite">
-        </main>
+    <main id="birdsGrid" class="birds-grid"></main>
 
-    <footer></footer>
+    <div id="footer-placeholder"></div>
 
+    <script src="main.js" defer></script>
     <script src="bird-data.js"></script>
-
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const grid = document.getElementById('birdsGrid');
             if (grid && typeof birdsData !== 'undefined') {
                 birdsData.forEach(bird => {
-                    const card = document.createElement('article');
+                    const scene = document.createElement('div');
+                    scene.className = 'card-scene';
+
+                    const card = document.createElement('div');
                     card.className = 'card';
                     card.innerHTML = `
-                        <div class="card-media">
-                            <img src="${bird.imageUrl}" alt="${bird.name}" onerror="this.style.display='none'">
+                        <div class="card-face card-face-front">
+                            <img src="${bird.imageUrl}" alt="${bird.name}">
+                            <h3>${bird.name}</h3>
                         </div>
-                        <div class="card-body">
-                            <h4 class="bird-name">${bird.name}</h4>
-                            <p class="bird-blurb">${bird.blurb}</p>
-                            <button class="btn-primary help-btn" data-product="${bird.product}" data-price-id="${bird.priceId}">Help This Bird</button>
+                        <div class="card-face card-face-back">
+                            <h4>${bird.name}</h4>
+                            <p>${bird.blurb}</p>
+                            <p><strong>Mounting:</strong> 4-15 ft, on tree or post.</p>
+                            <p><strong>Orientation:</strong> Away from prevailing winds.</p>
+                            <button class="help-btn" data-product="${bird.product}" data-price-id="${bird.priceId}">Help This Bird</button>
                         </div>
                     `;
-                    grid.appendChild(card);
+                    
+                    scene.appendChild(card);
+                    grid.appendChild(scene);
+
+                    scene.addEventListener('click', (e) => {
+                        if (!e.target.classList.contains('help-btn')) {
+                            card.classList.toggle('is-flipped');
+                        }
+                    });
                 });
             }
         });
     </script>
-
 </body>
 </html>
