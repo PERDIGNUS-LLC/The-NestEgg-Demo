@@ -1,16 +1,18 @@
-<header class="sticky top-0 z-50 bg-white/80 backdrop-blur border-b border-gray-200">
-  <nav class="container mx-auto px-4 sm:px-6 py-3 flex justify-between items-center">
-    <a href="index.html#top" class="flex items-center space-x-3">
-      <img src="OFFICIAL NE.png" alt="The NestEgg Logo" class="w-12 h-12">
-      <h1 class="text-2xl md:text-3xl font-bold text-gray-800 hover:text-black transition">
-        The NestEgg<sup>&trade;</sup>
-      </h1>
+<!-- header.html -->
+<header style="backdrop-filter: blur(6px); background: rgba(255,255,255,0.90); border-bottom:1px solid rgba(18,24,20,0.04);">
+  <nav style="max-width:1200px;margin:0 auto;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;gap:16px;">
+    <a href="index.html#top" class="brand" aria-label="THE NestEgg home" style="display:flex;align-items:center;gap:12px;text-decoration:none;">
+      <img src="OFFICIAL NE.png" alt="THE NestEgg™ logo" style="width:48px;height:48px;object-fit:contain">
+      <span style="font-family: 'Cinzel', serif; font-weight:700; font-size:18px; color:#2c2c2c; letter-spacing:.02em;">THE NestEgg<sup>&trade;</sup></span>
     </a>
-    <div class="flex items-center space-x-4">
-      <a href="Birds.html" class="text-gray-700 hover:text-black font-medium">Birds</a>
-      <a href="founder.html" class="text-gray-700 hover:text-black font-medium">Founder</a>
-      <button id="cartButton" class="bg-[#d9a443] text-white px-4 py-2 rounded-lg font-semibold hover:bg-yellow-600 transition">
-        Cart
+
+    <div style="display:flex;align-items:center;gap:18px;">
+      <a href="index.html" style="font-family:Inter, sans-serif; font-weight:600; color:#2c2c2c; text-decoration:none; padding:6px 8px;">Home</a>
+      <a href="Birds.html" style="font-family:Inter, sans-serif; font-weight:600; color:#2c2c2c; text-decoration:none; padding:6px 8px;">Birds</a>
+      <a href="founder.html" style="font-family:Inter, sans-serif; font-weight:600; color:#2c2c2c; text-decoration:none; padding:6px 8px;">Founder</a>
+
+      <button id="cartBtn" style="background:#165044;border:none;color:white;padding:8px 12px;border-radius:10px;display:inline-flex;align-items:center;gap:8px;cursor:pointer;font-weight:700;box-shadow:0 8px 20px rgba(22,80,68,0.12)">
+        Cart <span id="navCartCount" style="background:rgba(255,255,255,0.12);padding:4px 8px;border-radius:999px;font-weight:700;">0</span>
       </button>
     </div>
   </nav>
