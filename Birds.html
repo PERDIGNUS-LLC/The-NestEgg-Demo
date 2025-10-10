@@ -1,200 +1,538 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NestEgg | Birds</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@300;400;600&family=Libre+Baskerville:ital@1&display=swap" rel="stylesheet">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>The Birds We Build For | THE NestEgg™</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;800&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <!-- Stripe (replace public key if needed) -->
+  <script src="https://js.stripe.com/v3/"></script>
+
   <style>
-    :root {
-      --primary: #2c2c2c;
-      --accent: #6b8c4f;
-      --bg: #faf9f6;
-      --text: #333;
-      --serif: 'Playfair Display', serif;
-      --sans: 'Inter', sans-serif;
-      --accent-font: 'Libre Baskerville', serif;
+    :root{
+      --bg: #faf9f7;
+      --card: #ffffff;
+      --text: #2c2c2c;
+      --muted: #6e6e6e;
+      --accent: #cfa754; /* warm gold */
+      --accent-dark: #b48f44;
+      --shadow: rgba(18,24,20,0.06);
+      --serif: "Playfair Display", serif;
+      --sans: "Inter", sans-serif;
     }
 
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-
-    body {
-      font-family: var(--sans);
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
-      overflow-x: hidden;
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      background:var(--bg);
+      color:var(--text);
+      font-family:var(--sans);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      overflow-x:hidden;
     }
 
-    header {
-      background: white;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-      position: sticky;
-      top: 0;
-      z-index: 100;
+    /* Header (consistent with index/founder) */
+    header{
+      position:sticky;
+      top:0;
+      z-index:1200;
+      backdrop-filter: blur(6px);
+      background: rgba(255,255,255,0.86);
+      border-bottom:1px solid rgba(40,40,40,0.04);
+      box-shadow: 0 2px 8px var(--shadow);
+    }
+    .nav {
+      max-width:1100px;
+      margin:0 auto;
+      padding:1rem 1.5rem;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:1rem;
+    }
+    .brand {
+      display:flex;
+      align-items:center;
+      gap:.75rem;
+      cursor:pointer;
+      text-decoration:none;
+      color:var(--text);
+    }
+    .brand img{width:44px;height:44px;object-fit:contain}
+    .brand .title{
+      font-family:var(--serif);
+      font-weight:700;
+      letter-spacing:.02em;
+      font-size:1.15rem;
+    }
+    nav .nav-right{display:flex;align-items:center;gap:1rem}
+    nav a {text-decoration:none;color:var(--text);font-weight:600}
+    .cart-btn{
+      background:var(--accent);
+      color:white;
+      border:none;
+      padding:.5rem .9rem;
+      border-radius:10px;
+      cursor:pointer;
+      display:inline-flex;
+      align-items:center;
+      gap:.6rem;
+      font-weight:700;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+    }
+    .cart-count {
+      background: rgba(0,0,0,0.08);
+      padding: .12rem .5rem;
+      border-radius:999px;
+      font-size:0.85rem;
+      min-width:26px;
+      text-align:center;
+      color:#111;
     }
 
-    nav {
-      max-width: 1100px;
-      margin: auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 1.5rem 2rem;
+    /* Page header / hero */
+    .page-hero{
+      max-width:1200px;
+      margin: 2.5rem auto 1.25rem;
+      padding: 0 1.5rem;
+      text-align:center;
+    }
+    .page-hero h1{
+      font-family:var(--serif);
+      font-weight:800;
+      font-size:2.6rem;
+      margin:0;
+      color:var(--text);
+    }
+    .page-hero p{
+      margin-top:.6rem;
+      color:var(--muted);
+      max-width:900px;
+      margin-left:auto;
+      margin-right:auto;
+      font-size:1.05rem;
     }
 
-    nav a {
-      text-decoration: none;
-      color: var(--primary);
-      margin-left: 1.5rem;
-      font-weight: 500;
-      transition: color 0.3s;
+    /* grid */
+    .container{
+      max-width:1200px;
+      margin:2rem auto 4rem;
+      padding:0 1.5rem;
+    }
+    .birds-grid{
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px,1fr));
+      gap:1.6rem;
+      margin-top:1.6rem;
     }
 
-    nav a:hover { color: var(--accent); }
+    .card{
+      background:var(--card);
+      border-radius:14px;
+      overflow:hidden;
+      box-shadow: 0 8px 22px var(--shadow);
+      transition: transform .28s cubic-bezier(.2,.9,.3,1), box-shadow .28s;
+      display:flex;
+      flex-direction:column;
+      min-height:360px;
+    }
+    .card:hover{ transform: translateY(-6px); box-shadow: 0 14px 40px rgba(14,20,16,0.12) }
 
-    .hero {
-      text-align: center;
-      padding: 7rem 2rem 5rem;
-      background: linear-gradient(to bottom right, #f3f1ed, #fafaf8);
+    .card-media{
+      width:100%;
+      height:200px;
+      background:#e9e7e3;
+      display:block;
+    }
+    .card-media img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
     }
 
-    .hero h1 {
-      font-family: var(--serif);
-      font-size: 3rem;
-      color: var(--primary);
-      margin-bottom: 1rem;
+    .card-body{ padding:1.25rem 1.25rem 1.6rem; flex:1; display:flex; flex-direction:column }
+    .bird-name{
+      font-family:var(--serif);
+      font-size:1.15rem;
+      margin:0 0 .35rem 0;
+      color:var(--text);
+    }
+    .bird-blurb{
+      color:var(--muted);
+      font-size:0.96rem;
+      line-height:1.45;
+      margin-bottom:auto;
     }
 
-    .hero p {
-      max-width: 700px;
-      margin: 0 auto;
-      font-size: 1.15rem;
-      color: #555;
+    .card-actions{
+      margin-top:1.15rem;
+      display:flex;
+      gap:.6rem;
+      align-items:center;
+    }
+    .btn-ghost{
+      border:1px solid rgba(0,0,0,0.06);
+      background:transparent;
+      padding:.55rem .9rem;
+      border-radius:8px;
+      color:var(--text);
+      font-weight:600;
+      text-decoration:none;
+      display:inline-flex;
+      align-items:center;
+      gap:.5rem;
+      cursor:pointer;
+    }
+    .btn-primary{
+      background:var(--accent);
+      color:white;
+      padding:.6rem 1rem;
+      border-radius:9px;
+      font-weight:700;
+      border:none;
+      cursor:pointer;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+    }
+    .btn-primary:hover{ background:var(--accent-dark) }
+
+    /* modal overlay */
+    .overlay{
+      position:fixed;
+      inset:0;
+      background:rgba(9,12,10,0.48);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding:1.2rem;
+      z-index:1400;
+    }
+    .overlay.show{ display:flex }
+
+    .modal{
+      width:100%;
+      max-width:680px;
+      background:var(--card);
+      border-radius:12px;
+      padding:1.6rem;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.18);
+    }
+    .modal h3{ margin:0; font-family:var(--serif); font-size:1.3rem }
+    .modal p{ color:var(--muted); margin-top:.6rem }
+
+    /* cart modal specifics */
+    .cart-list{ margin-top:1rem; }
+    .cart-item{ display:flex; gap:.9rem; align-items:center; padding:.6rem 0; border-bottom: 1px solid rgba(14,20,16,0.04) }
+    .cart-item:last-child{ border-bottom:none }
+    .cart-item .ci-name{ font-weight:700; font-size:0.98rem }
+    .cart-actions{ display:flex; gap:.8rem; justify-content:flex-end; margin-top:1rem }
+
+    footer{
+      padding:2.4rem 1.25rem;
+      text-align:center;
+      color:var(--muted);
+      border-top:1px solid rgba(0,0,0,0.03);
+      background:transparent;
     }
 
-    section {
-      max-width: 1100px;
-      margin: 4rem auto;
-      padding: 0 2rem;
-    }
-
-    .bird-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 2rem;
-    }
-
-    .bird {
-      background: white;
-      border-radius: 14px;
-      overflow: hidden;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .bird:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
-    }
-
-    .bird img {
-      width: 100%;
-      height: 200px;
-      object-fit: cover;
-    }
-
-    .bird-info {
-      padding: 1.5rem;
-    }
-
-    .bird-info h3 {
-      font-family: var(--serif);
-      margin-bottom: 0.6rem;
-      color: var(--primary);
-    }
-
-    .bird-info p {
-      font-size: 0.95rem;
-      color: #555;
-    }
-
-    .quote {
-      font-family: var(--accent-font);
-      text-align: center;
-      font-size: 1.1rem;
-      margin: 4rem auto;
-      color: #666;
-      max-width: 700px;
-    }
-
-    footer {
-      background: #1f1f1f;
-      color: #ddd;
-      padding: 3rem 2rem;
-      text-align: center;
-      font-size: 0.9rem;
-    }
-
-    footer a {
-      color: var(--accent);
-      text-decoration: none;
-    }
-
-    @media (max-width: 600px) {
-      .hero h1 { font-size: 2.3rem; }
+    @media (max-width:720px){
+      .page-hero h1{font-size:2rem}
+      .card-media{height:170px}
     }
   </style>
 </head>
 <body>
+
+  <!-- Header -->
   <header>
-    <nav>
-      <div class="logo" style="font-family: var(--serif); font-weight:700; font-size:1.4rem;">NestEgg</div>
-      <div>
-        <a href="index.html">Home</a>
-        <a href="Birds.html">Birds</a>
-        <a href="founder.html">Founder</a>
-      </div>
-    </nav>
-  </header>
+    <div class="nav">
+      <a class="brand" href="index.html#top" aria-label="THE NestEgg home">
+        <img src="OFFICIAL NE.png" alt="THE NestEgg™ logo">
+        <div class="title">THE NestEgg<sup>&trade;</sup></div>
+      </a>
 
-  <section class="hero">
-    <h1>The Birds We Build For</h1>
-    <p>Every NestEgg is inspired by the species it serves. From the shape of the entrance to the depth of the chamber, design meets biology — ensuring every guest feels at home.</p>
-  </section>
-
-  <section>
-    <div class="bird-grid">
-      <div class="bird">
-        <img src="placeholder-bird1.jpg" alt="Eastern Bluebird">
-        <div class="bird-info">
-          <h3>Eastern Bluebird</h3>
-          <p>A symbol of renewal and joy, the bluebird thrives in open fields and quiet gardens — precisely the habitat NestEgg helps protect.</p>
-        </div>
-      </div>
-
-      <div class="bird">
-        <img src="placeholder-bird2.jpg" alt="Carolina Wren">
-        <div class="bird-info">
-          <h3>Carolina Wren</h3>
-          <p>Bold and curious, this tiny engineer prefers covered perches and secure enclosures, making our rounded chambers its ideal refuge.</p>
-        </div>
-      </div>
-
-      <div class="bird">
-        <img src="placeholder-bird3.jpg" alt="Tree Swallow">
-        <div class="bird-info">
-          <h3>Tree Swallow</h3>
-          <p>A swift aerial acrobat, the Tree Swallow’s nesting needs inspired our design for optimized ventilation and easy seasonal cleaning.</p>
-        </div>
+      <div class="nav-right">
+        <a href="index.html" style="font-weight:700;color:var(--text);text-decoration:none">Home</a>
+        <a href="founder.html" style="font-weight:700;color:var(--text);text-decoration:none">Founder</a>
+        <button id="openCart" class="cart-btn" aria-label="Open cart">
+          Cart <span id="cartCount" class="cart-count" style="margin-left:.5rem">0</span>
+        </button>
       </div>
     </div>
+  </header>
+
+  <!-- Page Hero -->
+  <section class="page-hero" role="region" aria-labelledby="birds-title">
+    <h1 id="birds-title">The Birds We Build For</h1>
+    <p>Every NestEgg™ is inspired by the species it serves. These pages and products are crafted to provide refuge, safety, and longevity for cavity-nesting birds around the continent.</p>
   </section>
 
-  <div class="quote">“We don’t give birds homes — we return the favor.”</div>
+  <!-- Grid -->
+  <main class="container" role="main">
+    <div id="birdsGrid" class="birds-grid" aria-live="polite">
+      <!-- Cards injected by JS -->
+    </div>
+  </main>
+
+  <!-- Add / Congrats Modal -->
+  <div id="modalAdd" class="overlay" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true">
+      <h3 id="modalAddTitle">Thank you — you made a difference</h3>
+      <p id="modalAddText">A NestEgg™ has been added to your cart.</p>
+
+      <div style="display:flex;gap:.6rem;margin-top:1rem;justify-content:flex-end">
+        <button id="modalKeep" class="btn-ghost">Keep shopping</button>
+        <button id="modalCheckout" class="btn-primary">Proceed to Checkout</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cart Modal -->
+  <div id="modalCart" class="overlay" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="cart-title">
+      <h3 id="cart-title">Your Cart</h3>
+      <p class="muted" style="margin-top:.4rem;color:var(--muted)">Review items before checking out.</p>
+
+      <div id="cartList" class="cart-list"></div>
+
+      <div class="cart-actions">
+        <button id="clearCart" class="btn-ghost">Clear Cart</button>
+        <button id="checkoutBtn" class="btn-primary">Proceed to Checkout</button>
+      </div>
+    </div>
+  </div>
 
   <footer>
-    <p>&copy; 2025 NestEgg. All rights reserved. | <a href="founder.html">About the Founder</a></p>
+    &copy; 2025 THE NestEgg™ — Crafted for a living ecosystem.
   </footer>
+
+<script>
+/* ============================
+   Data for birds (update as needed)
+   - filename: existing page in repo
+   - slug: used for image placeholder (images/<slug>.jpg) — replace later
+   - blurb: short blurb to show on card (no secrets)
+   - product: "NestEgg™" or "NutHatch™" (used by cart)
+   - priceId: Stripe Price ID (replace with real)
+   ============================ */
+const birdsData = [
+  { filename:'bluebirds.html', slug:'bluebirds', name:'North American Bluebirds', blurb:'Including the Eastern, Western, and Mountain Bluebird — a conservation success story thanks to nesting box programs.', product:'NestEgg™', priceId:'price_1SAZoR4r07ISOh8O9rWFyXle' },
+  { filename:'boreal-chickadee.html', slug:'boreal-chickadee', name:'Boreal Chickadee', blurb:'A hardy resident of the cold northern forests, distinguished by a brown cap, grayish-brown back, and reddish flanks.', product:'NestEgg™', priceId:'price_1SAZoR4r07ISOh8O9rWFyXle' },
+  { filename:'brown-headed-nuthatch.html', slug:'brown-headed-nuthatch', name:'Brown-headed Nuthatch', blurb:'A cooperative species found in pine forests, often observed in small family groups.', product:'NutHatch™', priceId:'price_NUT_example' },
+  { filename:'bridled-titmouse.html', slug:'bridled-titmouse', name:'Bridled Titmouse', blurb:'A small titmouse found in arid woodlands, known for its distinctive facial markings and lively calls.', product:'NestEgg™', priceId:'price_1SAZoR4r07ISOh8O9rWFyXle' },
+  { filename:'chestnut-backed-chickadee.html', slug:'chestnut-backed-chickadee', name:'Chestnut-backed Chickadee', blurb:'A coastal species with rich chestnut flanks — common in dense, mossy forests.', product:'NutHatch™', priceId:'price_NUT_example' },
+  { filename:'chickadees.html', slug:'chickadees', name:'Chickadees (various)', blurb:'Bold, inquisitive, and adaptable — chickadees favor cozy cavity spaces and stable shelter.', product:'NutHatch™', priceId:'price_NUT_example' },
+  { filename:'great-crested-flycatcher.html', slug:'great-crested-flycatcher', name:'Great Crested Flycatcher', blurb:'A bold, flycatching species that nests in cavities and tolerates a range of woodland habitats.', product:'NestEgg™', priceId:'price_1SAZoR4r07ISOh8O9rWFyXle' },
+  { filename:'juniper-titmouse.html', slug:'juniper-titmouse', name:'Juniper Titmouse', blurb:'Found in juniper and pinyon woodlands — small, vocal, and territorial during nesting season.', product:'NestEgg™', priceId:'price_1SAZoR4r07ISOh8O9rWFyXle' },
+  { filename:'lewis-woodpecker.html', slug:'lewis-woodpecker', name:"Lewis's Woodpecker", blurb:'A larger cavity nester known for its dark greenish plumage and unique feeding behavior.', product:'NestEgg™', priceId:'price_1SAZoR4r07ISOh8O9rWFyXle' },
+  { filename:'lucys-warbler.html', slug:'lucys-warbler', name:"Lucy’s Warbler", blurb:'A small, insectivorous warbler that nests in cavities, often in riparian and scrub habitats.', product:'NestEgg™', priceId:'price_1SAZoR4r07ISOh8O9rWFyXle' },
+  { filename:'prothonotary-warbler.html', slug:'prothonotary-warbler', name:'Prothonotary Warbler', blurb:'Brightly colored and wetland-associated, this species nests in tree cavities near waterways.', product:'NestEgg™', priceId:'price_1SAZoR4r07ISOh8O9rWFyXle' },
+  { filename:'pygmy-nuthatch.html', slug:'pygmy-nuthatch', name:'Pygmy Nuthatch', blurb:'Tiny, social nuthatches that favor pine forests and nest communally in cavities.', product:'NutHatch™', priceId:'price_NUT_example' },
+  { filename:'red-cockaded-woodpecker.html', slug:'red-cockaded-woodpecker', name:'Red-cockaded Woodpecker', blurb:'A federally endangered species requiring living old-growth pine habitat — highly specialized cavity user.', product:'NestEgg™', priceId:'price_1SAZoR4r07ISOh8O9rWFyXle' }
+];
+
+/* ---------- Utilities & cart management ---------- */
+// Simple cart stored in localStorage
+const STORAGE_KEY = 'nestegg_cart_v1';
+function loadCart(){
+  try{ const raw = localStorage.getItem(STORAGE_KEY); return raw ? JSON.parse(raw) : [] }
+  catch(e){ return [] }
+}
+function saveCart(cart){ localStorage.setItem(STORAGE_KEY, JSON.stringify(cart)) }
+function addToCart(item){
+  const cart = loadCart();
+  // merge if same priceId
+  const found = cart.find(i=>i.priceId === item.priceId);
+  if(found){ found.qty += item.qty || 1 }
+  else cart.push({ ...item, qty: item.qty || 1 });
+  saveCart(cart);
+  refreshCartUI();
+}
+
+/* ---------- render bird cards ---------- */
+const birdsGrid = document.getElementById('birdsGrid');
+
+function birdImageFor(slug){
+  // placeholder path — you will replace these with your selected images later
+  return `images/${slug}.jpg`;
+}
+
+function createCard(bird){
+  const el = document.createElement('article');
+  el.className = 'card';
+  el.innerHTML = `
+    <div class="card-media">
+      <img src="${birdImageFor(bird.slug)}" alt="${bird.name}" onerror="this.onerror=null;this.src='NestEgg in Tree.png'">
+    </div>
+    <div class="card-body">
+      <h3 class="bird-name">${bird.name}</h3>
+      <p class="bird-blurb">${bird.blurb}</p>
+
+      <div class="card-actions">
+        <a class="btn-ghost" href="${bird.filename}" aria-label="Learn more about ${bird.name}">Learn more</a>
+        <button class="btn-primary help-btn" data-name="${bird.name}" data-product="${bird.product}" data-price="${bird.priceId}">
+          Help This Bird
+        </button>
+      </div>
+    </div>
+  `;
+  return el;
+}
+
+function renderGrid(){
+  birdsGrid.innerHTML = '';
+  birdsData.forEach(b=>{
+    birdsGrid.appendChild(createCard(b));
+  });
+}
+
+/* ---------- modal & cart UI ---------- */
+const modalAdd = document.getElementById('modalAdd');
+const modalAddText = document.getElementById('modalAddText');
+const modalKeep = document.getElementById('modalKeep');
+const modalCheckout = document.getElementById('modalCheckout');
+
+const modalCart = document.getElementById('modalCart');
+const cartList = document.getElementById('cartList');
+const openCartBtn = document.getElementById('openCart');
+const cartCount = document.getElementById('cartCount');
+const clearCartBtn = document.getElementById('clearCart');
+const checkoutBtn = document.getElementById('checkoutBtn');
+
+function refreshCartUI(){
+  const cart = loadCart();
+  // update cart count
+  const totalQty = cart.reduce((s,i)=>s+i.qty,0);
+  cartCount.textContent = totalQty;
+
+  // if cart modal open, refresh list
+  if(modalCart.classList.contains('show')){
+    renderCartList();
+  }
+}
+
+function renderCartList(){
+  const cart = loadCart();
+  cartList.innerHTML = '';
+  if(cart.length === 0){
+    cartList.innerHTML = '<p style="color:var(--muted);padding:1rem 0">Your cart is empty.</p>';
+    return;
+  }
+  cart.forEach(item=>{
+    const row = document.createElement('div');
+    row.className = 'cart-item';
+    row.innerHTML = `
+      <div style="flex:1">
+        <div class="ci-name">${item.product}</div>
+        <div style="color:var(--muted);font-size:.93rem">${item.name || ''}</div>
+      </div>
+      <div style="min-width:56px;text-align:right;font-weight:700">${item.qty}×</div>
+    `;
+    cartList.appendChild(row);
+  });
+}
+
+/* ---------- event wiring ---------- */
+function openAddModal(product, birdName){
+  modalAddText.innerHTML = `Thank you for taking a step toward a better future.<br><strong>${product}</strong> has been added to your cart for <em>${birdName}</em>.`;
+  modalAdd.classList.add('show');
+  modalAdd.setAttribute('aria-hidden','false');
+}
+
+function closeAddModal(){
+  modalAdd.classList.remove('show');
+  modalAdd.setAttribute('aria-hidden','true');
+}
+
+function openCartModal(){
+  renderCartList();
+  modalCart.classList.add('show');
+  modalCart.setAttribute('aria-hidden','false');
+}
+
+function closeCartModal(){
+  modalCart.classList.remove('show');
+  modalCart.setAttribute('aria-hidden','true');
+}
+
+// Attach help buttons (delegation)
+document.addEventListener('click', (e)=>{
+  const btn = e.target.closest('.help-btn');
+  if(btn){
+    const product = btn.dataset.product;
+    const price = btn.dataset.price;
+    const name = btn.dataset.name;
+    // add to cart
+    addToCart({ product, priceId: price, name, qty:1 });
+    openAddModal(product, name);
+  }
+});
+
+// modal controls
+modalKeep.addEventListener('click', ()=> closeAddModal());
+modalCheckout.addEventListener('click', ()=> { closeAddModal(); openCartModal(); });
+
+// cart button
+openCartBtn.addEventListener('click', ()=> {
+  openCartModal();
+});
+
+// close overlay when clicking outside modal
+document.querySelectorAll('.overlay').forEach(ov=>{
+  ov.addEventListener('click', (evt)=>{
+    if(evt.target === ov){
+      ov.classList.remove('show');
+      ov.setAttribute('aria-hidden','true');
+    }
+  });
+});
+
+// clear cart
+clearCartBtn.addEventListener('click', ()=>{
+  localStorage.removeItem(STORAGE_KEY);
+  refreshCartUI();
+  renderCartList();
+});
+
+// checkout flow: redirect to Stripe Checkout using lineItems from cart
+checkoutBtn.addEventListener('click', async ()=>{
+  const cart = loadCart();
+  if(!cart.length) return;
+  // compose lineItems for Stripe
+  // NOTE: You must replace the priceId values in birdsData with your real Stripe Price IDs
+  const lineItems = cart.map(i=>({ price: i.priceId, quantity: i.qty }));
+  // Basic safety: if any item still uses placeholder price, prevent checkout
+  const invalid = lineItems.some(li => !li.price || li.price.includes('NUT_example') || li.price.includes('Prothonotary_Example') );
+  if(invalid){
+    alert('Checkout blocked: please replace placeholder Stripe price IDs with real price IDs in the site code.');
+    return;
+  }
+
+  // Redirect to Stripe Checkout
+  try {
+    const stripe = Stripe('pk_live_51SAWWc4r07ISOh8OcVgregz2KMNhcOa3oiiTrc3Sbm6PSZWqudP4bjvHykoLY2Dvc8S6TgNjdBEW0vPJQtJjNBVx0029IAXZvE'); // replace if needed
+    const { error } = await stripe.redirectToCheckout({
+      lineItems,
+      mode: 'payment',
+      successUrl: window.location.origin + '/index.html?purchase=success',
+      cancelUrl: window.location.href
+    });
+    if(error) console.error(error);
+  } catch(err){
+    console.error('Stripe checkout error', err);
+    alert('Unable to redirect to checkout. See console for details.');
+  }
+});
+
+/* ---------- init ---------- */
+renderGrid();
+refreshCartUI();
+
+</script>
 </body>
 </html>
