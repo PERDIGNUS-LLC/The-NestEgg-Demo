@@ -19,13 +19,13 @@
         .birds-grid { max-width: 1100px; margin: 2rem auto 4rem; padding: 0 1rem; display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; }
         
         .card-scene { perspective: 1000px; cursor: pointer; }
-        .card { width: 100%; height: 420px; position: relative; transform-style: preserve-3d; transition: transform 0.6s; }
+        .card { width: 100%; height: 440px; position: relative; transform-style: preserve-3d; transition: transform 0.6s; }
         .card.is-flipped { transform: rotateY(180deg); }
         .card-face { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; background: var(--card); border-radius: 12px; box-shadow: 0 6px 18px var(--shadow); overflow: hidden; display: flex; flex-direction: column; }
         
         .card-face-front img { width: 100%; height: 280px; object-fit: cover; object-position: top; }
-        .card-face-front .name-container { height: 140px; display: flex; align-items: center; justify-content: center; padding: 1rem; text-align: center;}
-        .card-face-front h3 { font-family: var(--serif); font-size: 1.2rem; line-height: 1.3; margin: 0; }
+        .card-face-front .name-container { min-height: 100px; display: flex; align-items: center; justify-content: center; padding: 0.5rem; text-align: center;}
+        .card-face-front h3 { font-family: var(--serif); font-size: 1.1rem; line-height: 1.3; margin: 0; }
         
         .card-face-back { transform: rotateY(180deg); padding: 1.5rem; justify-content: space-between; }
         .card-face-back .bird-title { font-family: var(--serif); font-size: 1.2rem; color: var(--charcoal); margin: 0 0 0.8rem; }
@@ -59,27 +59,16 @@
                     card.innerHTML = `
                         <div class="card-face card-face-front">
                             <img src="${bird.imageUrl}" alt="${bird.name}">
-                            <div class="name-container">
-                                <h3>${bird.name}</h3>
-                            </div>
+                            <div class="name-container"><h3>${bird.name}</h3></div>
                         </div>
                         <div class="card-face card-face-back">
                             <div>
                                 <h4 class="bird-title">${bird.name}</h4>
                                 <p class="blurb">${bird.blurb}</p>
                                 <div class="data-grid">
-                                    <div class="data-item">
-                                        <strong>Mounting Height</strong>
-                                        <span>${bird.mounting}</span>
-                                    </div>
-                                    <div class="data-item">
-                                        <strong>Spacing</strong>
-                                        <span>${bird.proximity}</span>
-                                    </div>
-                                    <div class="data-item">
-                                        <strong>Orientation</strong>
-                                        <span>${bird.orientation}</span>
-                                    </div>
+                                    <div class="data-item"><strong>Mounting Height</strong><span>${bird.mounting}</span></div>
+                                    <div class="data-item"><strong>Spacing</strong><span>${bird.proximity}</span></div>
+                                    <div class="data-item"><strong>Orientation</strong><span>${bird.orientation}</span></div>
                                 </div>
                             </div>
                             <button class="help-btn" data-product="${bird.product}" data-price-id="${bird.priceId}">Help This Bird</button>
@@ -88,7 +77,9 @@
                     scene.appendChild(card);
                     grid.appendChild(scene);
                     scene.addEventListener('click', (e) => {
-                        if (!e.target.classList.contains('help-btn')) {
+                        if (e.target.classList.contains('help-btn')) {
+                            console.log(`Added ${e.target.dataset.product} to cart.`);
+                        } else {
                             card.classList.toggle('is-flipped');
                         }
                     });
@@ -98,3 +89,4 @@
     </script>
 </body>
 </html>
+
