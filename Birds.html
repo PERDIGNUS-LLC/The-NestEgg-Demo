@@ -1,268 +1,268 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>The Birds | THE NestEgg™</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --green: #165044;
-            --blue: #6b8ca4;
-            --charcoal: #2c2c2c;
-            --muted: #6e6e6e;
-            --bg: #faf9f7;
-            --card: #ffffff;
-            --shadow: rgba(18,24,20,0.06);
-            --serif: 'Playfair Display', serif;
-            --sans: 'Inter', sans-serif;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Birds | THE NestEgg™</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --green: #165044;
+      --blue: #6b8ca4;
+      --charcoal: #2c2c2c;
+      --muted: #6e6e6e;
+      --bg: #faf9f7;
+      --card: #ffffff;
+      --shadow: rgba(18,24,20,0.06);
+      --serif: 'Playfair Display', serif;
+      --sans: 'Inter', sans-serif;
+    }
 
-        body { margin: 0; background: var(--bg); color: var(--charcoal); font-family: var(--sans); }
+    /* Page */
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--bg); color: var(--charcoal); font-family: var(--sans); -webkit-font-smoothing:antialiased; }
+    header { background: white; box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000; }
+    nav { max-width: 1100px; margin: auto; display:flex; align-items:center; justify-content:space-between; padding:1rem 2rem; }
+    nav a { text-decoration: none; color: var(--charcoal); font-weight: 500; }
 
-        header {
-            background: white; box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            position: sticky; top: 0; z-index: 1001; /* Higher z-index for header */
-        }
+    .page-hero { max-width: 1100px; margin: 1.4rem auto; text-align:center; }
+    .page-hero h1 { font-family: var(--serif); font-size: 2.4rem; margin: 0; }
 
-        nav {
-            max-width: 1100px; margin: auto;
-            display: flex; align-items: center; justify-content: space-between;
-            padding: 1rem 2rem;
-        }
+    /* Grid */
+    .birds-grid {
+      max-width: 1100px;
+      margin: 1.6rem auto 3rem;
+      padding: 0 1rem;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.25rem;
+    }
 
-        nav a { text-decoration: none; color: var(--charcoal); font-weight: 500; }
+    @media (max-width: 1000px) { .birds-grid { grid-template-columns: repeat(3, 1fr); } }
+    @media (max-width: 760px) { .birds-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 480px) { .birds-grid { grid-template-columns: 1fr; } }
 
-        .page-hero { max-width: 1100px; margin: 2rem auto; text-align: center; }
-        .page-hero h1 { font-family: var(--serif); font-size: 2.8rem; margin: 0; }
+    /* Scene & Card - three-sided */
+    .card-scene { perspective: 1400px; }
+    .card-scene.is-flipping { z-index: 30; position: relative; } /* keep active card above neighbors */
 
-        .birds-grid {
-            max-width: 1100px; margin: 2rem auto 4rem;
-            padding: 0 1rem; display: grid;
-            grid-template-columns: repeat(4, 1fr); gap: 2rem; /* Breathable spacing */
-        }
+    .card {
+      width: 100%;
+      height: 360px; /* reduced height */
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 700ms cubic-bezier(.2,.9,.2,1);
+      -webkit-tap-highlight-color: transparent;
+      --rotation: 0deg;
+      transform: rotateY(var(--rotation));
+    }
 
-        .card-scene { 
-            perspective: 1200px; 
-            cursor: pointer; 
-            position: relative; /* Needed for z-index context */
-            z-index: 1; /* Default z-index */
-        }
-        .card-scene.is-flipping { 
-            z-index: 100; /* Bring forward when flipping */
-        }
+    .card-face {
+      position: absolute;
+      inset: 0;
+      border-radius: 12px;
+      background: var(--card);
+      box-shadow: 0 6px 18px var(--shadow);
+      backface-visibility: hidden;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
 
-        .card {
-            width: 100%; height: 440px; position: relative;
-            transform-style: preserve-3d;
-            transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
-            transform: rotateY(var(--rotation, 0deg));
-        }
+    /* Front face */
+    .card-face.front {
+      padding: 0;
+      transform: rotateY(0deg) translateZ(30px);
+    }
+    .card-face.front img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      object-position: top;
+      display:block;
+    }
+    .card-face.front .name-container {
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding: 14px;
+      min-height: 64px;
+      text-align:center;
+    }
+    .card-face.front h3 {
+      margin: 0;
+      font-family: var(--serif);
+      font-size: 1.05rem;
+      line-height: 1.2;
+      color: var(--charcoal);
+      padding: 0 8px;
+    }
 
-        .card-face {
-            position: absolute; width: 100%; height: 100%;
-            border-radius: 12px; background: var(--card);
-            box-shadow: 0 6px 18px var(--shadow);
-            backface-visibility: hidden; overflow: hidden;
-            display: flex; flex-direction: column;
-        }
+    /* Middle face - info */
+    .card-face.middle {
+      transform: rotateY(120deg) translateZ(28px);
+      padding: 16px;
+      justify-content: space-between;
+    }
 
-        /* --- Front Face --- */
-        .card-face.front { padding: 0; justify-content: flex-start; }
-        .card-face.front img { width: 100%; height: 280px; object-fit: cover; object-position: top; }
-        .card-face.front .name-container { 
-            min-height: 100px; /* Guarantees consistent height */
-            display: flex; align-items: center; justify-content: center; 
-            padding: 1rem; text-align: center;
-        }
-        .card-face.front h3 { 
-            font-family: var(--serif); font-size: 1.1rem; 
-            line-height: 1.3; margin: 0; 
-        }
+    /* Back face - purchase */
+    .card-face.back {
+      transform: rotateY(240deg) translateZ(26px);
+      padding: 18px;
+      justify-content: space-between;
+    }
 
-        /* --- Middle and Back Faces --- */
-        .card-face.middle { transform: rotateY(180deg) translateZ(1px); }
-        .card-face.back { transform: rotateY(180deg) translateZ(2px); }
+    .bird-title { font-family: var(--serif); font-size: 1.1rem; margin: 0 0 8px; color: var(--charcoal); }
+    .blurb { font-size: 0.92rem; color: var(--muted); line-height: 1.45; margin-bottom: 10px; }
+    .data-grid { display:grid; grid-template-columns: 1fr 1fr; gap:8px; font-size: 0.85rem; color:var(--muted); }
+    .data-item strong { display:block; color:var(--charcoal); margin-bottom:4px; font-size:0.9rem; }
 
-        .card-face.middle, .card-face.back { 
-            padding: 1.5rem; 
-            justify-content: space-between; /* Pushes content and button apart */
-        }
+    .product-info { text-align:center; margin-top:6px; }
+    .product-info strong { display:block; font-family:var(--serif); font-size:1.25rem; margin-bottom:6px; color:var(--charcoal); }
+    .product-info span { color:var(--muted); font-size:1rem; }
 
-        .bird-title { font-family: var(--serif); font-size: 1.2rem; margin-bottom: 0.8rem; }
-        .blurb { font-size: 0.85rem; color: var(--muted); line-height: 1.5; margin-bottom: 1rem; }
-        .data-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; font-size: 0.8rem; }
-        .data-item strong { color: var(--charcoal); display: block; margin-bottom: 0.2rem; font-size: 0.85rem; }
+    .help-btn {
+      background: var(--green);
+      color: #fff;
+      border: none;
+      padding: 0.8rem;
+      border-radius: 8px;
+      font-weight: 700;
+      width: 100%;
+      cursor: pointer;
+      transition: background .18s;
+      font-size: 0.98rem;
+    }
+    .help-btn:hover { background: var(--blue); }
 
-        .product-info { text-align: center; }
-        .product-info strong { display: block; font-size: 1.5rem; font-family: var(--serif); margin-bottom: 0.5rem; }
-        .product-info span { font-size: 1.2rem; color: var(--muted); }
+    /* Small visual tweak for click affordance */
+    .card .click-hint { font-size: 0.82rem; color:var(--muted); text-align:center; margin-top:8px; }
 
-        .help-btn {
-            background: var(--green); color: #fff; border: none;
-            padding: 0.8rem; border-radius: 8px; font-weight: 700;
-            width: 100%; cursor: pointer; transition: background 0.2s; font-size: 1rem;
-        }
-        .help-btn:hover { background: var(--blue); }
-
-        footer { text-align:center; padding: 2rem; color: var(--muted); font-size: 0.9rem; border-top: 1px solid rgba(0,0,0,0.03); }
-        
-        @media (max-width: 900px) { .birds-grid { grid-template-columns: repeat(3, 1fr); } }
-        @media (max-width: 680px) { .birds-grid { grid-template-columns: repeat(2, 1fr); } }
-        @media (max-width: 480px) { .birds-grid { grid-template-columns: 1fr; } }
-    </style>
+    footer { text-align:center; padding: 2rem; color: #6e6e6e; font-size: 0.9rem; border-top: 1px solid rgba(0,0,0,0.03); }
+  </style>
 </head>
-
 <body>
-    <header>
-        <nav>
-            <a href="index.html" style="display:flex;align-items:center;gap:12px; text-decoration: none;">
-                <img src="OFFICIAL NE.png" alt="The NestEgg™ logo" style="width:48px;height:48px;object-fit:contain">
-                <span style="font-family:'Playfair Display',serif;font-size:1.4rem; color: var(--charcoal);">The NestEgg<sup>&trade;</sup></span>
-            </a>
-            <div style="display:flex;align-items:center;gap:1.5rem;">
-                <a href="index.html">Home</a>
-                <a href="Birds.html">Birds</a>
-                <a href="founder.html">Founder</a>
-                <button id="cartBtn" style="background:rgba(44,44,44,0.1);border:none;color:var(--charcoal);padding:8px 14px;border-radius:8px;display:inline-flex;align-items:center;gap:8px;cursor:pointer;font-weight:700;">
-                    Cart <span id="navCartCount" style="background:rgba(0,0,0,0.1);padding:4px 8px;border-radius:999px;">0</span>
-                </button>
-            </div>
-        </nav>
-    </header>
+  <header>
+    <nav>
+      <a href="index.html" style="display:flex;align-items:center;gap:12px; text-decoration:none;">
+        <img src="OFFICIAL NE.png" alt="The NestEgg™ logo" style="width:48px;height:48px;object-fit:contain">
+        <span style="font-family:'Playfair Display',serif;font-size:1.25rem; color:var(--charcoal);">The NestEgg<sup>&trade;</sup></span>
+      </a>
+      <div style="display:flex;align-items:center;gap:1rem;">
+        <a href="index.html">Home</a>
+        <a href="Birds.html" aria-current="page">Birds</a>
+        <a href="founder.html">Founder</a>
+        <button id="cartBtn" style="background:rgba(44,44,44,0.06);border:none;color:var(--charcoal);padding:8px 12px;border-radius:8px;display:inline-flex;align-items:center;gap:8px;cursor:pointer;font-weight:700;">
+          Cart <span id="navCartCount" style="background:rgba(0,0,0,0.06);padding:4px 8px;border-radius:999px;">0</span>
+        </button>
+      </div>
+    </nav>
+  </header>
 
-    <section class="page-hero"><h1>The Birds We Build For</h1></section>
-    <main id="birdsGrid" class="birds-grid"></main>
+  <section class="page-hero"><h1>The Birds We Build For</h1></section>
 
-    <footer>
-        <p>© 2025 The NestEgg™. All rights reserved.</p>
-    </footer>
+  <main id="birdsGrid" class="birds-grid" aria-live="polite"></main>
 
-    <script src="bird-data.js"></script>
-    <script>
+  <footer>
+    <p>© 2025 The NestEgg™. All rights reserved.</p>
+  </footer>
+
+  <script src="bird-data.js"></script>
+  <script>
     document.addEventListener("DOMContentLoaded", function() {
-        const grid = document.getElementById('birdsGrid');
-        if (!grid || typeof birdsData === 'undefined') return;
+      const grid = document.getElementById('birdsGrid');
+      if (!grid || typeof birdsData === 'undefined') return;
 
-        // Add price to bird data
-        birdsData.forEach(bird => {
-            bird.price = bird.product === 'NestEgg™' ? '49.00' : '39.00';
+      birdsData.forEach(bird => {
+        const scene = document.createElement('div');
+        scene.className = 'card-scene';
+
+        const card = document.createElement('div');
+        card.className = 'card';
+        // set CSS variable for rotation
+        card.style.setProperty('--rotation', '0deg');
+
+        // Build faces
+        card.innerHTML = `
+          <div class="card-face front" aria-hidden="false">
+            <img src="${bird.imageUrl}" alt="${bird.name}">
+            <div class="name-container"><h3>${bird.name}</h3></div>
+            <div class="click-hint" style="position:absolute;left:0;right:0;bottom:8px;">Tap card to learn more</div>
+          </div>
+
+          <div class="card-face middle" aria-hidden="true">
+            <div>
+              <h4 class="bird-title">${bird.name}</h4>
+              <p class="blurb">${bird.blurb}</p>
+              <div class="data-grid">
+                <div class="data-item"><strong>Mounting Height</strong><span>${bird.mounting}</span></div>
+                <div class="data-item"><strong>Spacing</strong><span>${bird.proximity}</span></div>
+                <div class="data-item"><strong>Orientation</strong><span>${bird.orientation}</span></div>
+              </div>
+            </div>
+            <div class="click-hint">Tap again to see how to help</div>
+          </div>
+
+          <div class="card-face back" aria-hidden="true">
+            <div class="product-info">
+              <strong>${bird.product}</strong>
+              <span>is recommended for this species.</span>
+            </div>
+            <button class="help-btn" data-product="${bird.product}" data-price="${bird.priceId}">Help This Bird</button>
+          </div>
+        `;
+
+        // append and wire
+        scene.appendChild(card);
+        grid.appendChild(scene);
+
+        // rotation state: 0 -> front, 1 -> middle, 2 -> back
+        let state = 0;
+
+        scene.addEventListener('click', (e) => {
+          // If they clicked the help button, handle add-to-cart separately and don't flip
+          if (e.target.closest('.help-btn')) {
+            const btn = e.target.closest('.help-btn');
+            // Example: add to cart (localStorage), you can extend this
+            const product = btn.dataset.product;
+            const price = btn.dataset.price;
+            const cartKey = 'nestegg_cart_v2';
+            const cart = JSON.parse(localStorage.getItem(cartKey) || '[]');
+            const found = cart.find(i => i.price === price);
+            if (found) found.qty += 1; else cart.push({ product, price, qty: 1 });
+            localStorage.setItem(cartKey, JSON.stringify(cart));
+            // update nav count
+            const total = cart.reduce((s,i)=>s+i.qty,0);
+            document.getElementById('navCartCount').textContent = total;
+            // lightweight feedback
+            btn.textContent = 'Added ✓';
+            btn.disabled = true;
+            setTimeout(()=>{ btn.textContent = 'Help This Bird'; btn.disabled = false; }, 1200);
+            e.stopPropagation();
+            return;
+          }
+
+          // flip behavior: cycle 0->1->2->0 using 120deg increments
+          state = (state + 1) % 3;
+          const angle = state * 120; // 0, 120, 240
+          // set CSS var instead of direct transform, keeps transitions consistent
+          card.style.setProperty('--rotation', angle + 'deg');
+
+          // show flipping z-index to prevent neighbors overlapping visually
+          scene.classList.add('is-flipping');
+          setTimeout(()=> scene.classList.remove('is-flipping'), 750); // slightly less than animation time
         });
+      });
 
-        birdsData.forEach(bird => {
-            const scene = document.createElement('div');
-            scene.className = 'card-scene';
-            const card = document.createElement('div');
-            card.className = 'card';
-            
-            let rotation = 0;
-
-            const frontFace = `
-                <div class="card-face front">
-                    <img src="${bird.imageUrl}" alt="${bird.name}">
-                    <div class="name-container"><h3>${bird.name}</h3></div>
-                </div>`;
-            
-            const middleFace = `
-                <div class="card-face middle">
-                    <div>
-                        <h4 class="bird-title">${bird.name}</h4>
-                        <p class="blurb">${bird.blurb}</p>
-                        <div class="data-grid">
-                            <div class="data-item"><strong>Mounting Height</strong><span>${bird.mounting}</span></div>
-                            <div class="data-item"><strong>Spacing</strong><span>${bird.proximity}</span></div>
-                            <div class="data-item"><strong>Orientation</strong><span>${bird.orientation}</span></div>
-                        </div>
-                    </div>
-                </div>`;
-
-            const backFace = `
-                <div class="card-face back">
-                    <div class="product-info">
-                        <strong>${bird.product}</strong>
-                        <span>$${bird.price}</span>
-                    </div>
-                    <button class="help-btn" data-product="${bird.product}">Help This Bird</button>
-                </div>`;
-
-            card.innerHTML = frontFace + middleFace + backFace;
-            
-            scene.appendChild(card);
-            grid.appendChild(scene);
-
-            scene.addEventListener('click', (e) => {
-                if (e.target.classList.contains('help-btn')) {
-                    console.log(`Added ${e.target.dataset.product} to cart`);
-                    e.stopPropagation();
-                    return;
-                }
-                
-                rotation = (rotation + 180); // Simple toggle for 2 faces for now
-                if (rotation >= 540) rotation = 0;
-
-                // Simple logic for 3 faces with 2 flips
-                if (rotation === 180) { // First flip, show details
-                     card.querySelector('.middle').style.transform = 'rotateY(0deg)';
-                     card.querySelector('.back').style.transform = 'rotateY(0deg)';
-                } else if (rotation === 360) { // Second flip, show purchase
-                    card.querySelector('.middle').style.opacity = '0';
-                    card.querySelector('.back').style.opacity = '1';
-                } else { // Flip back to front
-                    card.querySelector('.middle').style.opacity = '1';
-                    card.querySelector('.back').style.opacity = '0';
-                }
-                
-                card.style.transform = `rotateY(${rotation}deg)`;
-
-
-                // Handle overlap
-                scene.classList.add('is-flipping');
-                setTimeout(() => {
-                    scene.classList.remove('is-flipping');
-                }, 800);
-            });
-            // A simplified 3-face logic that should be more robust
-            const faces = [frontFace, middleFace, backFace];
-            let currentState = 0;
-
-            // Re-implementing a more stable 3-state flip
-            card.innerHTML = faces.join('');
-            const middleEl = card.querySelector('.middle');
-            const backEl = card.querySelector('.back');
-
-            // Hide back faces initially
-            middleEl.style.transform = 'rotateY(180deg)';
-            backEl.style.transform = 'rotateY(180deg)';
-            backEl.style.opacity = 0;
-
-
-            scene.addEventListener('click', (e) => {
-                 if (e.target.classList.contains('help-btn')) {
-                    console.log(`Added ${e.target.dataset.product} to cart`);
-                    e.stopPropagation(); return;
-                }
-                currentState = (currentState + 1) % 3;
-                
-                if(currentState === 0){ // Show front
-                    card.style.transform = 'rotateY(0deg)';
-                } else if (currentState === 1) { // Show middle
-                    middleEl.style.opacity = 1;
-                    backEl.style.opacity = 0;
-                    card.style.transform = 'rotateY(180deg)';
-                } else { // Show back
-                    middleEl.style.opacity = 0;
-                    backEl.style.opacity = 1;
-                    card.style.transform = 'rotateY(180deg)'; // Stay on back
-                }
-
-                 // Handle overlap
-                scene.classList.add('is-flipping');
-                setTimeout(() => scene.classList.remove('is-flipping'), 800);
-            });
-
-        });
+      // initialize cart count from storage
+      (function initCartCount(){
+        const cart = JSON.parse(localStorage.getItem('nestegg_cart_v2') || '[]');
+        const total = cart.reduce((s,i)=>s+i.qty,0);
+        const el = document.getElementById('navCartCount');
+        if (el) el.textContent = total;
+      })();
     });
-    </script>
+  </script>
 </body>
 </html>
-
