@@ -3,183 +3,47 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NestEgg | A New Home for Nature’s Architects</title>
+  <title>The NestEgg™ | A New Home for Nature’s Architects</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@300;400;600&family=Libre+Baskerville:ital@1&display=swap" rel="stylesheet">
   <style>
     :root {
-      --primary: #2c2c2c;
-      --accent: #6b8c4f;
-      --bg: #faf9f6;
-      --text: #333;
-      --serif: 'Playfair Display', serif;
-      --sans: 'Inter', sans-serif;
-      --accent-font: 'Libre Baskerville', serif;
+        --primary: #2c2c2c; --accent: #6b8c4f; --bg: #faf9f6;
+        --text: #333; --serif: 'Playfair Display', serif; --sans: 'Inter', sans-serif;
     }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: var(--sans);
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
-      overflow-x: hidden;
-    }
-
-    header {
-      background: white;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
-
-    nav {
-      max-width: 1100px;
-      margin: auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 1.5rem 2rem;
-    }
-
-    nav a {
-      text-decoration: none;
-      color: var(--primary);
-      margin-left: 1.5rem;
-      font-weight: 500;
-      transition: color 0.3s;
-    }
-
-    nav a:hover {
-      color: var(--accent);
-    }
-
-    .hero {
-      text-align: center;
-      padding: 8rem 2rem 6rem;
-      background: linear-gradient(to bottom right, #f3f1ed, #fafaf8);
-    }
-
-    .hero h1 {
-      font-family: var(--serif);
-      font-size: 3.2rem;
-      color: var(--primary);
-      margin-bottom: 1rem;
-    }
-
-    .hero p {
-      max-width: 700px;
-      margin: 0 auto;
-      font-size: 1.2rem;
-      color: #555;
-    }
-
-    .btn {
-      display: inline-block;
-      margin-top: 2rem;
-      background: var(--accent);
-      color: white;
-      padding: 0.8rem 1.8rem;
-      border-radius: 40px;
-      text-decoration: none;
-      transition: background 0.3s;
-    }
-
-    .btn:hover {
-      background: #597940;
-    }
-
-    section {
-      max-width: 1100px;
-      margin: 5rem auto;
-      padding: 0 2rem;
-    }
-
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 2rem;
-    }
-
-    .card {
-      background: white;
-      padding: 2rem;
-      border-radius: 14px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-      transition: transform 0.4s ease, box-shadow 0.4s ease;
-    }
-
-    .card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
-    }
-
-    .card h3 {
-      font-family: var(--serif);
-      margin-bottom: 1rem;
-      color: var(--primary);
-    }
-
-    .quote {
-      font-family: var(--accent-font);
-      font-size: 1.1rem;
-      color: #666;
-      text-align: center;
-      margin: 4rem auto;
-      max-width: 700px;
-    }
-
-    footer {
-      background: #1f1f1f;
-      color: #ddd;
-      padding: 3rem 2rem;
-      text-align: center;
-      font-size: 0.9rem;
-    }
-
-    footer a {
-      color: var(--accent);
-      text-decoration: none;
-    }
-
-    @media (max-width: 600px) {
-      .hero h1 {
-        font-size: 2.4rem;
-      }
-    }
+    body { font-family: var(--sans); background: var(--bg); color: var(--text); line-height: 1.6; margin: 0; }
+    .hero { text-align: center; padding: 4rem 2rem 6rem; background: linear-gradient(to bottom right, #f3f1ed, #fafaf8); }
+    .hero h1 { font-family: var(--serif); font-size: 3.2rem; color: var(--primary); margin-bottom: 1rem; }
+    .hero p { max-width: 700px; margin: 0 auto; font-size: 1.2rem; color: #555; }
+    .btn { display: inline-block; margin-top: 2rem; background: var(--accent); color: white; padding: 0.8rem 1.8rem; border-radius: 40px; text-decoration: none; }
+    section { max-width: 1100px; margin: 5rem auto; padding: 0 2rem; }
+    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; }
+    .card { background: white; padding: 2rem; border-radius: 14px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+    .card h3 { font-family: var(--serif); margin-bottom: 1rem; color: var(--primary); }
+    .quote { font-family: 'Libre Baskerville', serif; font-style: italic; font-size: 1.1rem; color: #666; text-align: center; margin: 4rem auto; max-width: 700px; }
+    @media (max-width: 600px) { .hero h1 { font-size: 2.4rem; } }
   </style>
 </head>
 <body>
-  <div id="header-placeholder"></div>
-  <section class="hero">
-    <h1>A New Home for Nature’s Architects</h1>
-    <p>Crafted with purpose and precision — NestEgg creates habitats that invite balance, beauty, and belonging into every garden.</p>
-    <a href="Birds.html" class="btn">Explore the Birds</a>
-  </section>
-  <section>
-    <div class="cards">
-      <div class="card">
-        <h3>Artisan Design</h3>
-        <p>Each NestEgg is sculpted through careful study of avian architecture and environmental harmony, ensuring safety, breathability, and natural appeal.</p>
-      </div>
-      <div class="card">
-        <h3>Science Meets Craft</h3>
-        <p>Our designs blend field research with craftsmanship — merging intuitive form with sustainable function.</p>
-      </div>
-      <div class="card">
-        <h3>Rooted in Conservation</h3>
-        <p>Every NestEgg helps restore the fragile balance between human creativity and the wild spaces that sustain us.</p>
-      </div>
-    </div>
-  </section>
+    <div id="header-placeholder"></div>
 
-  <div class="quote">“The best homes are not built — they are grown.”</div>
-  <div id="footer-placeholder"></div>  
-<script src="main.js" defer></script>
+    <section class="hero">
+        <h1>A New Home for Nature’s Architects</h1>
+        <p>Crafted with purpose and precision — NestEgg creates habitats that invite balance, beauty, and belonging into every garden.</p>
+        <a href="Birds.html" class="btn">Explore the Birds</a>
+    </section>
+
+    <section>
+        <div class="cards">
+            <div class="card"><h3>Artisan Design</h3><p>Each NestEgg is sculpted through careful study of avian architecture and environmental harmony.</p></div>
+            <div class="card"><h3>Science Meets Craft</h3><p>Our designs blend field research with craftsmanship — merging intuitive form with sustainable function.</p></div>
+            <div class="card"><h3>Rooted in Conservation</h3><p>Every NestEgg helps restore the fragile balance between human creativity and the wild spaces that sustain us.</p></div>
+        </div>
+    </section>
+
+    <div class="quote">“The best homes are not built — they are grown.”</div>
+    
+    <div id="footer-placeholder"></div>
+    <script src="main.js" defer></script>
 </body>
 </html>
+
