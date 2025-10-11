@@ -1,5 +1,5 @@
+// This script fetches and injects the header and footer
 document.addEventListener("DOMContentLoaded", function() {
-    // Fetch and insert the header
     fetch("header.html")
         .then(response => response.text())
         .then(data => {
@@ -9,7 +9,6 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         });
 
-    // Fetch and insert the footer
     fetch("footer.html")
         .then(response => response.text())
         .then(data => {
