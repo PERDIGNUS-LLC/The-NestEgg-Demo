@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TerraDignus | Advanced Wildlife Habitation</title>
+    <style>
+        /* --- RESET & VARIABLES --- */
+        :root {
+            --forest-green: #1A4D3E; /* Your Brand Green */
+            --clay: #8D7F73; /* NecTerra vibe */
+            --off-white: #F4F4F0;
+            --black: #111;
+            --orange: #FF6B35; /* The Bio-Seal Color */
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+        
+        body { background-color: var(--off-white); color: var(--black); line-height: 1.6; }
+
+        /* --- TYPOGRAPHY --- */
+        h1, h2, h3 { font-weight: 700; letter-spacing: -0.05em; }
+        .roman { font-family: 'Times New Roman', serif; letter-spacing: 0.1em; }
+        
+        /* --- HERO SECTION --- */
+        header {
+            height: 90vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: var(--forest-green);
+            color: white;
+            padding: 2rem;
+        }
+        .logo-container { max-width: 150px; margin-bottom: 2rem; }
+        header h1 { font-size: 4rem; margin-bottom: 0.5rem; }
+        header p { font-size: 1.2rem; opacity: 0.8; letter-spacing: 0.2em; text-transform: uppercase; }
+
+        /* --- PRODUCT GRID --- */
+        section { padding: 5rem 2rem; max-width: 1200px; margin: 0 auto; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+        
+        .product-card img {
+            width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        .product-card img:hover { transform: translateY(-5px); }
+        
+        .tag { 
+            display: inline-block; 
+            background: var(--black); 
+            color: white; 
+            padding: 5px 10px; 
+            font-size: 0.8rem; 
+            font-weight: bold; 
+            border-radius: 4px;
+            margin-bottom: 1rem;
+        }
+        
+        .pro-tag { background: var(--orange); } /* Highlights the Pro-Series */
+
+        /* --- PATENT SECTION --- */
+        .patents {
+            background: #e8e8e8;
+            padding: 4rem;
+            text-align: center;
+            margin-top: 4rem;
+            border-radius: 12px;
+        }
+        .patent-number { font-family: monospace; font-size: 1.2rem; color: var(--forest-green); }
+
+        /* --- FOOTER --- */
+        footer { 
+            text-align: center; 
+            padding: 3rem; 
+            background: var(--black); 
+            color: var(--off-white); 
+            margin-top: 5rem; 
+        }
+
+        /* Mobile Fix */
+        @media (max-width: 768px) {
+            .grid { grid-template-columns: 1fr; }
+            header h1 { font-size: 2.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <img src="assets/nuthatch_logo_white.png" alt="TerraDignus Logo" class="logo-container"> 
+        <h1>TerraDignus</h1>
+        <p class="roman">EST. MMXV</p>
+        <br>
+        <p>Conservation Engineering. Redefined.</p>
+    </header>
+
+    <section>
+        <div class="grid">
+            <div class="text-content">
+                <span class="tag">THE ECO-LINE</span>
+                <h2>The NestEgg™</h2>
+                <p class="roman">In-Situ Monolithic Composite</p>
+                <br>
+                <p>A revolution in sustainable housing. Utilizing our proprietary <strong>NecTerra™</strong> biocomposite, the NestEgg mimics the thermal mass and porosity of natural tree snags.</p>
+                <ul>
+                    <li>Biodegradable "Soft-Core" Construction</li>
+                    <li>Species-Specific Calibration System</li>
+                    <li>Zero-Waste Manufacturing</li>
+                </ul>
+            </div>
+            <div class="image-content">
+                <img src="assets/nestegg_render.jpg" alt="NestEgg Birdhouse">
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="grid">
+            <div class="image-content">
+                <img src="assets/nuthatch_render.jpg" alt="NutHatch Pro-Series">
+            </div>
+            <div class="text-content">
+                <span class="tag pro-tag">THE PRO-SERIES</span>
+                <h2>The NutHatch™</h2>
+                <p class="roman">High-Fidelity Collapsible Architecture</p>
+                <br>
+                <p>Tactical-grade protection for avian life. Featuring a rigid origami chassis and hermetic bio-seals, the NutHatch solves the logistics of conservation without compromising safety.</p>
+                <ul>
+                    <li>Z-Axis Nesting Predator Guard</li>
+                    <li>Passive HVAC Roofing System</li>
+                    <li>Hermetic Bio-Seal Technology</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="patents">
+        <h3>Intellectual Property Portfolio</h3>
+        <p>Our technology is protected by pending United States Patents.</p>
+        <br>
+        <p class="patent-number">USPTO PATENT PENDING: Monolithic Composite Method</p>
+        <p class="patent-number">USPTO PATENT PENDING: Variable-Volume Deployment System</p>
+    </section>
+
+    <footer>
+        <h3>PERDIGNUS LLC</h3>
+        <p class="roman">TerraDignus | NecTerra</p>
+        <p>&copy; MMXXV Nicholas Law. All Rights Reserved.</p>
+    </footer>
+
+</body>
+</html>
