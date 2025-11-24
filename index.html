@@ -188,7 +188,7 @@
         const viewer = document.getElementById('nuthatch-viewer');
         if (state === 'exploded') {
             viewer.src = 'assets/nuthatch_exploded.glb'; // Load the spaced-apart model
-            viewer.orientation = '0deg 0deg 0deg'; // Reset orientation if needed for the exploded view
+            viewer.orientation = '0deg -90deg -90deg'; // Reset orientation if needed for the exploded view
         } else {
             viewer.src = 'assets/nuthatch.glb'; // Load the assembled model
             viewer.orientation = '0deg -90deg -90deg'; // Keep the upright orientation (as fixed earlier)
