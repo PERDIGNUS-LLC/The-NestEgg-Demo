@@ -115,17 +115,22 @@
             </div>
             <div class="image-content">
                 <model-viewer 
+    id="nestegg-viewer" 
     src="assets/nestegg.glb" 
     alt="3D model of the NestEgg" 
     orientation="0deg -90deg -45deg" 
+    
+    /* THE FIX: Auto-calculate distance based on model size */
+    camera-orbit="0deg 75deg auto" 
+    
+    /* THE GOVERNOR: Prevents losing it, but allows zooming */
+    min-camera-orbit="auto auto 5%" 
+    max-camera-orbit="auto auto 200%"
+    
     auto-rotate 
     camera-controls 
     shadow-intensity="1" 
-    
-    camera-orbit="0deg 75deg 2.5m" 
-    min-camera-orbit="auto 0deg 1m" 
-    max-camera-orbit="auto 180deg 5m"
-    
+    environment-image="neutral" 
     style="width: 100%; height: 550px; background-color: transparent;">
 </model-viewer>
             </div>
@@ -141,14 +146,18 @@
     id="nuthatch-viewer" 
     src="assets/nuthatch.glb" 
     orientation="0deg -90deg -45deg" 
+      
+    /* THE FIX: Auto-calculate distance based on model size */
+    camera-orbit="0deg 75deg auto" 
+    
+    /* THE GOVERNOR: Prevents losing it, but allows zooming */
+    min-camera-orbit="auto auto 5%" 
+    max-camera-orbit="auto auto 200%"
+    
     auto-rotate 
     camera-controls 
     shadow-intensity="1" 
-    
-    camera-orbit="0deg 75deg 2.5m" 
-    min-camera-orbit="auto 0deg 1m" 
-    max-camera-orbit="auto 180deg 5m"
-    
+    environment-image="neutral" 
     style="width: 100%; height: 550px; background-color: transparent;">
 </model-viewer>
 
