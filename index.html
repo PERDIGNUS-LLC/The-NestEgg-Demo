@@ -117,7 +117,7 @@
                 <model-viewer 
     src="assets/nestegg.glb" 
     alt="3D model of the NestEgg" 
-    orientation="0deg -45deg -90deg" 
+    orientation="0deg -90deg -45deg" 
     auto-rotate 
     camera-controls 
     shadow-intensity="1" 
@@ -191,7 +191,7 @@
             viewer.orientation = '0deg 0deg 0deg'; // Reset orientation if needed for the exploded view
         } else {
             viewer.src = 'assets/nuthatch.glb'; // Load the assembled model
-            viewer.orientation = '-90deg 0deg 0deg'; // Keep the upright orientation (as fixed earlier)
+            viewer.orientation = '0deg -90deg -90deg'; // Keep the upright orientation (as fixed earlier)
         }
     }
 </script>
