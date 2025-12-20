@@ -211,39 +211,66 @@
         }
     }
 <script>
-    /* --- DEVELOPER TOOL: COORDINATE FINDER (LOUD VERSION) --- */
+    /* --- ULTIMATE COORDINATE PICKER (SNIPER MODE) --- */
     
-    // 1. Select the viewer
+    // 1. Create a visible Toggle Button on the screen
+    const btn = document.createElement('button');
+    btn.innerHTML = "🖱️ MOVE MODE (Click to switch)";
+    // Style it to float in top right corner
+    btn.style.cssText = "position:fixed; top:20px; right:20px; z-index:9999; padding:15px; font-family:sans-serif; font-weight:bold; font-size:14px; background:#fff; border:2px solid #000; cursor:pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.2);";
+    document.body.appendChild(btn);
+
+    let isPickerMode = false;
     const viewers = document.querySelectorAll('model-viewer');
 
-    viewers.forEach((viewer) => {
-        // 2. Listen for clicks
+    // 2. Button Logic: Toggle between "Move" and "Pick"
+    btn.addEventListener('click', () => {
+        isPickerMode = !isPickerMode;
+        
+        if (isPickerMode) {
+            // ACTIVATE TARGET MODE
+            btn.innerHTML = "🎯 TARGET ACTIVE (Click Model Now)";
+            btn.style.background = "#ffcccc"; // Light red to show it's hot
+            btn.style.color = "#d00";
+            
+            // FREEZE the viewers
+            viewers.forEach(v => {
+                v.cameraControls = false; // Kills the "Hand" behavior
+                v.style.cursor = "crosshair"; // Visual feedback
+            });
+        } else {
+            // ACTIVATE MOVE MODE
+            btn.innerHTML = "🖱️ MOVE MODE (Rotate/Zoom)";
+            btn.style.background = "#fff";
+            btn.style.color = "#000";
+
+            // UNFREEZE the viewers
+            viewers.forEach(v => {
+                v.cameraControls = true; // Restores the "Hand" behavior
+                v.style.cursor = "default";
+            });
+        }
+    });
+
+    // 3. The Click Listener (Only works when Frozen)
+    viewers.forEach(viewer => {
         viewer.addEventListener('click', (event) => {
-            
-            // Get the bounding box of the viewer
+            // If we are in Move Mode, do nothing (let the user rotate)
+            if (!isPickerMode) return; 
+
+            // Calculate coordinates
             const rect = viewer.getBoundingClientRect();
-            
-            // Calculate X and Y inside the viewer
             const x = event.clientX - rect.left;
             const y = event.clientY - rect.top;
             
-            // 3. Ask Model-Viewer "What 3D point is under this 2D pixel?"
             const hit = viewer.positionAndNormalFromPoint(x, y);
 
             if (hit) {
                 const { position, normal } = hit;
-
-                // Format the data exactly how you need to paste it
                 const result = `data-position="${position.x.toFixed(4)} ${position.y.toFixed(4)} ${position.z.toFixed(4)}" data-normal="${normal.x.toFixed(4)} ${normal.y.toFixed(4)} ${normal.z.toFixed(4)}"`;
-
-                // 4. POPUP ALERT (So you can't miss it)
-                // Copy the text inside the alert box
-                prompt("COPY THIS CODE FOR YOUR HOTSPOT:", result);
                 
-                // Also log to console as a backup
-                console.log(result);
-            } else {
-                console.log("Click missed the model - try clicking strictly on the shell.");
+                // POPUP with the code
+                prompt("COORD CAPTURED! Copy this:", result);
             }
         });
     });
