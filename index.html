@@ -90,7 +90,47 @@
     <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
 </head>
 <body>
+    
+<script>
+    /* --- DEVELOPER TOOL: COORDINATE FINDER ---
+       Instructions:
+       1. Click anywhere on the 3D model.
+       2. The code will output the exact 'data-position' and 'data-normal' 
+          values to your browser's Developer Console (F12).
+       3. It will also show an alert so you can verify it worked.
+       4. DELETE or COMMENT OUT this script before sending to Cornell.
+    */
 
+    document.querySelectorAll('model-viewer').forEach((viewer) => {
+        viewer.addEventListener('click', (event) => {
+            const rect = viewer.getBoundingClientRect();
+            const x = event.clientX - rect.left;
+            const y = event.clientY - rect.top;
+            
+            // Get position and normal from the click coordinates
+            const hit = viewer.positionAndNormalFromPoint(x, y);
+
+            if (hit) {
+                const { position, normal } = hit;
+                
+                // Format strings to 4 decimal places for precision
+                const posString = `${position.x.toFixed(4)} ${position.y.toFixed(4)} ${position.z.toFixed(4)}`;
+                const normString = `${normal.x.toFixed(4)} ${normal.y.toFixed(4)} ${normal.z.toFixed(4)}`;
+                
+                // create the log message
+                const result = `data-position="${posString}" data-normal="${normString}"`;
+
+                console.log(`%c HOTSPOT DATA FOR ${viewer.id}:`, 'background: #222; color: #bada55');
+                console.log(result);
+                
+                // Optional: Alert for quick confirmation
+                alert(`COORDINATES COPIED TO CONSOLE (F12):\n\n${result}`);
+            } else {
+                console.log('Click hit background, not model.');
+            }
+        });
+    });
+</script>
     <header>
         <img src="assets/TD HL BINDRUNE small.png" alt="TerraDignus Logo" class="logo-container"> 
         <h1>TerraDignus</h1>
