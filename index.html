@@ -254,63 +254,75 @@
         <p>&copy; MMXXV Nicholas J. Law. All Rights Reserved.</p>
     </footer>
 
-  <script>
-    /* --- CROSSHAIR TARGETING TOOL --- */
+    <script>
+        // 1. Create the PRECISE Crosshair (+)
+        const crosshairContainer = document.createElement('div');
+        crosshairContainer.style.cssText = `
+            position: absolute; top: 50%; left: 50%; width: 0; height: 0;
+            pointer-events: none; z-index: 1000;
+        `;
+        // Horizontal Line
+        const hLine = document.createElement('div');
+        hLine.style.cssText = "position:absolute; width:20px; height:2px; background:red; top:-1px; left:-10px;";
+        crosshairContainer.appendChild(hLine);
+        // Vertical Line
+        const vLine = document.createElement('div');
+        vLine.style.cssText = "position:absolute; width:2px; height:20px; background:red; top:-10px; left:-1px;";
+        crosshairContainer.appendChild(vLine);
 
-    // 1. Create the Crosshair (Visual Only)
-    const crosshair = document.createElement('div');
-    crosshair.style.cssText = `
-        position: absolute; top: 50%; left: 50%; width: 20px; height: 20px;
-        border-left: 2px solid red; border-top: 2px solid red;
-        transform: translate(-50%, -50%); pointer-events: none; z-index: 1000;
-    `;
-    // We append this to the viewer container in a moment
+        // 2. Create the Capture Button
+        const captureBtn = document.createElement('button');
+        captureBtn.innerHTML = "🎯 CAPTURE CENTER";
+        captureBtn.style.cssText = "position:fixed; top:20px; right:20px; z-index:9999; padding:15px; background:#d00; color:white; font-weight:bold; border:2px solid #fff; cursor:pointer; font-family:sans-serif;";
+        document.body.appendChild(captureBtn);
 
-    // 2. Create the "Fire" Button
-    const captureBtn = document.createElement('button');
-    captureBtn.innerHTML = "🎯 CAPTURE CENTER POINT";
-    captureBtn.style.cssText = "position:fixed; top:20px; right:20px; z-index:9999; padding:15px; background:#d00; color:white; font-weight:bold; border:2px solid #fff; cursor:pointer;";
-    document.body.appendChild(captureBtn);
-
-    // 3. Setup the Tool on All Viewers
-    const viewers = document.querySelectorAll('model-viewer');
-    viewers.forEach(v => {
-        // Add relative positioning so crosshair stays inside
-        v.style.position = 'relative'; 
-        // Clone crosshair into every viewer
-        v.appendChild(crosshair.cloneNode(true));
-    });
-
-    // 4. Capture Logic
-    captureBtn.addEventListener('click', () => {
-        let hitFound = false;
-
-        viewers.forEach(viewer => {
-            // Only capture from the viewer that is currently on screen (or first one)
-            const rect = viewer.getBoundingClientRect();
-            if (rect.bottom < 0 || rect.top > window.innerHeight) return; // Skip off-screen viewers
-
-            // Calculate the exact center of the viewer
-            const x = rect.width / 2;
-            const y = rect.height / 2;
-            
-            // Ask Model-Viewer for data at the center
-            const hit = viewer.positionAndNormalFromPoint(x, y);
-
-            if (hit) {
-                hitFound = true;
-                const { position, normal } = hit;
-                const result = `data-position="${position.x.toFixed(4)} ${position.y.toFixed(4)} ${position.z.toFixed(4)}" data-normal="${normal.x.toFixed(4)} ${normal.y.toFixed(4)} ${normal.z.toFixed(4)}"`;
-                
-                // Show the code
-                prompt("🎯 TARGET CAPTURED! Copy this code:", result);
-            }
+        // 3. Install Tool on Viewers
+        const viewers = document.querySelectorAll('model-viewer');
+        viewers.forEach(v => {
+            v.style.position = 'relative'; 
+            v.appendChild(crosshairContainer.cloneNode(true));
         });
 
-        if (!hitFound) {
-            alert("MISSED! \nMake sure the egg shell is directly under the Red Crosshair.");
-        }
-    });
-</script>
+        // 4. Capture Logic
+        captureBtn.addEventListener('click', () => {
+            let hitFound = false;
+
+            viewers.forEach(viewer => {
+                const rect = viewer.getBoundingClientRect();
+                if (rect.bottom < 0 || rect.top > window.innerHeight) return; 
+
+                const x = rect.width / 2;
+                const y = rect.height / 2;
+                
+                const hit = viewer.positionAndNormalFromPoint(x, y);
+
+                if (hit) {
+                    hitFound = true;
+                    const { position, normal } = hit;
+                    
+                    // --- VISUAL CONFIRMATION (The Blue Dot) ---
+                    // This instantly creates a temp dot so you KNOW if you hit it.
+                    const tempDot = document.createElement('div');
+                    tempDot.style.cssText = "width:10px; height:10px; background:blue; border-radius:50%; position:absolute; transform:translate(-50%, -50%); border:2px solid white; z-index:2000; pointer-events:none;";
+                    viewer.appendChild(tempDot);
+                    
+                    // Project 3D point to 2D screen to place the dot
+                    // (Note: This is just for the visual 'blink' effect, the data is valid regardless)
+                    tempDot.style.top = "50%";
+                    tempDot.style.left = "50%";
+                    setTimeout(() => tempDot.remove(), 1500); // Remove dot after 1.5s
+
+                    const result = `data-position="${position.x.toFixed(4)} ${position.y.toFixed(4)} ${position.z.toFixed(4)}" data-normal="${normal.x.toFixed(4)} ${normal.y.toFixed(4)} ${normal.z.toFixed(4)}"`;
+                    
+                    // Show the code
+                    prompt("HIT CONFIRMED (See Blue Dot). Copy this code:", result);
+                }
+            });
+
+            if (!hitFound) {
+                alert("MISSED! \nMake sure the shell is under the Crosshair.");
+            }
+        });
+    </script>
 </body>
 </html>
