@@ -254,51 +254,63 @@
         <p>&copy; MMXXV Nicholas J. Law. All Rights Reserved.</p>
     </footer>
 
-    <script>
-        const btn = document.createElement('button');
-        btn.innerHTML = "🖱️ MOVE MODE (Click to switch)";
-        btn.style.cssText = "position:fixed; top:20px; right:20px; z-index:9999; padding:15px; font-family:sans-serif; font-weight:bold; font-size:14px; background:#fff; border:2px solid #000; cursor:pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.2);";
-        document.body.appendChild(btn);
+  <script>
+    /* --- CROSSHAIR TARGETING TOOL --- */
 
-        let isPickerMode = false;
-        const viewers = document.querySelectorAll('model-viewer');
+    // 1. Create the Crosshair (Visual Only)
+    const crosshair = document.createElement('div');
+    crosshair.style.cssText = `
+        position: absolute; top: 50%; left: 50%; width: 20px; height: 20px;
+        border-left: 2px solid red; border-top: 2px solid red;
+        transform: translate(-50%, -50%); pointer-events: none; z-index: 1000;
+    `;
+    // We append this to the viewer container in a moment
 
-        btn.addEventListener('click', () => {
-            isPickerMode = !isPickerMode;
-            if (isPickerMode) {
-                btn.innerHTML = "🎯 TARGET ACTIVE (Click Model Now)";
-                btn.style.background = "#ffcccc"; 
-                btn.style.color = "#d00";
-                viewers.forEach(v => {
-                    v.cameraControls = false; 
-                    v.style.cursor = "crosshair"; 
-                });
-            } else {
-                btn.innerHTML = "🖱️ MOVE MODE (Rotate/Zoom)";
-                btn.style.background = "#fff";
-                btn.style.color = "#000";
-                viewers.forEach(v => {
-                    v.cameraControls = true; 
-                    v.style.cursor = "default";
-                });
+    // 2. Create the "Fire" Button
+    const captureBtn = document.createElement('button');
+    captureBtn.innerHTML = "🎯 CAPTURE CENTER POINT";
+    captureBtn.style.cssText = "position:fixed; top:20px; right:20px; z-index:9999; padding:15px; background:#d00; color:white; font-weight:bold; border:2px solid #fff; cursor:pointer;";
+    document.body.appendChild(captureBtn);
+
+    // 3. Setup the Tool on All Viewers
+    const viewers = document.querySelectorAll('model-viewer');
+    viewers.forEach(v => {
+        // Add relative positioning so crosshair stays inside
+        v.style.position = 'relative'; 
+        // Clone crosshair into every viewer
+        v.appendChild(crosshair.cloneNode(true));
+    });
+
+    // 4. Capture Logic
+    captureBtn.addEventListener('click', () => {
+        let hitFound = false;
+
+        viewers.forEach(viewer => {
+            // Only capture from the viewer that is currently on screen (or first one)
+            const rect = viewer.getBoundingClientRect();
+            if (rect.bottom < 0 || rect.top > window.innerHeight) return; // Skip off-screen viewers
+
+            // Calculate the exact center of the viewer
+            const x = rect.width / 2;
+            const y = rect.height / 2;
+            
+            // Ask Model-Viewer for data at the center
+            const hit = viewer.positionAndNormalFromPoint(x, y);
+
+            if (hit) {
+                hitFound = true;
+                const { position, normal } = hit;
+                const result = `data-position="${position.x.toFixed(4)} ${position.y.toFixed(4)} ${position.z.toFixed(4)}" data-normal="${normal.x.toFixed(4)} ${normal.y.toFixed(4)} ${normal.z.toFixed(4)}"`;
+                
+                // Show the code
+                prompt("🎯 TARGET CAPTURED! Copy this code:", result);
             }
         });
 
-        viewers.forEach(viewer => {
-            viewer.addEventListener('click', (event) => {
-                if (!isPickerMode) return; 
-                const rect = viewer.getBoundingClientRect();
-                const x = event.clientX - rect.left;
-                const y = event.clientY - rect.top;
-                const hit = viewer.positionAndNormalFromPoint(x, y);
-
-                if (hit) {
-                    const { position, normal } = hit;
-                    const result = `data-position="${position.x.toFixed(4)} ${position.y.toFixed(4)} ${position.z.toFixed(4)}" data-normal="${normal.x.toFixed(4)} ${normal.y.toFixed(4)} ${normal.z.toFixed(4)}"`;
-                    prompt("COORD CAPTURED! Copy this:", result);
-                }
-            });
-        });
-    </script>
+        if (!hitFound) {
+            alert("MISSED! \nMake sure the egg shell is directly under the Red Crosshair.");
+        }
+    });
+</script>
 </body>
 </html>
