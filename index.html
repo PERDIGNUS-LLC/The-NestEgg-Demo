@@ -4,14 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TerraDignus | Advanced Wildlife Habitation</title>
+    
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
+
     <style>
         /* --- RESET & VARIABLES --- */
         :root {
-            --forest-green: #1A4D3E; /* Your Brand Green */
-            --clay: #8D7F73; /* NecTerra vibe */
+            --forest-green: #1A4D3E;
+            --clay: #8D7F73;
             --off-white: #F4F4F0;
             --black: #111;
-            --grey: #b3b3b3ff; /* The Bio-Seal Color */
+            --grey: #b3b3b3ff;
         }
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
         
@@ -41,14 +44,6 @@
         section { padding: 5rem 2rem; max-width: 1200px; margin: 0 auto; }
         .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
         
-        .product-card img {
-            width: 100%;
-            border-radius: 12px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease;
-        }
-        .product-card img:hover { transform: translateY(-5px); }
-        
         .tag { 
             display: inline-block; 
             background: var(--black); 
@@ -60,7 +55,7 @@
             margin-bottom: 1rem;
         }
         
-        .pro-tag { background: var(--grey); } /* Highlights the Pro-Series */
+        .pro-tag { background: var(--grey); }
 
         /* --- PATENT SECTION --- */
         .patents {
@@ -70,7 +65,12 @@
             margin-top: 4rem;
             border-radius: 12px;
         }
-        .patent-number { font-family: monospace; font-size: 1.2rem; color: var(--forest-green); }
+        .patent-number { 
+            font-family: monospace; 
+            font-size: 1.1rem; 
+            color: var(--forest-green); 
+            margin-bottom: 0.5rem;
+        }
 
         /* --- FOOTER --- */
         footer { 
@@ -81,16 +81,66 @@
             margin-top: 5rem; 
         }
 
-        /* Mobile Fix */
+        /* --- ENGINEERING HOTSPOTS --- */
+        .hotspot {
+            display: block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            border: 2px solid var(--black);
+            background-color: rgba(255, 255, 255, 0.8);
+            cursor: pointer;
+            position: relative;
+        }
+
+        .hotspot:hover {
+            background-color: var(--black);
+            transform: scale(1.2);
+        }
+
+        .hotspot-annotation {
+            background: var(--off-white);
+            border-bottom: 1px solid var(--black);
+            color: var(--black);
+            position: absolute;
+            transform: translate(20px, -20px);
+            padding: 4px 8px;
+            font-size: 14px;
+            font-weight: 600;
+            white-space: nowrap;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .hotspot-annotation::before {
+            content: "";
+            position: absolute;
+            left: -20px;
+            bottom: 0;
+            width: 20px;
+            height: 1px;
+            background: var(--black);
+            transform-origin: bottom left;
+            transform: rotate(-45deg);
+        }
+
+        .hotspot:hover .hotspot-annotation, 
+        .hotspot[data-visible] .hotspot-annotation {
+            opacity: 1;
+        }
+        
+        .always-visible { opacity: 1 !important; }
+
         @media (max-width: 768px) {
             .grid { grid-template-columns: 1fr; }
             header h1 { font-size: 2.5rem; }
+            .grid .image-content { order: -1; } 
         }
     </style>
-    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
 </head>
 <body>
-    
+
     <header>
         <img src="assets/TD HL BINDRUNE small.png" alt="TerraDignus Logo" class="logo-container"> 
         <h1>TerraDignus</h1>
@@ -113,25 +163,41 @@
                     <li>Zero-Waste Manufacturing</li>
                 </ul>
             </div>
+            
             <div class="image-content">
                 <model-viewer 
-    id="nestegg-viewer" 
-    src="assets/TNE3QTR-v1.glb" 
-    alt="3D model of the NestEgg" 
-    orientation="0deg -90deg -45deg" 
-    
-    /* CAMERA & ZOOM SETTINGS */
-    camera-orbit="0deg 75deg auto"
-    field-of-view="20deg" 
-    min-camera-orbit="auto auto 55%" 
-    max-camera-orbit="auto auto 150%"
-    
-    auto-rotate 
-    camera-controls 
-    shadow-intensity="1" 
-    environment-image="neutral" 
-    style="width: 100%; height: 550px; background-color: transparent;">
-</model-viewer>
+                    id="nestegg-viewer" 
+                    src="assets/TNE3QTR-v1.glb" 
+                    alt="3D model of the NestEgg" 
+                    orientation="0deg -90deg -45deg" 
+                    
+                    camera-orbit="0deg 75deg auto"
+                    field-of-view="20deg" 
+                    min-camera-orbit="auto auto 55%" 
+                    max-camera-orbit="auto auto 150%"
+                    
+                    auto-rotate 
+                    camera-controls 
+                    shadow-intensity="1" 
+                    environment-image="neutral" 
+                    style="width: 100%; height: 550px; background-color: transparent;">
+
+                    <button class="hotspot" slot="hotspot-1" 
+                        data-position="0 0 0" data-normal="1 0 0" data-visible>
+                        <div class="hotspot-annotation always-visible">Thermal Insert</div>
+                    </button>
+
+                    <button class="hotspot" slot="hotspot-2" 
+                        data-position="0 1 0" data-normal="0 1 0" data-visible>
+                        <div class="hotspot-annotation always-visible">Passive HVAC</div>
+                    </button>
+
+                    <button class="hotspot" slot="hotspot-3" 
+                        data-position="0 -1 0" data-normal="0 -1 0" data-visible>
+                        <div class="hotspot-annotation always-visible">Base Drainage</div>
+                    </button>
+
+                </model-viewer>
             </div>
         </div>
     </section>
@@ -139,49 +205,37 @@
     <section>
         <div class="grid">
             <div class="image-content">
-                <div class="image-content">
-    
-    <model-viewer 
-    id="nuthatch-viewer" 
-    src="assets/nuthatch-v1.glb" 
-    orientation="0deg -90deg -45deg" 
-      
-    /* CAMERA & ZOOM SETTINGS */
-    camera-orbit="0deg 75deg auto"
-    field-of-view="25deg" 
-    min-camera-orbit="auto auto 55%" 
-    max-camera-orbit="auto auto 150%"
-    
-    auto-rotate 
-    camera-controls 
-    shadow-intensity="1" 
-    environment-image="neutral" 
-    style="width: 100%; height: 550px; background-color: transparent;">
-</model-viewer>
-
-    <div style="text-align: center; margin-top: 15px;">
-        <button onclick="toggleNutHatchView('closed')" style="padding: 10px 20px; margin: 0 5px; cursor: pointer; border: none; background: var(--forest-green); color: white; border-radius: 6px;">
-            Closed Assembly
-        </button>
-        <button onclick="toggleNutHatchView('exploded')" style="padding: 10px 20px; margin: 0 5px; cursor: pointer; border: none; background: var(--grey); color: white; border-radius: 6px;">
-            Exploded View
-        </button>
-    </div>
-</div>
+                <model-viewer 
+                    id="nuthatch-viewer" 
+                    src="assets/nuthatch-v1.glb" 
+                    orientation="0deg -90deg -45deg" 
+                    
+                    camera-orbit="0deg 75deg auto"
+                    field-of-view="25deg" 
+                    min-camera-orbit="auto auto 55%" 
+                    max-camera-orbit="auto auto 150%"
+                    
+                    auto-rotate 
+                    camera-controls 
+                    shadow-intensity="1" 
+                    environment-image="neutral" 
+                    style="width: 100%; height: 550px; background-color: transparent;">
+                </model-viewer>
             </div>
+            
             <div class="text-content">
-    <span class="tag pro-tag">THE PRO-SERIES</span>
-    <h2>The NutHatch™</h2>
-    <p class="roman">Precision Kinetic Architecture</p>
-    <br>
-    <p><strong>Logistics solved. Safety absolute.</strong> 
-    Designed for the professional conservationist, The NutHatch combines an Advanced Thermal-Insert System, Passive HVAC Roofing, Optimal Ventilation and Lightweight format.</p>
-    <ul>
-        <li>Deployable Kinetic Assembly</li>
-        <li>Passive HVAC Roofing System</li>
-        <li>Integrated Thermal Insert</li>
-    </ul>
-</div>
+                <span class="tag pro-tag">THE PRO-SERIES</span>
+                <h2>The NutHatch™</h2>
+                <p class="roman">Precision Kinetic Architecture</p>
+                <br>
+                <p><strong>Logistics solved. Safety absolute.</strong> 
+                Designed for the professional conservationist, The NutHatch combines an Advanced Thermal-Insert System, Passive HVAC Roofing, Optimal Ventilation and Lightweight format.</p>
+                <ul>
+                    <li>Deployable Kinetic Assembly</li>
+                    <li>Passive HVAC Roofing System</li>
+                    <li>Integrated Thermal Insert</li>
+                </ul>
+            </div>
         </div>
     </section>
 
@@ -199,81 +253,52 @@
         <p class="roman">TerraDignus™ | NecTerra</p>
         <p>&copy; MMXXV Nicholas J. Law. All Rights Reserved.</p>
     </footer>
-<script>
-    function toggleNutHatchView(state) {
-        const viewer = document.getElementById('nuthatch-viewer');
-        if (state === 'exploded') {
-            viewer.src = 'assets/nuthatch_exploded-v2-v1.glb'; // Load the spaced-apart model
-            viewer.orientation = '0deg -90deg -90deg'; // Reset orientation if needed for the exploded view
-        } else {
-            viewer.src = 'assets/nuthatch-v1.glb'; // Load the assembled model
-            viewer.orientation = '0deg -90deg -90deg'; // Keep the upright orientation (as fixed earlier)
-        }
-    }
-<script>
-    /* --- ULTIMATE COORDINATE PICKER (SNIPER MODE) --- */
-    
-    // 1. Create a visible Toggle Button on the screen
-    const btn = document.createElement('button');
-    btn.innerHTML = "🖱️ MOVE MODE (Click to switch)";
-    // Style it to float in top right corner
-    btn.style.cssText = "position:fixed; top:20px; right:20px; z-index:9999; padding:15px; font-family:sans-serif; font-weight:bold; font-size:14px; background:#fff; border:2px solid #000; cursor:pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.2);";
-    document.body.appendChild(btn);
 
-    let isPickerMode = false;
-    const viewers = document.querySelectorAll('model-viewer');
+    <script>
+        const btn = document.createElement('button');
+        btn.innerHTML = "🖱️ MOVE MODE (Click to switch)";
+        btn.style.cssText = "position:fixed; top:20px; right:20px; z-index:9999; padding:15px; font-family:sans-serif; font-weight:bold; font-size:14px; background:#fff; border:2px solid #000; cursor:pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.2);";
+        document.body.appendChild(btn);
 
-    // 2. Button Logic: Toggle between "Move" and "Pick"
-    btn.addEventListener('click', () => {
-        isPickerMode = !isPickerMode;
-        
-        if (isPickerMode) {
-            // ACTIVATE TARGET MODE
-            btn.innerHTML = "🎯 TARGET ACTIVE (Click Model Now)";
-            btn.style.background = "#ffcccc"; // Light red to show it's hot
-            btn.style.color = "#d00";
-            
-            // FREEZE the viewers
-            viewers.forEach(v => {
-                v.cameraControls = false; // Kills the "Hand" behavior
-                v.style.cursor = "crosshair"; // Visual feedback
-            });
-        } else {
-            // ACTIVATE MOVE MODE
-            btn.innerHTML = "🖱️ MOVE MODE (Rotate/Zoom)";
-            btn.style.background = "#fff";
-            btn.style.color = "#000";
+        let isPickerMode = false;
+        const viewers = document.querySelectorAll('model-viewer');
 
-            // UNFREEZE the viewers
-            viewers.forEach(v => {
-                v.cameraControls = true; // Restores the "Hand" behavior
-                v.style.cursor = "default";
-            });
-        }
-    });
-
-    // 3. The Click Listener (Only works when Frozen)
-    viewers.forEach(viewer => {
-        viewer.addEventListener('click', (event) => {
-            // If we are in Move Mode, do nothing (let the user rotate)
-            if (!isPickerMode) return; 
-
-            // Calculate coordinates
-            const rect = viewer.getBoundingClientRect();
-            const x = event.clientX - rect.left;
-            const y = event.clientY - rect.top;
-            
-            const hit = viewer.positionAndNormalFromPoint(x, y);
-
-            if (hit) {
-                const { position, normal } = hit;
-                const result = `data-position="${position.x.toFixed(4)} ${position.y.toFixed(4)} ${position.z.toFixed(4)}" data-normal="${normal.x.toFixed(4)} ${normal.y.toFixed(4)} ${normal.z.toFixed(4)}"`;
-                
-                // POPUP with the code
-                prompt("COORD CAPTURED! Copy this:", result);
+        btn.addEventListener('click', () => {
+            isPickerMode = !isPickerMode;
+            if (isPickerMode) {
+                btn.innerHTML = "🎯 TARGET ACTIVE (Click Model Now)";
+                btn.style.background = "#ffcccc"; 
+                btn.style.color = "#d00";
+                viewers.forEach(v => {
+                    v.cameraControls = false; 
+                    v.style.cursor = "crosshair"; 
+                });
+            } else {
+                btn.innerHTML = "🖱️ MOVE MODE (Rotate/Zoom)";
+                btn.style.background = "#fff";
+                btn.style.color = "#000";
+                viewers.forEach(v => {
+                    v.cameraControls = true; 
+                    v.style.cursor = "default";
+                });
             }
         });
-    });
-</script>
+
+        viewers.forEach(viewer => {
+            viewer.addEventListener('click', (event) => {
+                if (!isPickerMode) return; 
+                const rect = viewer.getBoundingClientRect();
+                const x = event.clientX - rect.left;
+                const y = event.clientY - rect.top;
+                const hit = viewer.positionAndNormalFromPoint(x, y);
+
+                if (hit) {
+                    const { position, normal } = hit;
+                    const result = `data-position="${position.x.toFixed(4)} ${position.y.toFixed(4)} ${position.z.toFixed(4)}" data-normal="${normal.x.toFixed(4)} ${normal.y.toFixed(4)} ${normal.z.toFixed(4)}"`;
+                    prompt("COORD CAPTURED! Copy this:", result);
+                }
+            });
+        });
+    </script>
 </body>
 </html>
