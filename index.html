@@ -15,6 +15,7 @@
             --off-white: #F4F4F0;
             --black: #111;
             --grey: #b3b3b3ff;
+            --gold: #D4AF37;
         }
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
         
@@ -57,6 +58,68 @@
         
         .pro-tag { background: var(--grey); }
 
+        /* --- BUTTONS --- */
+        .btn-download {
+            display: inline-block;
+            margin-top: 1.5rem;
+            padding: 10px 20px;
+            border: 1px solid var(--black);
+            color: var(--black);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+        .btn-download:hover {
+            background: var(--black);
+            color: white;
+        }
+
+        /* --- GENESIS SECTION (New) --- */
+        .genesis-section {
+            background-color: var(--forest-green);
+            color: var(--off-white);
+            padding: 6rem 2rem;
+            margin-top: 4rem;
+            /* Full width background trick */
+            width: 100vw;
+            position: relative;
+            left: 50%;
+            right: 50%;
+            margin-left: -50vw;
+            margin-right: -50vw;
+        }
+        
+        .genesis-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .genesis-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            font-family: 'Times New Roman', serif; /* The "Book" look */
+            color: var(--gold);
+        }
+
+        .genesis-content p {
+            font-family: 'Times New Roman', serif;
+            font-size: 1.3rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            opacity: 0.9;
+        }
+
+        .sigil {
+            max-width: 80px;
+            margin: 0 auto 2rem auto;
+            opacity: 0.8;
+            display: block;
+        }
+
         /* --- PATENT SECTION --- */
         .patents {
             background: #e8e8e8;
@@ -69,7 +132,7 @@
             font-family: monospace; 
             font-size: 1.1rem; 
             color: var(--forest-green); 
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.5rem; 
         }
 
         /* --- FOOTER --- */
@@ -78,7 +141,7 @@
             padding: 3rem; 
             background: var(--black); 
             color: var(--off-white); 
-            margin-top: 5rem; 
+            margin-top: 0; /* Connected to Genesis/Patents flow */
         }
 
         /* --- ENGINEERING HOTSPOTS --- */
@@ -162,6 +225,10 @@
                     <li>Species-Specific Thermal Calibration</li>
                     <li>Zero-Waste Manufacturing</li>
                 </ul>
+                
+                <a href="assets/TerraDignus_TDS.pdf" class="btn-download" download>
+                    View Engineering Specs (PDF)
+                </a>
             </div>
             
             <div class="image-content">
@@ -170,12 +237,10 @@
                     src="assets/TNE3QTR-v1.glb" 
                     alt="3D model of the NestEgg" 
                     orientation="0deg -90deg -45deg" 
-                    
                     camera-orbit="0deg 75deg auto"
                     field-of-view="20deg" 
                     min-camera-orbit="auto auto 55%" 
                     max-camera-orbit="auto auto 150%"
-                    
                     auto-rotate 
                     camera-controls 
                     shadow-intensity="1" 
@@ -196,7 +261,6 @@
                         data-position="0 -1 0" data-normal="0 -1 0" data-visible>
                         <div class="hotspot-annotation always-visible">Base Drainage</div>
                     </button>
-
                 </model-viewer>
             </div>
         </div>
@@ -207,14 +271,12 @@
             <div class="image-content">
                 <model-viewer 
                     id="nuthatch-viewer" 
-                    src="assets/NutHatchHVAC-v1.glb" 
+                    src="assets/nuthatch-v1.glb" 
                     orientation="0deg -90deg -45deg" 
-                    
                     camera-orbit="0deg 75deg auto"
                     field-of-view="25deg" 
                     min-camera-orbit="auto auto 55%" 
                     max-camera-orbit="auto auto 150%"
-                    
                     auto-rotate 
                     camera-controls 
                     shadow-intensity="1" 
@@ -235,9 +297,31 @@
                     <li>Passive HVAC Roofing System</li>
                     <li>Integrated Thermal Insert</li>
                 </ul>
+
+                <a href="assets/TerraDignus_TDS.pdf" class="btn-download" download>
+                    View Engineering Specs (PDF)
+                </a>
             </div>
         </div>
     </section>
+
+    <div class="genesis-section">
+        <div class="genesis-content">
+            <h2>The Origin</h2>
+            <p>
+                TerraDignus was not born in a laboratory. It was forged in the struggle to protect what matters most.
+            </p>
+            <p>
+                When you strip away the engineering, the patents, and the biocomposites, you find a simple, unbreakable promise between a father and a son. The "Shiny Bear" isn't just a mascot—it is a symbol of resilience against a volatile world.
+            </p>
+            <p>
+                We build these habitats with the same philosophy we apply to our family: 
+                <strong>Safety is not negotiable.</strong>
+            </p>
+            <br>
+            <p class="roman" style="font-style: italic; font-size: 1rem;">— Johnny & Kai</p>
+        </div>
+    </div>
 
     <section class="patents">
         <h3>Intellectual Property Portfolio</h3>
@@ -254,75 +338,5 @@
         <p>&copy; MMXXV Nicholas J. Law. All Rights Reserved.</p>
     </footer>
 
-    <script>
-        // 1. Create the PRECISE Crosshair (+)
-        const crosshairContainer = document.createElement('div');
-        crosshairContainer.style.cssText = `
-            position: absolute; top: 50%; left: 50%; width: 0; height: 0;
-            pointer-events: none; z-index: 1000;
-        `;
-        // Horizontal Line
-        const hLine = document.createElement('div');
-        hLine.style.cssText = "position:absolute; width:20px; height:2px; background:red; top:-1px; left:-10px;";
-        crosshairContainer.appendChild(hLine);
-        // Vertical Line
-        const vLine = document.createElement('div');
-        vLine.style.cssText = "position:absolute; width:2px; height:20px; background:red; top:-10px; left:-1px;";
-        crosshairContainer.appendChild(vLine);
-
-        // 2. Create the Capture Button
-        const captureBtn = document.createElement('button');
-        captureBtn.innerHTML = "🎯 CAPTURE CENTER";
-        captureBtn.style.cssText = "position:fixed; top:20px; right:20px; z-index:9999; padding:15px; background:#d00; color:white; font-weight:bold; border:2px solid #fff; cursor:pointer; font-family:sans-serif;";
-        document.body.appendChild(captureBtn);
-
-        // 3. Install Tool on Viewers
-        const viewers = document.querySelectorAll('model-viewer');
-        viewers.forEach(v => {
-            v.style.position = 'relative'; 
-            v.appendChild(crosshairContainer.cloneNode(true));
-        });
-
-        // 4. Capture Logic
-        captureBtn.addEventListener('click', () => {
-            let hitFound = false;
-
-            viewers.forEach(viewer => {
-                const rect = viewer.getBoundingClientRect();
-                if (rect.bottom < 0 || rect.top > window.innerHeight) return; 
-
-                const x = rect.width / 2;
-                const y = rect.height / 2;
-                
-                const hit = viewer.positionAndNormalFromPoint(x, y);
-
-                if (hit) {
-                    hitFound = true;
-                    const { position, normal } = hit;
-                    
-                    // --- VISUAL CONFIRMATION (The Blue Dot) ---
-                    // This instantly creates a temp dot so you KNOW if you hit it.
-                    const tempDot = document.createElement('div');
-                    tempDot.style.cssText = "width:10px; height:10px; background:blue; border-radius:50%; position:absolute; transform:translate(-50%, -50%); border:2px solid white; z-index:2000; pointer-events:none;";
-                    viewer.appendChild(tempDot);
-                    
-                    // Project 3D point to 2D screen to place the dot
-                    // (Note: This is just for the visual 'blink' effect, the data is valid regardless)
-                    tempDot.style.top = "50%";
-                    tempDot.style.left = "50%";
-                    setTimeout(() => tempDot.remove(), 1500); // Remove dot after 1.5s
-
-                    const result = `data-position="${position.x.toFixed(4)} ${position.y.toFixed(4)} ${position.z.toFixed(4)}" data-normal="${normal.x.toFixed(4)} ${normal.y.toFixed(4)} ${normal.z.toFixed(4)}"`;
-                    
-                    // Show the code
-                    prompt("HIT CONFIRMED (See Blue Dot). Copy this code:", result);
-                }
-            });
-
-            if (!hitFound) {
-                alert("MISSED! \nMake sure the shell is under the Crosshair.");
-            }
-        });
-    </script>
 </body>
 </html>
