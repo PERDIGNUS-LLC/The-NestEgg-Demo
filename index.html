@@ -16,6 +16,7 @@
             --black: #111;
             --grey: #b3b3b3ff;
             --gold: #D4AF37;
+            --section-grey: #e8e8e8;
         }
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
         
@@ -50,7 +51,8 @@
         .product-copy .subhead { font-family: 'Times New Roman', serif; font-size: 1.2rem; font-style: italic; margin-bottom: 1.5rem; color: #555; display: block; }
         .product-copy p { margin-bottom: 1.5rem; color: #333; }
         .product-copy ul { list-style: none; margin-left: 0; padding-left: 0; }
-        .product-copy li { margin-bottom: 0.8rem; padding-left: 1.5rem; position: relative; }
+        /* Reduced margin to 0.4rem to fit more details cleanly */
+        .product-copy li { margin-bottom: 0.4rem; padding-left: 1.5rem; position: relative; }
         .product-copy li::before { content: "•"; color: var(--forest-green); font-weight: bold; position: absolute; left: 0; }
         .product-copy strong { color: var(--black); }
 
@@ -73,14 +75,19 @@
             color: white;
         }
 
-        /* --- INSIGHT SECTION (Grey) --- */
+        /* --- INSIGHT SECTION (Grey Background) --- */
         .insight-section {
-            background: #e8e8e8;
-            padding: 2rem 5rem;
+            background-color: var(--section-grey); /* Updated to match Patent section color */
+            padding: 2rem 2rem;
+            max-width: 100vw; /* Full width background */
+            width: 100%;
+            margin: 0;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        .insight-content {
             max-width: 900px;
             margin: 0 auto;
-            text-align: left;
-            border-bottom: 1px solid #e8e8e8;
         }
         .insight-content h2 { font-size: 2.2rem; margin-bottom: 2rem; color: var(--forest-green); }
         .insight-content p { font-size: 1.1rem; margin-bottom: 1.5rem; color: #444; line-height: 1.7; }
@@ -105,7 +112,7 @@
 
         /* --- PATENT SECTION --- */
         .patents {
-            background: #e8e8e8;
+            background: var(--section-grey);
             padding: 4rem;
             text-align: center;
             margin-top: 4rem;
@@ -145,10 +152,11 @@
                 
                 <ul>
                     <li><strong>Target Species:</strong> Larger Cavity Nesters (1.25" - 1.50" aperture).</li>
-                    <li><strong>Thermal Mass:</strong> Thick composite walls dampen temperature spikes, keeping nests cool in summer.</li>
+                    <li><strong>Climate Optimization:</strong> Monolithic thermal mass ideal for variable or colder climates.</li>
+                    <li><strong>Thermal Insert:</strong> Utilizes an internal 'stepped' liner to create an insulating air gap for superior fledgling protection.</li>
+                    <li><strong>Sanitary Design:</strong> Integrated drainage plenum ensures nesting material remains dry and pathogen-free.</li>
                     <li><strong>Microporous Breathability:</strong> Unlike plastic, NecTerra™ "breathes," preventing the moisture buildup that leads to mold.</li>
-                    <li><strong>Predator Defense:</strong> The spherical, overhung shape prevents roof-access predators from reaching the entry.</li>
-                </ul>
+                   </ul>
                 
                 <a href="assets/TerraDignus_TDS.pdf" class="btn-download" download>
                     View Engineering Specs (PDF)
@@ -196,7 +204,7 @@
             
             <div class="text-content product-copy">
                 <h2>The NutHatch™</h2>
-                <span class="subhead">Precision Kinetic Ventilation</span>
+                <span class="subhead">Precision Passive Ventilation</span>
                 
                 <p>The NutHatch™ is precision-engineered for the <strong>smallest cavity-nesting species</strong>. Featuring a restricted aperture, it creates a fortress of exclusion that physically blocks larger, aggressive competitors while offering a safe haven for native songbirds.</p>
                 
@@ -204,10 +212,11 @@
                 
                 <ul>
                     <li><strong>Target Species:</strong> Smallest Cavity Nesters (1.00" - 1.125" aperture).</li>
-                    <li><strong>Passive HVAC Roofing:</strong> Floating roof design creates a natural updraft to exhaust heat.</li>
-                    <li><strong>NecTerra™ Thermal Core:</strong> Stabilizes internal temperatures against rapid weather fluctuations.</li>
-                    <li><strong>Hybrid Durability:</strong> Combines a lightweight outer chassis with a heavy-duty thermal interior.</li>
-                </ul>
+                    <li><strong>Climate Optimization:</strong> Convective cooling loop ideal for hot climates.</li>
+                    <li><strong>Seasonal Calibration:</strong> Modular ventilation inserts allow airflow to be tuned for extreme conditions, preventing uncalibrated drafts.</li>
+                    <li><strong>Superior Predator Defense:</strong>Overhang with sloped entrance prevents roof-access predators from reaching the entry.</li>
+                    <li><strong>Dual-Chamber Roof:</strong> Convective design pulls heat up and out, preventing the "oven effect.</li>
+             </ul>
             </div>
         </div>
     </section>
