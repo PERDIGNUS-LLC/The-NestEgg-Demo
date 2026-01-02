@@ -115,26 +115,6 @@
         /* --- FOOTER --- */
         footer { text-align: center; padding: 3rem; background: var(--black); color: var(--off-white); margin-top: 0; }
 
-        /* --- ENGINEERING HOTSPOTS --- */
-        .hotspot {
-            display: block; width: 12px; height: 12px; border-radius: 50%;
-            border: 2px solid var(--black); background-color: rgba(255, 255, 255, 0.8);
-            cursor: pointer; position: relative;
-        }
-        .hotspot:hover { background-color: var(--black); transform: scale(1.2); }
-        .hotspot-annotation {
-            background: var(--off-white); border-bottom: 1px solid var(--black); color: var(--black);
-            position: absolute; transform: translate(20px, -20px); padding: 4px 8px;
-            font-size: 14px; font-weight: 600; white-space: nowrap; pointer-events: none;
-            opacity: 0; transition: opacity 0.3s;
-        }
-        .hotspot-annotation::before {
-            content: ""; position: absolute; left: -20px; bottom: 0; width: 20px; height: 1px;
-            background: var(--black); transform-origin: bottom left; transform: rotate(-45deg);
-        }
-        .hotspot:hover .hotspot-annotation, .hotspot[data-visible] .hotspot-annotation { opacity: 1; }
-        .always-visible { opacity: 1 !important; }
-
         @media (max-width: 768px) {
             .grid { grid-template-columns: 1fr; }
             header h1 { font-size: 2.5rem; }
@@ -188,21 +168,6 @@
                     shadow-intensity="1" 
                     environment-image="neutral" 
                     style="width: 100%; height: 550px; background-color: transparent;">
-
-                    <button class="hotspot" slot="hotspot-1" 
-                        data-position="0 0 0" data-normal="1 0 0" data-visible>
-                        <div class="hotspot-annotation always-visible">Thermal Insert</div>
-                    </button>
-
-                    <button class="hotspot" slot="hotspot-2" 
-                        data-position="0 1 0" data-normal="0 1 0" data-visible>
-                        <div class="hotspot-annotation always-visible">Passive HVAC</div>
-                    </button>
-
-                    <button class="hotspot" slot="hotspot-3" 
-                        data-position="0 -1 0" data-normal="0 -1 0" data-visible>
-                        <div class="hotspot-annotation always-visible">Base Drainage</div>
-                    </button>
                 </model-viewer>
             </div>
         </div>
@@ -287,8 +252,6 @@
   </div>
 </section>
 
-
-
     <div class="genesis-section">
         <div class="genesis-content">
             <h2>The Promise</h2>
@@ -322,63 +285,6 @@
         <p class="roman">TerraDignus™ | NecTerra</p>
         <p>&copy; MMXXV Nicholas J. Law. All Rights Reserved.</p>
     </footer>
-
-    <script>
-        // 1. Create the Visual Crosshair (+)
-        const crosshair = document.createElement('div');
-        crosshair.style.cssText = `
-            position: absolute; 
-            top: 50%; left: 50%; 
-            width: 20px; height: 20px;
-            transform: translate(-50%, -50%); 
-            pointer-events: none; 
-            z-index: 1000;
-        `;
-        const vLine = document.createElement('div');
-        vLine.style.cssText = "position:absolute; left:9px; top:0; width:2px; height:20px; background:red;";
-        crosshair.appendChild(vLine);
-        const hLine = document.createElement('div');
-        hLine.style.cssText = "position:absolute; top:9px; left:0; width:20px; height:2px; background:red;";
-        crosshair.appendChild(hLine);
-
-        // 2. Add Crosshair to all Viewers
-        document.querySelectorAll('model-viewer').forEach(v => {
-            v.style.position = 'relative'; 
-            v.appendChild(crosshair.cloneNode(true));
-        });
-
-        // 3. Create the "Capture" Button
-        const btn = document.createElement('button');
-        btn.innerHTML = "🎯 GET COORDINATES";
-        btn.style.cssText = "position:fixed; top:20px; right:20px; z-index:9999; padding:15px 20px; font-weight:bold; font-size:16px; background:red; color:white; border:2px solid white; cursor:pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.3);";
-        document.body.appendChild(btn);
-
-        // 4. The Capture Logic
-        btn.addEventListener('click', () => {
-            let hitFound = false;
-            
-            document.querySelectorAll('model-viewer').forEach(viewer => {
-                const rect = viewer.getBoundingClientRect();
-                if (rect.bottom < 0 || rect.top > window.innerHeight) return;
-
-                const x = rect.width / 2;
-                const y = rect.height / 2;
-                
-                const hit = viewer.positionAndNormalFromPoint(x, y);
-
-                if (hit) {
-                    hitFound = true;
-                    const { position, normal } = hit;
-                    const result = `data-position="${position.x.toFixed(4)} ${position.y.toFixed(4)} ${position.z.toFixed(4)}" data-normal="${normal.x.toFixed(4)} ${normal.y.toFixed(4)} ${normal.z.toFixed(4)}"`;
-                    prompt("COORD COPIED! Paste this into your button tag:", result);
-                }
-            });
-
-            if (!hitFound) {
-                alert("MISSED! \nMake sure the egg is directly under the Red Crosshair.");
-            }
-        });
-    </script>
 
 </body>
 </html>
