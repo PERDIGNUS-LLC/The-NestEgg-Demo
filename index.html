@@ -111,6 +111,79 @@
         .genesis-content h2 { font-size: 2.5rem; margin-bottom: 2rem; font-family: 'Times New Roman', serif; color: var(--gold); }
         .genesis-content p { font-family: 'Times New Roman', serif; font-size: 1.3rem; line-height: 1.8; margin-bottom: 1.5rem; opacity: 0.9; }
 
+        /* --- R&D Support Section --- */
+.support-container {
+  margin-top: 3rem;
+  padding: 2rem;
+  background-color: #f4f6f8; /* Very light grey/blue background */
+  border-left: 4px solid #0f172a; /* Dark Navy accent line */
+  border-radius: 4px;
+  text-align: left;
+}
+
+.support-text h4 {
+  margin: 0 0 0.5rem 0;
+  color: #0f172a; /* Dark Navy */
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.support-text p {
+  margin: 0 0 1.5rem 0;
+  color: #475569; /* Slate grey */
+  font-size: 0.95rem;
+  line-height: 1.5;
+  max-width: 600px;
+}
+
+/* The Button */
+.support-button {
+  background: #0f172a; /* Dark Navy */
+  border: none;
+  border-radius: 4px; /* Sharp, professional corners (not pill) */
+  padding: 12px 24px;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  font-family: inherit;
+  font-weight: 600;
+  color: white;
+  letter-spacing: 0.02em;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 6px rgba(15, 23, 42, 0.2);
+}
+
+.support-button:hover {
+  background: #1e293b; /* Slightly lighter navy */
+  transform: translateY(-1px);
+  box-shadow: 0 6px 12px rgba(15, 23, 42, 0.3);
+}
+
+.support-button:active {
+  transform: translateY(1px);
+}
+
+/* The Investor Note */
+.investor-note {
+  margin-top: 1rem;
+  font-size: 0.85rem;
+  color: #64748b;
+}
+
+/* Mobile Tweak */
+@media (max-width: 600px) {
+  .support-container {
+    text-align: center;
+    border-left: none;
+    border-top: 4px solid #0f172a;
+  }
+  .support-text p {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
         /* --- PATENT SECTION --- */
         .patents {
             background: var(--section-grey);
@@ -291,7 +364,31 @@
             <p class="roman" style="font-style: italic; font-size: 1rem;">— Nicholas & Kai Law</p>
         </div>
     </div>
+<div class="support-container">
+  
+  <div class="support-text">
+    <h4>Accelerate the Mission</h4>
+    <p>
+      TerraDignus is an independent, bootstrapped R&D initiative. 
+      We have carried the burden of development to bring biomimetic habitation to life.
+      Your contribution directly fuels material testing, prototyping, and the legal defense of our innovations.
+    </p>
+  </div>
 
+  <a href="https://buy.stripe.com/3cI14gcet3ZJfal49u7Re03" target="_blank" class="support-link">
+    <button class="support-button">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path>
+      </svg>
+      <span>Fund R&D Development</span>
+    </button>
+  </a>
+
+  <p class="investor-note">
+    <em>For larger grant or angel investment inquiries, please contact us directly.</em>
+  </p>
+
+</div>
     <section class="patents">
         <h3>Intellectual Property Portfolio</h3>
         <p>Our technology is protected by pending United States Patents.</p>
