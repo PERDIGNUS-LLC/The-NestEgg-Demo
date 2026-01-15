@@ -198,12 +198,14 @@
     }
 
     .proof-image {
-      display: block;
-      width: 100%;
-      height: auto;          /* prevents huge banner/crop */
-      border-radius: 8px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    }
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 900px;     /* <-- adjust: 750–1000px range */
+  margin: 0 auto;       /* centers it */
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
 
     .proof-caption {
       margin-top: 1rem;
@@ -455,7 +457,7 @@
   <div class="proof-section">
     <div class="proof-item">
       <img src="assets/TerraDignus_NestEgg_InSitu_FieldTest.png" alt="NestEgg Field Test" class="proof-image">
-      <p class="proof-caption">Field Deployment: In-Situ Cavity Monitoring</p>
+      <p class="proof-caption">Field Deployment: 1st Gen. In-Situ Cavity Monitoring</p>
     </div>
   </div>
 
