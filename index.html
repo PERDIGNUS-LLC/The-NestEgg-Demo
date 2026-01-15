@@ -26,6 +26,9 @@
       --section-grey: #e8e8e8;
       --navy: #0f172a;
       --slate: #475569;
+      --muted: #64748b;
+      --card: #ffffff;
+      --border: rgba(17, 17, 17, 0.10);
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
@@ -88,11 +91,8 @@
     }
     .btn-download:hover { background: var(--black); color: white; }
 
-    /* =========================================================
-       OUR ORIGINS (now uses The Promise style scheme)
-       ========================================================= */
-
-    .origins-section {
+    /* --- GENESIS SECTION (Green styles reused for Our Origins) --- */
+    .genesis-section {
       background-color: var(--forest-green);
       color: var(--off-white);
       padding: 3rem 2rem;
@@ -101,88 +101,34 @@
       left: 50%; right: 50%;
       margin-left: -50vw; margin-right: -50vw;
     }
-
-    .origins-content {
-      max-width: 900px;
-      margin: 0 auto;
-      text-align: center;
-    }
-
-    .origins-content h2 {
-      font-size: 2.5rem;                 /* matches Promise headline */
-      margin-bottom: 2rem;
+    .genesis-content { max-width: 900px; margin: 0 auto; text-align: left; }
+    .genesis-content h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1.25rem;
       font-family: 'Times New Roman', serif;
       color: var(--gold);
+      text-align: center;
     }
-
-    .origins-lede {
+    .genesis-content p {
       font-family: 'Times New Roman', serif;
-      font-size: 1.3rem;                 /* matches Promise body */
+      font-size: 1.25rem;
       line-height: 1.8;
       margin-bottom: 1.25rem;
       opacity: 0.92;
     }
 
-    /* Accordion styling in green section */
-    .origins-details {
-      margin-top: 1.75rem;
-      text-align: left;                  /* readability for long story */
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.12);
-      border-radius: 10px;
-      padding: 1rem 1.25rem;
-    }
-
-    .origins-details summary {
-      cursor: pointer;
-      font-weight: 700;
-      color: var(--gold);
-      padding: 0.25rem 0;
-      list-style: none;
-      outline: none;
-      user-select: none;
-      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-      letter-spacing: 0.02em;
-    }
-
-    /* Remove default marker, add custom */
-    .origins-details summary::-webkit-details-marker { display: none; }
-    .origins-details summary::before {
-      content: "▶";
-      display: inline-block;
-      margin-right: 10px;
-      transform: translateY(-1px);
-      opacity: 0.9;
-    }
-    .origins-details[open] summary::before {
-      content: "▼";
-    }
-
-    .origins-story {
-      padding-top: 1rem;
-      line-height: 1.8;
-      font-family: 'Times New Roman', serif;
-      font-size: 1.15rem;
-      opacity: 0.92;
-    }
-
-    .origins-story p { margin-bottom: 1.1rem; }
-
     .highlight-question {
       font-family: 'Times New Roman', serif;
       font-style: italic;
-      font-size: 1.35rem;
-      color: var(--off-white);
-      margin: 1.4rem 0;
-      border-left: 3px solid var(--gold);
-      padding-left: 16px;
-      opacity: 0.98;
+      font-size: 1.35rem !important;
+      color: var(--black);
+      margin: 2rem 0;
+      border-left: 3px solid var(--forest-green);
+      padding-left: 20px;
     }
 
-    /* --- PROOF SECTION (Field Test Image) --- */
-    .proof-section {
-      background-color: var(--section-grey);
-      padding: 4rem 2rem;
+    /* --- Full bleed helper --- */
+    .full-bleed {
       width: 100vw;
       position: relative;
       left: 50%;
@@ -191,21 +137,34 @@
       margin-right: -50vw;
     }
 
+    .origins-title {
+      font-size: 2.5rem; /* matches product h2 size */
+      margin-bottom: 0.75rem;
+      line-height: 1.1;
+      text-align: center;
+    }
+
+    /* --- PROOF SECTION (Field Test Image) --- */
+    .proof-section {
+      background-color: var(--section-grey);
+      padding: 4rem 2rem;
+    }
+
     .proof-item {
       max-width: 1000px;
       margin: 0 auto;
       text-align: center;
     }
 
+    /* Key change: constrain the image so it doesn't dominate the viewport */
     .proof-image {
-  display: block;
-  width: 100%;
-  height: auto;
-  max-width: 900px;     /* <-- adjust: 750–1000px range */
-  margin: 0 auto;       /* centers it */
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-}
+      display: block;
+      width: min(100%, 900px);
+      height: auto;
+      margin: 0 auto;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
 
     .proof-caption {
       margin-top: 1rem;
@@ -215,17 +174,225 @@
       color: #555;
     }
 
+    /* --- MILESTONES + WAITLIST --- */
+    .roadmap-section {
+      background-color: var(--section-grey);
+      padding: 4rem 2rem;
+      border-top: 1px solid #ddd;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .roadmap-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .roadmap-header {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+
+    .roadmap-header h2 {
+      font-size: 2.6rem;
+      font-family: 'Times New Roman', serif;
+      color: var(--forest-green);
+      margin-bottom: 0.75rem;
+    }
+
+    .roadmap-header p {
+      color: #444;
+      font-size: 1.05rem;
+      max-width: 900px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    .roadmap-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 2rem;
+      align-items: start;
+      margin-top: 2rem;
+    }
+
+    .roadmap-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.75rem;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+    }
+
+    .target-window {
+      display: flex;
+      flex-direction: column;
+      gap: 0.9rem;
+    }
+
+    .target-window h3 {
+      font-size: 1.35rem;
+      color: var(--black);
+      letter-spacing: -0.02em;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(15,23,42,0.15);
+      color: var(--navy);
+      background: rgba(255,255,255,0.75);
+      font-weight: 700;
+      font-size: 0.9rem;
+      width: fit-content;
+    }
+
+    .pill .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: var(--forest-green);
+      display: inline-block;
+    }
+
+    .target-window p {
+      color: var(--slate);
+      line-height: 1.7;
+      font-size: 1rem;
+    }
+
+    .milestones {
+      margin-top: 1.25rem;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.85rem;
+    }
+
+    .milestone {
+      border: 1px solid rgba(17,17,17,0.10);
+      border-radius: 12px;
+      background: #fff;
+      padding: 1rem 1rem;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 0.75rem;
+      align-items: start;
+    }
+
+    .milestone h4 {
+      margin: 0;
+      font-size: 1.05rem;
+      color: var(--black);
+      letter-spacing: -0.01em;
+    }
+
+    .milestone .meta {
+      margin-top: 0.25rem;
+      font-size: 0.92rem;
+      color: var(--muted);
+      line-height: 1.45;
+    }
+
+    .badge {
+      font-size: 0.8rem;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 8px 10px;
+      border-radius: 10px;
+      border: 1px solid rgba(17,17,17,0.10);
+      background: rgba(244,244,240,0.9);
+      color: var(--navy);
+      white-space: nowrap;
+    }
+
+    .badge.in-progress { background: rgba(212,175,55,0.15); border-color: rgba(212,175,55,0.35); }
+    .badge.planned { background: rgba(26,77,62,0.10); border-color: rgba(26,77,62,0.25); }
+    .badge.done { background: rgba(15,23,42,0.10); border-color: rgba(15,23,42,0.25); }
+
+    /* Waitlist form */
+    .waitlist h3 {
+      font-size: 1.35rem;
+      color: var(--black);
+      margin-bottom: 0.6rem;
+    }
+
+    .waitlist p {
+      color: var(--slate);
+      margin-bottom: 1rem;
+      line-height: 1.6;
+      font-size: 0.98rem;
+    }
+
+    .waitlist-form {
+      display: grid;
+      gap: 0.75rem;
+    }
+
+    .waitlist-form input,
+    .waitlist-form select,
+    .waitlist-form textarea {
+      width: 100%;
+      padding: 12px 12px;
+      border: 1px solid rgba(17,17,17,0.16);
+      border-radius: 10px;
+      background: #fff;
+      font-size: 0.98rem;
+      outline: none;
+    }
+
+    .waitlist-form input:focus,
+    .waitlist-form select:focus,
+    .waitlist-form textarea:focus {
+      border-color: rgba(26,77,62,0.55);
+      box-shadow: 0 0 0 4px rgba(26,77,62,0.12);
+    }
+
+    .waitlist-actions {
+      display: flex;
+      gap: 0.75rem;
+      align-items: center;
+      margin-top: 0.25rem;
+    }
+
+    .btn-primary {
+      background: var(--navy);
+      border: none;
+      border-radius: 10px;
+      padding: 12px 16px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      font-weight: 700;
+      color: white;
+      letter-spacing: 0.02em;
+      transition: all 0.2s ease;
+      box-shadow: 0 6px 14px rgba(15, 23, 42, 0.20);
+    }
+    .btn-primary:hover { background: #1e293b; transform: translateY(-1px); }
+    .btn-primary:active { transform: translateY(1px); }
+
+    .micro-note {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.45;
+    }
+
     /* --- R&D Support Section --- */
     .support-container {
       margin-top: 3rem;
       padding: 2rem;
       background-color: #f4f6f8;
-      border-left: none;
-      border-radius: 4px;
+      border-radius: 12px;
       text-align: center;
       max-width: 1000px;
       margin-left: auto;
       margin-right: auto;
+      border: 1px solid rgba(17,17,17,0.10);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.06);
     }
 
     .support-text h4 {
@@ -237,50 +404,36 @@
     }
 
     .support-text p {
-      margin: 0 auto 1.5rem auto; /* centers the max-width text block */
+      margin: 0 auto 1.5rem auto;
       color: var(--slate);
       font-size: 0.95rem;
       line-height: 1.5;
-      max-width: 600px;
+      max-width: 650px;
     }
 
     .support-button {
       background: var(--navy);
       border: none;
-      border-radius: 4px;
+      border-radius: 10px;
       padding: 12px 24px;
       display: inline-flex;
       align-items: center;
       gap: 12px;
       cursor: pointer;
-      font-family: inherit;
-      font-weight: 600;
+      font-weight: 700;
       color: white;
       letter-spacing: 0.02em;
       transition: all 0.2s ease;
-      box-shadow: 0 4px 6px rgba(15, 23, 42, 0.2);
+      box-shadow: 0 6px 14px rgba(15, 23, 42, 0.20);
     }
 
-    .support-button:hover {
-      background: #1e293b;
-      transform: translateY(-1px);
-      box-shadow: 0 6px 12px rgba(15, 23, 42, 0.3);
-    }
-
+    .support-button:hover { background: #1e293b; transform: translateY(-1px); }
     .support-button:active { transform: translateY(1px); }
 
     .investor-note {
       margin-top: 1rem;
       font-size: 0.85rem;
-      color: #64748b;
-    }
-
-    @media (max-width: 600px) {
-      .support-container {
-        text-align: center;
-        border-left: none;
-        border-top: 4px solid var(--navy);
-      }
+      color: var(--muted);
     }
 
     /* --- PATENT SECTION --- */
@@ -296,17 +449,21 @@
     /* --- FOOTER --- */
     footer { text-align: center; padding: 3rem; background: var(--black); color: var(--off-white); margin-top: 0; }
 
+    @media (max-width: 980px) {
+      .roadmap-grid { grid-template-columns: 1fr; }
+    }
+
     @media (max-width: 768px) {
       .grid { grid-template-columns: 1fr; }
       header h1 { font-size: 2.5rem; }
       .grid .image-content { order: -1; }
+      .genesis-content { text-align: left; }
     }
   </style>
 
   <!-- Cloudflare Web Analytics -->
   <script defer src="https://static.cloudflareinsights.com/beacon.min.js"
           data-cf-beacon='{"token": "a1160f5e2d4a49aa9d8753d3f980070b"}'></script>
-  <!-- End Cloudflare Web Analytics -->
 </head>
 
 <body>
@@ -400,23 +557,30 @@
     </div>
   </section>
 
-  <!-- OUR ORIGINS (now styled like The Promise) -->
-  <section class="origins-section">
-    <div class="origins-content">
-      <h2>Our Origins</h2>
+    <!-- Field test image (now constrained and sane) -->
+  <section class="proof-section full-bleed">
+    <div class="proof-item">
+      <img src="assets/TerraDignus_NestEgg_InSitu_FieldTest.png" alt="NestEgg Field Test" class="proof-image">
+      <p class="proof-caption">Field Deployment: In-Situ Cavity Monitoring</p>
+    </div>
+  </section>
 
-      <p class="origins-lede">
+  <!-- Our Origins (now using the green/promise-style scheme) -->
+  <section id="genesis-accordion-wrapper" class="genesis-section">
+    <div class="genesis-content">
+      <h2 class="origins-title">Our Origins</h2>
+      <p>
         TerraDignus was born from a convergence of engineering background, a passion for conservation, and a refusal to accept the limitations of traditional wildlife habitat design. Founded in Kent County, Michigan, our mission is to move beyond "birdhouses" toward biomimetic systems.
       </p>
 
-      <details class="origins-details">
-        <summary>Read the Full Genesis Story</summary>
+      <details>
+        <summary style="cursor: pointer; font-weight: bold; color: rgba(244,244,240,0.9); padding: 10px 0; border-top: 1px solid rgba(244,244,240,0.25);">
+          Read the Full Genesis Story
+        </summary>
 
-        <div class="origins-story">
+        <div class="full-story" style="padding-top: 20px; line-height: 1.8;">
           <p>Before the NestEgg was hatched, it began as a simple project between father and son: building a birdhouse.</p>
-
           <p>In an effort to reduce cutting processes and material waste—while still producing something functional and aesthetically pleasing—the desire to improve the birdhouse quietly took root.</p>
-
           <p>While evaluating the external aesthetics, we were stopped in our tracks by a single thought:</p>
 
           <p class="highlight-question"><em>Would a bird like this?</em></p>
@@ -424,43 +588,166 @@
           <p class="highlight-question">What do birds actually look for in a home?</p>
 
           <p>Those questions led us away from birdhouses entirely and toward nature itself—toward homes naturally formed and inhabited by birds.</p>
-
-          <p>What we found were not boxes, but <strong>cavities</strong>: formed inside deadwood trees through time, decay, weather, and life. These nesting spaces were rounded, enclosed, and protective, bearing no resemblance to the square, flat-sided structures we had come to accept as “normal” birdhouses.</p>
-
-          <p>That realization reframed the project entirely, forcing us to confront the discrepancy between nature-made homes and man-made ones.</p>
-
-          <p>Traditional birdhouses are not designed with the bird’s needs or preferences in mind. They are shaped by historic construction methods rather than biological function. The widespread use of wood planks imposed invisible constraints on both design and manufacturing, creating a kind of design tunnel vision.</p>
-
-          <p>We weren’t building birdhouses based on what birds seek. We were building them based on what was easy for us to cut, join, and assemble.</p>
-
-          <p>The irony became impossible to ignore.</p>
-
-          <p>For generations, humans have built birdhouses from wood—sourced from the very trees birds once nested in—while congratulating ourselves for “helping.” Yet as pollution, deforestation, and agricultural expansion accelerated, habitat loss became a primary driver of avian population decline. Despite good intentions, conventional birdhouses have largely failed to address the root of the problem.</p>
-
-          <p><strong>But it doesn’t have to be that way.</strong></p>
-
-          <p>Once we recognized that the material itself was dictating the design, the path forward became clear. If traditional materials imposed unnecessary constraints, those constraints could be bypassed by approaching the problem from a different material perspective.</p>
-
-          <p>That realization opened the door to a design that could finally align form, function, manufacturing, and environmental responsibility.</p>
-
+          <p>What we found were not boxes, but <strong>cavities</strong>: formed inside deadwood trees through time, decay, weather, and life.</p>
+          <p>Traditional birdhouses are shaped by historic construction methods rather than biological function. We weren’t building based on what birds seek—we were building what was easy for us to cut, join, and assemble.</p>
           <p>From that insight, the <strong>NecTerra™</strong> material system was born—a proprietary blend of recycled, biodegradable fibers and natural binders that enables entirely handmade production with zero emissions.</p>
-
-          <p>Guided by university research and principles of biomimicry, the design replicates the spatial proportions, thermal regulation, and protection of natural nesting cavities. A modular entrance system further ensures that smaller birds have access to dedicated, species-appropriate homes—something increasingly difficult for them to find.</p>
-
           <p><em>Until now.</em></p>
         </div>
       </details>
     </div>
   </section>
 
-  <!-- Field test image (constrained + sane) -->
-  <div class="proof-section">
-    <div class="proof-item">
-      <img src="assets/TerraDignus_NestEgg_InSitu_FieldTest.png" alt="NestEgg Field Test" class="proof-image">
-      <p class="proof-caption">Field Deployment: 1st Gen. In-Situ Cavity Monitoring</p>
-    </div>
+  <!-- MILESTONES + WAITLIST -->
+  <section class="roadmap-section full-bleed">
+    <div class="roadmap-inner">
+      <div class="roadmap-header">
+        <h2>Release Timeline &amp; Waitlist</h2>
+        <p>
+          We’re building TerraDignus the hard way: field-first, expert-reviewed, and production-ready only when it’s truly earned.
+          Because bird nesting seasons are real—and we’d rather launch at the right time than rush a “bad-year” first impression.
+        </p>
+      </div>
+
+      <div class="roadmap-grid">
+        <!-- Left: Timeline / Target window -->
+        <div class="roadmap-card target-window">
+          <div class="pill"><span class="dot"></span> Target Window: Next Early-Spring Season</div>
+          <h3>Why we’re not posting a fake calendar date</h3>
+          <p>
+            Manufacturing, tooling, packaging, partners, and field validation all affect launch timing—so we publish milestones instead.
+            As each milestone hits, this timeline updates. If you join the waitlist, you’ll get milestone updates automatically.
+          </p>
+
+          <div class="milestones">
+            <div class="milestone">
+              <div>
+                <h4>Field Thermal &amp; Durability Evaluation</h4>
+                <div class="meta">
+                  Targeted Execution: <strong>Jan–Feb</strong><br>
+                  Includes in-tree thermal logging + weather resistance monitoring.
+                </div>
+              </div>
+              <div class="badge in-progress">In Progress</div>
+            </div>
+
+            <div class="milestone">
+              <div>
+                <h4>Expert Review / Red-Flag Audit</h4>
+                <div class="meta">
+                  Targeted Execution: <strong>Feb–Mar</strong><br>
+                  Dimensions, predator guards, ventilation/drainage, and best-practice alignment.
+                </div>
+              </div>
+              <div class="badge planned">Planned</div>
+            </div>
+
+            <div class="milestone">
+              <div>
+                <h4>Partner &amp; Trail Program Outreach</h4>
+                <div class="meta">
+                  Targeted Execution: <strong>Feb–Apr</strong><br>
+                  Conservation orgs, sanctuaries, trail operators, and pilot opportunities.
+                </div>
+              </div>
+              <div class="badge planned">Planned</div>
+            </div>
+
+            <div class="milestone">
+              <div>
+                <h4>Manufacturing Feasibility &amp; Tooling Quotes</h4>
+                <div class="meta">
+                  Targeted Execution: <strong>Mar–Jun</strong><br>
+                  Material scaling, process selection, and lead-time mapping.
+                </div>
+              </div>
+              <div class="badge planned">Planned</div>
+            </div>
+
+            <div class="milestone">
+              <div>
+                <h4>Packaging, Fulfillment &amp; Retail Readiness</h4>
+                <div class="meta">
+                  Targeted Execution: <strong>May–Aug</strong><br>
+                  Packaging tests, shipment survivability, and channel planning.
+                </div>
+              </div>
+              <div class="badge planned">Planned</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Waitlist -->
+        <div class="roadmap-card waitlist">
+          <h3>Join the Waitlist</h3>
+          <p>
+            Get milestone updates and first access to the public launch.
+            No spam. No hype emails. Just progress.
+          </p>
+
+          <!--
+            ✅ Works on GitHub Pages using FormSubmit.
+            1) Replace YOUR_EMAIL_HERE with your email (example: perdignusllc@gmail.com)
+            2) First submission will ask you to confirm/activate.
+            3) If you later want Mailchimp, we can swap this for the embedded Mailchimp form in 2 minutes.
+          -->
+         <!-- TerraDignus Waitlist (Mailchimp-backed) -->
+<form
+  action="https://gmail.us11.list-manage.com/subscribe/post?u=a6d423be607cca1e949519b7c&amp;id=e9395b6d85&amp;f_id=00911ae1f0"
+  method="post"
+  target="_blank"
+  novalidate
+  class="waitlist-form"
+>
+  <label class="sr-only" for="td-name">Name (optional)</label>
+  <input
+    id="td-name"
+    type="text"
+    name="FNAME"
+    autocomplete="name"
+    placeholder="Name (optional)"
+  />
+
+  <label class="sr-only" for="td-email">Email address</label>
+  <input
+    id="td-email"
+    type="email"
+    name="EMAIL"
+    autocomplete="email"
+    placeholder="Email address"
+    required
+  />
+
+  <label class="sr-only" for="td-interest">Interested in</label>
+  <select id="td-interest" name="MMERGE7">
+    <option value="Both" selected>Interested in: Both</option>
+    <option value="The NestEgg™">Interested in: The NestEgg™</option>
+    <option value="The NutHatch™">Interested in: The NutHatch™</option>
+  </select>
+
+  <label class="sr-only" for="td-note">Optional note</label>
+  <textarea
+    id="td-note"
+    name="MMERGE8"
+    placeholder="Optional note (ex: your region, trail program, or what species you care about)"
+    rows="4"
+  ></textarea>
+
+  <!-- Bot trap (keep this) -->
+  <div aria-hidden="true" style="position:absolute; left:-5000px;">
+    <input type="text" name="b_a6d423be607cca1e949519b7c_e9395b6d85" tabindex="-1" value="">
   </div>
 
+  <button type="submit" class="waitlist-btn">
+    <span aria-hidden="true">✈</span> Join Waitlist
+  </button>
+
+  <p class="waitlist-fineprint">
+    By joining, you’ll receive milestone updates and launch announcements only.
+  </p>
+</form>
+
+
+  <!-- R&D Support -->
   <div class="support-container">
     <div class="support-text">
       <h4>Accelerate the Mission</h4>
