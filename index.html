@@ -118,6 +118,10 @@
         .genesis-content h2 { font-size: 2.5rem; margin-bottom: 2rem; font-family: 'Times New Roman', serif; color: var(--gold); }
         .genesis-content p { font-family: 'Times New Roman', serif; font-size: 1.3rem; line-height: 1.8; margin-bottom: 1.5rem; opacity: 0.9; }
 
+        #genesis-accordion h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+}
         /* --- PROOF SECTION STYLES --- */
 .proof-section {
     background-color: var(--section-grey); /* Different from neighboring White and Green sections */
@@ -354,7 +358,8 @@
         </div>
     </section>
 
-    <section id="genesis-accordion" style="padding: 40px 20px; max-width: 800px; margin: auto;">
+    <section id="genesis-accordion-wrapper" style="background-color: var(--section-grey); padding: 60px 20px; border-top: 1px solid #ddd; border-bottom: 1px solid #ddd; width: 100vw; position: relative; left: 50%; right: 50%; margin-left: -50vw; margin-right: -50vw;">
+    <div style="max-width: 800px; margin: 0 auto;">
     <h2>Our Origins</h2>
     <p>
         TerraDignus was born from a convergence of engineering background, a passion for conservation, and a refusal to accept the limitations of traditional wildlife habitat design. Founded in Kent County, Michigan, our mission is to move beyond "birdhouses" toward biomimetic systems.
@@ -406,6 +411,8 @@
     <p><em>Until now.</em></p>
         </div>
     </details>
+        </div>
+</section>
 </section>
     
   
@@ -427,6 +434,15 @@
             <p class="roman" style="font-style: italic; font-size: 1rem;">— Nicholas & Kai Law</p>
         </div>
     </div>
+
+ <div class="proof-section">
+        <div class="proof-item">
+            <img src="assets/TerraDignus_NestEgg_InSitu_FieldTest.png" alt="NestEgg Field Test" class="proof-image">
+            <p class="proof-caption">Field Deployment: In-Situ Cavity Monitoring</p>
+        </div>
+    </div>
+
+
 <div class="support-container">
   
   <div class="support-text">
@@ -437,23 +453,7 @@
       Your contribution directly fuels material testing, prototyping, and the legal defense of our innovations.
     </p>
   </div>
-
-    <div class="proof-section">
-    <div class="proof-grid">
-        <div class="proof-item">
-            <video autoplay loop muted playsinline class="proof-video">
-                <source src="assets/dylan-close-loop.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
-            <p class="proof-caption">Mechanical Analysis: NestEgg Aperture Study</p>
-        </div>
-        <div class="proof-item">
-            <img src="assets/TerraDignus_NestEgg_InSitu_FieldTestg" alt="NestEgg Field Test" class="proof-image">
-            <p class="proof-caption">Field Deployment: In-Situ Cavity Monitoring</p>
-        </div>
-    </div>
-</div>
-    
+ 
   <a href="https://buy.stripe.com/3cI14gcet3ZJfal49u7Re03" target="_blank" class="support-link">
     <button class="support-button">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
