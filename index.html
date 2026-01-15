@@ -24,6 +24,8 @@
       --grey: #b3b3b3ff;
       --gold: #D4AF37;
       --section-grey: #e8e8e8;
+      --navy: #0f172a;
+      --slate: #475569;
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
@@ -86,8 +88,11 @@
     }
     .btn-download:hover { background: var(--black); color: white; }
 
-    /* --- GENESIS SECTION (Green) --- */
-    .genesis-section {
+    /* =========================================================
+       OUR ORIGINS (now uses The Promise style scheme)
+       ========================================================= */
+
+    .origins-section {
       background-color: var(--forest-green);
       color: var(--off-white);
       padding: 3rem 2rem;
@@ -96,44 +101,82 @@
       left: 50%; right: 50%;
       margin-left: -50vw; margin-right: -50vw;
     }
-    .genesis-content { max-width: 800px; margin: 0 auto; text-align: center; }
-    .genesis-content h2 {
-      font-size: 2.5rem;
+
+    .origins-content {
+      max-width: 900px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .origins-content h2 {
+      font-size: 2.5rem;                 /* matches Promise headline */
       margin-bottom: 2rem;
       font-family: 'Times New Roman', serif;
       color: var(--gold);
     }
-    .genesis-content p {
+
+    .origins-lede {
       font-family: 'Times New Roman', serif;
-      font-size: 1.3rem;
+      font-size: 1.3rem;                 /* matches Promise body */
       line-height: 1.8;
-      margin-bottom: 1.5rem;
-      opacity: 0.9;
+      margin-bottom: 1.25rem;
+      opacity: 0.92;
     }
 
-    #genesis-accordion h2 { font-size: 2.5rem; margin-bottom: 1.5rem; }
+    /* Accordion styling in green section */
+    .origins-details {
+      margin-top: 1.75rem;
+      text-align: left;                  /* readability for long story */
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 10px;
+      padding: 1rem 1.25rem;
+    }
+
+    .origins-details summary {
+      cursor: pointer;
+      font-weight: 700;
+      color: var(--gold);
+      padding: 0.25rem 0;
+      list-style: none;
+      outline: none;
+      user-select: none;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      letter-spacing: 0.02em;
+    }
+
+    /* Remove default marker, add custom */
+    .origins-details summary::-webkit-details-marker { display: none; }
+    .origins-details summary::before {
+      content: "▶";
+      display: inline-block;
+      margin-right: 10px;
+      transform: translateY(-1px);
+      opacity: 0.9;
+    }
+    .origins-details[open] summary::before {
+      content: "▼";
+    }
+
+    .origins-story {
+      padding-top: 1rem;
+      line-height: 1.8;
+      font-family: 'Times New Roman', serif;
+      font-size: 1.15rem;
+      opacity: 0.92;
+    }
+
+    .origins-story p { margin-bottom: 1.1rem; }
 
     .highlight-question {
       font-family: 'Times New Roman', serif;
       font-style: italic;
-      font-size: 1.4rem !important;
-      color: var(--black);
-      margin: 2rem 0;
-      border-left: 3px solid var(--forest-green);
-      padding-left: 20px;
-    }
-
-    /* --- Our Origins Full Width Fix --- */
-    .full-bleed {
-      width: 100%;
-      max-width: none !important;
-      margin: 0 !important;
-    }
-
-    .origins-title {
-      font-size: 2.5rem; /* matches product-copy h2 */
-      margin-bottom: 0.5rem;
-      line-height: 1.1;
+      font-size: 1.35rem;
+      color: var(--off-white);
+      margin: 1.4rem 0;
+      border-left: 3px solid var(--gold);
+      padding-left: 16px;
+      opacity: 0.98;
     }
 
     /* --- PROOF SECTION (Field Test Image) --- */
@@ -157,7 +200,7 @@
     .proof-image {
       display: block;
       width: 100%;
-      height: auto;          /* important: prevents huge forced banner crop */
+      height: auto;          /* prevents huge banner/crop */
       border-radius: 8px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     }
@@ -175,7 +218,7 @@
       margin-top: 3rem;
       padding: 2rem;
       background-color: #f4f6f8;
-      border-left: 4px solid #0f172a;
+      border-left: 4px solid var(--navy);
       border-radius: 4px;
       text-align: center;
       max-width: 1000px;
@@ -185,22 +228,22 @@
 
     .support-text h4 {
       margin: 0 0 0.5rem 0;
-      color: #0f172a;
+      color: var(--navy);
       font-size: 1.1rem;
       text-transform: uppercase;
       letter-spacing: 0.05em;
     }
 
     .support-text p {
-      margin: 0 auto 1.5rem auto; /* FIX: centers the max-width text block */
-      color: #475569;
+      margin: 0 auto 1.5rem auto; /* centers the max-width text block */
+      color: var(--slate);
       font-size: 0.95rem;
       line-height: 1.5;
       max-width: 600px;
     }
 
     .support-button {
-      background: #0f172a;
+      background: var(--navy);
       border: none;
       border-radius: 4px;
       padding: 12px 24px;
@@ -234,7 +277,7 @@
       .support-container {
         text-align: center;
         border-left: none;
-        border-top: 4px solid #0f172a;
+        border-top: 4px solid var(--navy);
       }
     }
 
@@ -355,21 +398,19 @@
     </div>
   </section>
 
-  <!-- Our Origins (Full width background + bigger title) -->
-  <section id="genesis-accordion-wrapper" class="full-bleed"
-    style="background-color: var(--section-grey); padding: 60px 20px; border-top: 1px solid #ddd; border-bottom: 1px solid #ddd;">
-    <div style="max-width: 800px; margin: 0 auto;">
-      <h2 class="origins-title">Our Origins</h2>
-      <p>
+  <!-- OUR ORIGINS (now styled like The Promise) -->
+  <section class="origins-section">
+    <div class="origins-content">
+      <h2>Our Origins</h2>
+
+      <p class="origins-lede">
         TerraDignus was born from a convergence of engineering background, a passion for conservation, and a refusal to accept the limitations of traditional wildlife habitat design. Founded in Kent County, Michigan, our mission is to move beyond "birdhouses" toward biomimetic systems.
       </p>
 
-      <details>
-        <summary style="cursor: pointer; font-weight: bold; color: #34495e; padding: 10px 0; border-top: 1px solid #eee;">
-          Read the Full Genesis Story
-        </summary>
+      <details class="origins-details">
+        <summary>Read the Full Genesis Story</summary>
 
-        <div class="full-story" style="padding-top: 20px; line-height: 1.7;">
+        <div class="origins-story">
           <p>Before the NestEgg was hatched, it began as a simple project between father and son: building a birdhouse.</p>
 
           <p>In an effort to reduce cutting processes and material waste—while still producing something functional and aesthetically pleasing—the desire to improve the birdhouse quietly took root.</p>
@@ -382,8 +423,6 @@
 
           <p>Those questions led us away from birdhouses entirely and toward nature itself—toward homes naturally formed and inhabited by birds.</p>
 
-          <div class="section-divider"></div>
-
           <p>What we found were not boxes, but <strong>cavities</strong>: formed inside deadwood trees through time, decay, weather, and life. These nesting spaces were rounded, enclosed, and protective, bearing no resemblance to the square, flat-sided structures we had come to accept as “normal” birdhouses.</p>
 
           <p>That realization reframed the project entirely, forcing us to confront the discrepancy between nature-made homes and man-made ones.</p>
@@ -395,8 +434,6 @@
           <p>The irony became impossible to ignore.</p>
 
           <p>For generations, humans have built birdhouses from wood—sourced from the very trees birds once nested in—while congratulating ourselves for “helping.” Yet as pollution, deforestation, and agricultural expansion accelerated, habitat loss became a primary driver of avian population decline. Despite good intentions, conventional birdhouses have largely failed to address the root of the problem.</p>
-
-          <div class="section-divider"></div>
 
           <p><strong>But it doesn’t have to be that way.</strong></p>
 
@@ -414,27 +451,7 @@
     </div>
   </section>
 
-  <div class="genesis-section">
-    <div class="genesis-content">
-      <h2>The Promise</h2>
-      <p>
-        TerraDignus wasn't born in a laboratory. It was the foundational philosophy that revealed itself after trials by fire—when the smoke had settled, and only what truly mattered remained.
-      </p>
-      <p>
-        “Good enough” was never a standard we could accept, not when a far greater outcome was clearly possible.
-      </p>
-      <p>
-        When you strip away the engineering, the materials, and the patents, what remains is a simple commitment: to take responsibility for what we value and create, to ensure our efforts are matched by efficacy, and to build with deliberation—because doing otherwise was never acceptable to us.
-      </p>
-      <p>
-        That commitment is the foundation behind our work.
-      </p>
-      <br>
-      <p class="roman" style="font-style: italic; font-size: 1rem;">— Nicholas & Kai Law</p>
-    </div>
-  </div>
-
-  <!-- Field test image (now constrained and sane) -->
+  <!-- Field test image (constrained + sane) -->
   <div class="proof-section">
     <div class="proof-item">
       <img src="assets/TerraDignus_NestEgg_InSitu_FieldTest.png" alt="NestEgg Field Test" class="proof-image">
