@@ -692,12 +692,13 @@
 
   <!-- TerraDignus Waitlist (Mailchimp-backed) -->
   <form
-    action="https://gmail.us11.list-manage.com/subscribe/post?u=a6d423be607cca1e949519b7c&amp;id=e9395b6d85&amp;f_id=00911ae1f0"
-    method="post"
-    target="_blank"
-    novalidate
-    class="waitlist-form"
-  >
+  action="https://gmail.us11.list-manage.com/subscribe/post?u=a6d423be607cca1e949519b7c&amp;id=e9395b6d85&amp;f_id=00911ae1f0"
+  method="post"
+  target="mc_hidden_iframe"
+  novalidate
+  class="waitlist-form"
+  id="td-waitlist-form"
+>
     <label class="sr-only" for="td-name">Name (optional)</label>
     <input
       id="td-name"
@@ -748,6 +749,16 @@
       By joining, you’ll receive milestone updates and launch announcements only.
     </p>
   </form>
+  <iframe
+  name="mc_hidden_iframe"
+  id="mc_hidden_iframe"
+  style="display:none; width:0; height:0; border:0;"
+></iframe>
+
+<p class="waitlist-success" id="td-waitlist-success" style="display:none;">
+  ✅ You’re on the list. If this is your first time, check your inbox to confirm.
+</p>
+
 </div> <!-- /waitlist -->
 
 </div> <!-- /roadmap-grid -->
@@ -797,6 +808,22 @@
     <p class="roman">TerraDignus™ | NecTerra</p>
     <p>&copy; MMXXV Nicholas J. Law. All Rights Reserved.</p>
   </footer>
+
+  <script>
+  (function () {
+    const form = document.getElementById("td-waitlist-form");
+    const msg = document.getElementById("td-waitlist-success");
+    if (!form || !msg) return;
+
+    form.addEventListener("submit", function () {
+      // Show confirmation message immediately
+      msg.style.display = "block";
+
+      // Optional: clear fields after a moment (keeps email visible briefly for reassurance)
+      setTimeout(() => form.reset(), 600);
+    });
+  })();
+</script>
 
 </body>
 </html>
