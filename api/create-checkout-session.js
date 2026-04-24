@@ -1,7 +1,7 @@
 // File: api/create-checkout-session.js
 
 import Stripe from "stripe";
-export const config = { runtime: "edge" };
+export const config = { runtime: "nodejs" };
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
