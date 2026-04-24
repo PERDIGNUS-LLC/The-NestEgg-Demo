@@ -32,9 +32,9 @@
     }
 
     .sr-only{
-  position:absolute; width:1px; height:1px; padding:0; margin:-1px;
-  overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;
-}
+      position:absolute; width:1px; height:1px; padding:0; margin:-1px;
+      overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;
+    }
 
 
     * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
@@ -162,7 +162,6 @@
       text-align: center;
     }
 
-    /* Key change: constrain the image so it doesn't dominate the viewport */
     .proof-image {
       display: block;
       width: min(100%, 900px);
@@ -467,7 +466,6 @@
     }
   </style>
 
-  <!-- Cloudflare Web Analytics -->
   <script defer src="https://static.cloudflareinsights.com/beacon.min.js"
           data-cf-beacon='{"token": "a1160f5e2d4a49aa9d8753d3f980070b"}'></script>
 </head>
@@ -563,15 +561,13 @@
     </div>
   </section>
 
-    <!-- Field test image (now constrained and sane) -->
-  <section class="proof-section full-bleed">
+    <section class="proof-section full-bleed">
     <div class="proof-item">
       <img src="assets/TerraDignus_NestEgg_InSitu_FieldTest.png" alt="NestEgg Field Test" class="proof-image">
       <p class="proof-caption">Field Deployment: 1st Gen - NecTerra NestEgg Monitoring</p>
     </div>
   </section>
 
-  <!-- Our Origins (now using the green/promise-style scheme) -->
   <section id="genesis-accordion-wrapper" class="genesis-section">
     <div class="genesis-content">
       <h2 class="origins-title">Our Origins</h2>
@@ -603,172 +599,123 @@
     </div>
   </section>
 
-  <!-- MILESTONES + WAITLIST -->
   <section class="roadmap-section full-bleed">
     <div class="roadmap-inner">
       <div class="roadmap-header">
         <h2>Release Timeline &amp; Waitlist</h2>
         <p>
           We’re building TerraDignus the hard way: field-first, expert-reviewed, and production-ready only when it’s truly earned.
-          Because bird nesting seasons are real, and we’d rather launch at the right time than rush a “bad-year” first impression.
         </p>
       </div>
 
       <div class="roadmap-grid">
-        <!-- Left: Timeline / Target window -->
         <div class="roadmap-card target-window">
-          <div class="pill"><span class="dot"></span> Target Window: Next Early-Spring Season</div>
-          <h3>Why we’re not posting a fake calendar date</h3>
+          <div class="pill"><span class="dot" style="background: #cd7f32;"></span> Unit 01 Deploying</div>
+          <h3>From Engineering to Reality</h3>
           <p>
-            Manufacturing, tooling, packaging, partners, and field validation all affect launch timing—so we publish milestones instead.
-            As each milestone hits, this timeline updates. If you join the waitlist, you’ll get milestone updates automatically.
+            We are actively transitioning from engineering to real-world deployment. Here is where the TerraDignus project stands today:
           </p>
 
           <div class="milestones">
+            
             <div class="milestone">
               <div>
-                <h4>Field Thermal &amp; Durability Evaluation</h4>
+                <h4>Phase 1: Engineering & Formulation</h4>
                 <div class="meta">
-                  Targeted Execution: <strong>Jan–Feb</strong><br>
-                  Includes in-tree thermal logging + weather resistance monitoring.
+                  The proprietary NecTerra biocomposite is locked in. Collapsible manufacturing cores for NutHatch and NestEgg habitats have been successfully engineered and finalized.
                 </div>
               </div>
-              <div class="badge in-progress">In Progress</div>
+              <div class="badge done">Complete</div>
             </div>
 
             <div class="milestone">
               <div>
-                <h4>Expert Review / Red-Flag Audit</h4>
+                <h4>Phase 2: VIP Field Trials</h4>
                 <div class="meta">
-                  Targeted Execution: <strong>Feb–Mar</strong><br>
-                  Dimensions, predator guards, ventilation/drainage, and best-practice alignment.
+                  Unit 01 prototypes are currently deploying to our initial round of VIP testers across varied climates, including California and Canada, to gather real-world environmental data before mass production.
                 </div>
               </div>
-              <div class="badge planned">Planned</div>
+              <div class="badge in-progress">Active</div>
             </div>
 
             <div class="milestone">
               <div>
-                <h4>Partner &amp; Trail Program Outreach</h4>
+                <h4>Phase 3: Public Release</h4>
                 <div class="meta">
-                  Targeted Execution: <strong>Feb–Apr</strong><br>
-                  Conservation orgs, sanctuaries, trail operators, and pilot opportunities.
+                  Following the field trials, we will scale our manufacturing processes for full public availability. Join the waitlist to secure your place in line for the first production run.
                 </div>
               </div>
-              <div class="badge planned">Planned</div>
+              <div class="badge planned">Waitlist Open</div>
             </div>
-
-            <div class="milestone">
-              <div>
-                <h4>Manufacturing Feasibility &amp; Tooling Quotes</h4>
-                <div class="meta">
-                  Targeted Execution: <strong>Mar–Jun</strong><br>
-                  Material scaling, process selection, and lead-time mapping.
-                </div>
-              </div>
-              <div class="badge planned">Planned</div>
-            </div>
-
-            <div class="milestone">
-              <div>
-                <h4>Packaging, Fulfillment &amp; Retail Readiness</h4>
-                <div class="meta">
-                  Targeted Execution: <strong>May–Aug</strong><br>
-                  Packaging tests, shipment survivability, and channel planning.
-                </div>
-              </div>
-              <div class="badge planned">Planned</div>
-            </div>
+            
           </div>
         </div>
 
-       <!-- Right: Waitlist -->
-<div class="roadmap-card waitlist">
-  <h3>Join the Waitlist</h3>
-  <p>
-    Get milestone updates and first access to the public launch.
-    No spam. No hype emails. Just progress.
-  </p>
+        <div class="roadmap-card waitlist">
+          <h3>Join the Waitlist</h3>
+          <p>
+            Get milestone updates and first access to the public launch.
+            No spam. No hype emails. Just progress.
+          </p>
 
-  <!-- TerraDignus Waitlist (Mailchimp-backed) -->
-  <form
-  action="https://gmail.us11.list-manage.com/subscribe/post?u=a6d423be607cca1e949519b7c&amp;id=e9395b6d85&amp;f_id=00911ae1f0"
-  method="post"
-  target="mc_hidden_iframe"
-  novalidate
-  class="waitlist-form"
-  id="td-waitlist-form"
->
-    <label class="sr-only" for="td-name">Name (optional)</label>
-    <input
-      id="td-name"
-      type="text"
-      name="FNAME"
-      autocomplete="name"
-      placeholder="Name (optional)"
-    />
+          <form
+            action="https://gmail.us11.list-manage.com/subscribe/post?u=a6d423be607cca1e949519b7c&amp;id=e9395b6d85&amp;f_id=00911ae1f0"
+            method="post"
+            target="mc_hidden_iframe"
+            novalidate
+            class="waitlist-form"
+            id="td-waitlist-form"
+          >
+            <label class="sr-only" for="td-name">Name (optional)</label>
+            <input id="td-name" type="text" name="FNAME" autocomplete="name" placeholder="Name (optional)" />
 
-    <label class="sr-only" for="td-email">Email address</label>
-    <input
-      id="td-email"
-      type="email"
-      name="EMAIL"
-      autocomplete="email"
-      placeholder="Email address"
-      required
-    />
+            <label class="sr-only" for="td-email">Email address</label>
+            <input id="td-email" type="email" name="EMAIL" autocomplete="email" placeholder="Email address" required />
 
-    <label class="sr-only" for="td-interest">Interested in</label>
-    <select id="td-interest" name="MMERGE7">
-      <option value="Both" selected>Interested in: Both</option>
-      <option value="The NestEgg™">Interested in: The NestEgg™</option>
-      <option value="The NutHatch™">Interested in: The NutHatch™</option>
-    </select>
+            <label class="sr-only" for="td-interest">Interested in</label>
+            <select id="td-interest" name="MMERGE7">
+              <option value="Both" selected>Interested in: Both</option>
+              <option value="The NestEgg™">Interested in: The NestEgg™</option>
+              <option value="The NutHatch™">Interested in: The NutHatch™</option>
+            </select>
 
-    <label class="sr-only" for="td-note">Optional note</label>
-    <textarea
-      id="td-note"
-      name="MMERGE8"
-      placeholder="Optional note (ex: your region, trail program, or what species you care about)"
-      rows="4"
-    ></textarea>
+            <label class="sr-only" for="td-note">Optional note</label>
+            <textarea id="td-note" name="MMERGE8" placeholder="Optional note (ex: your region, trail program, or what species you care about)" rows="4"></textarea>
 
-    <!-- Bot trap (keep this) -->
-    <div aria-hidden="true" style="position:absolute; left:-5000px;">
-      <input type="text" name="b_a6d423be607cca1e949519b7c_e9395b6d85" tabindex="-1" value="">
-    </div>
+            <div aria-hidden="true" style="position:absolute; left:-5000px;">
+              <input type="text" name="b_a6d423be607cca1e949519b7c_e9395b6d85" tabindex="-1" value="">
+            </div>
 
-    <!-- Use btn-primary (your CSS already styles this) -->
-    <div class="waitlist-actions">
-      <button type="submit" class="btn-primary">
-        <span aria-hidden="true">✈</span> Join Waitlist
-      </button>
-    </div>
+            <div class="waitlist-actions">
+              <button type="submit" class="btn-primary">
+                <span aria-hidden="true">✈</span> Join Waitlist
+              </button>
+            </div>
 
-    <p class="micro-note">
-      By joining, you’ll receive milestone updates and launch announcements only.
-    </p>
-  </form>
-  <iframe
-  name="mc_hidden_iframe"
-  id="mc_hidden_iframe"
-  style="display:none; width:0; height:0; border:0;"
-></iframe>
+            <p class="micro-note">
+              By joining, you’ll receive milestone updates and launch announcements only.
+            </p>
+          </form>
 
-<p class="waitlist-success" id="td-waitlist-success" style="display:none;">
-  ✅ You’re on the list. If this is your first time, check your inbox to confirm.
-</p>
+          <iframe name="mc_hidden_iframe" id="mc_hidden_iframe" style="display:none; width:0; height:0; border:0;"></iframe>
 
-</div> <!-- /waitlist -->
+          <p class="waitlist-success" id="td-waitlist-success" style="display:none;">
+            ✅ You’re on the list. If this is your first time, check your inbox to confirm.
+          </p>
 
-</div> <!-- /roadmap-grid -->
-</div> <!-- /roadmap-inner -->
-</section> <!-- /roadmap-section -->
+          <div style="margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid rgba(17,17,17,0.1);">
+            <h4 style="font-size: 1.05rem; color: var(--navy); margin-bottom: 0.75rem;">Follow the Field Trials</h4>
+            <a href="https://www.instagram.com/terradignus" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 8px; text-decoration: none; color: var(--navy); font-weight: 700; transition: opacity 0.2s ease;" onmouseover="this.style.opacity=0.7" onmouseout="this.style.opacity=1">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+              </svg>
+              @terradignus
+            </a>
+          </div>
 
-
-          
-  <!-- R&D Support -->
-  <div class="support-container">
+        </div> </div> </div> </section> <div class="support-container">
     <div class="support-text">
       <h4>Accelerate the Mission</h4>
       <p>
@@ -806,6 +753,18 @@
   <footer>
     <h3>PERDIGNUS LLC</h3>
     <p class="roman">TerraDignus™ | NecTerra</p>
+
+    <div style="margin: 1.5rem 0;">
+      <a href="https://www.instagram.com/terradignus" target="_blank" rel="noopener noreferrer" style="color: var(--off-white); text-decoration: none; display: inline-flex; align-items: center; gap: 8px; opacity: 0.8; transition: opacity 0.3s ease;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.8">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+          <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+          <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+        </svg>
+        Follow @terradignus
+      </a>
+    </div>
+
     <p>&copy; 2026 Perdignus LLC. All Rights Reserved.</p>
   </footer>
 
@@ -823,7 +782,7 @@
       setTimeout(() => form.reset(), 600);
     });
   })();
-</script>
+  </script>
 
 </body>
 </html>
