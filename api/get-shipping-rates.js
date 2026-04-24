@@ -44,15 +44,19 @@ export default async function handler(req, res) {
 
         // 2. TerraDignus Parcel Profile
         const shippingProfiles = {
-            VIP_UNIT_01: { 
-                weight: 75,  // ounces
-                length: 8,   // inches
-                width: 8,    // inches
-                height: 8    // inches
-            }
-        };
+    NEST_EGG: { 
+        weight: 75, // ounces
+        length: 8, width: 8, height: 8 
+    },
+    NEST_EGG_MINI: { 
+        weight: 50, // UPDATE THIS with your actual casted weight
+        length: 6, width: 6, height: 6 // Update with Mini box dimensions
+    }
+};
 
-        const parcelData = shippingProfiles[product.size] || shippingProfiles.VIP_UNIT_01;
+      // Update the lookup logic to handle both names
+const productKey = product.size.includes('Mini') ? 'NEST_EGG_MINI' : 'NEST_EGG';
+const parcelData = shippingProfiles[productKey] || shippingProfiles.NEST_EGG;
 
         const fromAddress = {
             street1: '1520 LEFFINGWELL AVE NE',
