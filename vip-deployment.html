@@ -1,269 +1,316 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>The Birds | THE NestEgg™</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-  <script src="https://js.stripe.com/v3/"></script>
-  <style>
-    :root {
-      --green: #165044;
-      --blue: #6b8ca4;
-      --charcoal: #2c2c2c;
-      --muted: #6e6e6e;
-      --bg: #faf9f7;
-      --card: #ffffff;
-      --shadow: rgba(18,24,20,0.06);
-      --serif: 'Playfair Display', serif;
-      --sans: 'Inter', sans-serif;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VIP Checkout | TerraDignus</title>
+    <style>
+        :root {
+            --green: #1A4D3E;
+            --gold: #D4AF37;
+            --bg: #F4F4F0;
+            --charcoal: #111;
+            --muted: #6e6e6e;
+            --card: #ffffff;
+            --font: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
 
-    /* Page */
-    * { box-sizing: border-box; }
-    body { margin: 0; background: var(--bg); color: var(--charcoal); font-family: var(--sans); -webkit-font-smoothing:antialiased; }
-    header { background: white; box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000; }
-    nav { max-width: 1100px; margin: auto; display:flex; align-items:center; justify-content:space-between; padding:1rem 2rem; }
-    nav a { text-decoration: none; color: var(--charcoal); font-weight: 500; }
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--charcoal);
+            font-family: var(--font);
+            -webkit-font-smoothing: antialiased;
+        }
 
-    .page-hero { max-width: 1100px; margin: 1.4rem auto; text-align:center; }
-    .page-hero h1 { font-family: var(--serif); font-size: 2.4rem; margin: 0; }
+        /* --- Header --- */
+        header { background: var(--green); box-shadow: 0 4px 12px rgba(0,0,0,0.15); position: sticky; top: 0; z-index: 100; }
+        nav { max-width: 1100px; margin: auto; display: flex; align-items: center; justify-content: space-between; padding: 1rem 2rem; flex-wrap: wrap; }
+        
+        /* --- Checkout Container --- */
+        .checkout-wrapper {
+            max-width: 800px;
+            margin: 3rem auto;
+            padding: 0 1.5rem;
+            display: grid;
+            gap: 2rem;
+            grid-template-columns: 1fr;
+        }
 
-    /* Grid */
-    .birds-grid {
-      max-width: 1100px;
-      margin: 1.6rem auto 3rem;
-      padding: 0 1rem;
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 1.25rem;
-    }
+        .checkout-section {
+            background: var(--card);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+            border: 1px solid rgba(0,0,0,0.05);
+        }
 
-    @media (max-width: 1000px) { .birds-grid { grid-template-columns: repeat(3, 1fr); } }
-    @media (max-width: 760px) { .birds-grid { grid-template-columns: repeat(2, 1fr); } }
-    @media (max-width: 480px) { .birds-grid { grid-template-columns: 1fr; } }
+        h2 { font-size: 1.5rem; margin-top: 0; margin-bottom: 1.5rem; border-bottom: 2px solid var(--bg); padding-bottom: 10px; }
 
-    /* Scene & Card - three-sided */
-    .card-scene { perspective: 1400px; }
-    .card-scene.is-flipping { z-index: 30; position: relative; } /* keep active card above neighbors */
+        /* --- Form Elements --- */
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        .form-group { display: flex; flex-direction: column; }
+        .form-group.full { grid-column: 1 / -1; }
+        
+        label { font-weight: 700; font-size: 0.9rem; margin-bottom: 6px; color: var(--charcoal); }
+        input, select {
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-family: var(--font);
+            outline: none;
+        }
+        input:focus, select:focus { border-color: var(--green); box-shadow: 0 0 0 3px rgba(26,77,62,0.1); }
 
-    .card {
-      width: 100%;
-      height: 360px; /* reduced height */
-      position: relative;
-      transform-style: preserve-3d;
-      transition: transform 700ms cubic-bezier(.2,.9,.2,1);
-      -webkit-tap-highlight-color: transparent;
-      --rotation: 0deg;
-      transform: rotateY(var(--rotation));
-    }
+        /* --- Buttons --- */
+        .btn {
+            background: var(--green);
+            color: #fff;
+            border: none;
+            padding: 14px 20px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 1.05rem;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.2s ease;
+            margin-top: 20px;
+        }
+        .btn:hover { background: #12382c; transform: translateY(-1px); }
+        .btn:disabled { background: #ccc; cursor: not-allowed; transform: none; }
 
-    .card-face {
-      position: absolute;
-      inset: 0;
-      border-radius: 12px;
-      background: var(--card);
-      box-shadow: 0 6px 18px var(--shadow);
-      backface-visibility: hidden;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
-    }
+        /* --- Rates List --- */
+        .rate-option {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .rate-option:hover { border-color: var(--green); }
+        .rate-option.selected { border-color: var(--green); background: rgba(26,77,62,0.05); }
 
-    /* Front face */
-    .card-face.front {
-      padding: 0;
-      transform: rotateY(0deg) translateZ(30px);
-    }
-    .card-face.front img {
-      width: 100%;
-      height: 220px;
-      object-fit: cover;
-      object-position: top;
-      display:block;
-    }
-    .card-face.front .name-container {
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding: 14px;
-      min-height: 64px;
-      text-align:center;
-    }
-    .card-face.front h3 {
-      margin: 0;
-      font-family: var(--serif);
-      font-size: 1.05rem;
-      line-height: 1.2;
-      color: var(--charcoal);
-      padding: 0 8px;
-    }
-
-    /* Middle face - info */
-    .card-face.middle {
-      transform: rotateY(120deg) translateZ(28px);
-      padding: 16px;
-      justify-content: space-between;
-    }
-
-    /* Back face - purchase */
-    .card-face.back {
-      transform: rotateY(240deg) translateZ(26px);
-      padding: 18px;
-      justify-content: space-between;
-    }
-
-    .bird-title { font-family: var(--serif); font-size: 1.1rem; margin: 0 0 8px; color: var(--charcoal); }
-    .blurb { font-size: 0.92rem; color: var(--muted); line-height: 1.45; margin-bottom: 10px; }
-    .data-grid { display:grid; grid-template-columns: 1fr 1fr; gap:8px; font-size: 0.85rem; color:var(--muted); }
-    .data-item strong { display:block; color:var(--charcoal); margin-bottom:4px; font-size:0.9rem; }
-
-    .product-info { text-align:center; margin-top:6px; }
-    .product-info strong { display:block; font-family:var(--serif); font-size:1.25rem; margin-bottom:6px; color:var(--charcoal); }
-    .product-info span { color:var(--muted); font-size:1rem; }
-
-    .help-btn {
-      background: var(--green);
-      color: #fff;
-      border: none;
-      padding: 0.8rem;
-      border-radius: 8px;
-      font-weight: 700;
-      width: 100%;
-      cursor: pointer;
-      transition: background .18s;
-      font-size: 0.98rem;
-    }
-    .help-btn:hover { background: var(--blue); }
-
-    /* Small visual tweak for click affordance */
-    .card .click-hint { font-size: 0.82rem; color:var(--muted); text-align:center; margin-top:8px; }
-
-    footer { text-align:center; padding: 2rem; color: #6e6e6e; font-size: 0.9rem; border-top: 1px solid rgba(0,0,0,0.03); }
-  </style>
+        /* --- Cart Summary --- */
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+        .cart-item:last-child { border-bottom: none; }
+    </style>
 </head>
 <body>
-  <header>
+
+<header>
     <nav>
-      <a href="index.html" style="display:flex;align-items:center;gap:12px; text-decoration:none;">
-        <img src="OFFICIAL NE.png" alt="The NestEgg™ logo" style="width:48px;height:48px;object-fit:contain">
-        <span style="font-family:'Playfair Display',serif;font-size:1.25rem; color:var(--charcoal);">The NestEgg<sup>&trade;</sup></span>
-      </a>
-      <div style="display:flex;align-items:center;gap:1rem;">
-        <a href="index.html">Home</a>
-        <a href="Birds.html" aria-current="page">Birds</a>
-        <a href="founder.html">Founder</a>
-        <button id="cartBtn" style="background:rgba(44,44,44,0.06);border:none;color:var(--charcoal);padding:8px 12px;border-radius:8px;display:inline-flex;align-items:center;gap:8px;cursor:pointer;font-weight:700;">
-          Cart <span id="navCartCount" style="background:rgba(0,0,0,0.06);padding:4px 8px;border-radius:999px;">0</span>
-        </button>
-      </div>
+        <a href="index.html" style="text-decoration: none; color: #F4F4F0; display: flex; align-items: center; gap: 12px;">
+             <img src="assets/TD HL BINDRUNE SMALLEST.png" alt="TerraDignus Logo" style="width: 48px; height: 48px; object-fit: contain;">
+             <span style="font-weight: 700; font-size: 1.5rem; letter-spacing: -0.05em;">TerraDignus</span>
+        </a>
+        <a href="index.html" style="text-decoration: none; color: #F4F4F0; font-weight: 600; letter-spacing: 0.05em;">Back to Home</a>
     </nav>
-  </header>
+</header>
 
-  <section class="page-hero"><h1>The Birds We Build For</h1></section>
-
-  <main id="birdsGrid" class="birds-grid" aria-live="polite"></main>
-
-  <footer>
-    <p>© 2025 The NestEgg™. All rights reserved.</p>
-  </footer>
-
-  <script src="bird-data.js"></script>
-  <script>
-    document.addEventListener("DOMContentLoaded", function() {
-      const grid = document.getElementById('birdsGrid');
-      if (!grid || typeof birdsData === 'undefined') return;
-
-      birdsData.forEach(bird => {
-        const scene = document.createElement('div');
-        scene.className = 'card-scene';
-
-        const card = document.createElement('div');
-        card.className = 'card';
-        // set CSS variable for rotation
-        card.style.setProperty('--rotation', '0deg');
-
-        // Build faces
-        card.innerHTML = `
-          <div class="card-face front" aria-hidden="false">
-            <img src="${bird.imageUrl}" alt="${bird.name}">
-            <div class="name-container"><h3>${bird.name}</h3></div>
-            <div class="click-hint" style="position:absolute;left:0;right:0;bottom:8px;">Tap card to learn more</div>
-          </div>
-
-          <div class="card-face middle" aria-hidden="true">
-            <div>
-              <h4 class="bird-title">${bird.name}</h4>
-              <p class="blurb">${bird.blurb}</p>
-              <div class="data-grid">
-                <div class="data-item"><strong>Mounting Height</strong><span>${bird.mounting}</span></div>
-                <div class="data-item"><strong>Spacing</strong><span>${bird.proximity}</span></div>
-                <div class="data-item"><strong>Orientation</strong><span>${bird.orientation}</span></div>
-              </div>
+<div class="checkout-wrapper">
+    
+    <div class="checkout-section">
+        <h2>1. Order Summary</h2>
+        <div id="checkout-items">
             </div>
-            <div class="click-hint">Tap again to see how to help</div>
-          </div>
+    </div>
 
-          <div class="card-face back" aria-hidden="true">
-            <div class="product-info">
-              <strong>${bird.product}</strong>
-              <span>is recommended for this species.</span>
+    <div class="checkout-section">
+        <h2>2. Shipping Details</h2>
+        <form id="shipping-form">
+            <div class="form-grid">
+                <div class="form-group full">
+                    <label>Full Name</label>
+                    <input type="text" id="ship-name" required>
+                </div>
+                <div class="form-group full">
+                    <label>Address Line 1</label>
+                    <input type="text" id="ship-street1" required>
+                </div>
+                <div class="form-group">
+                    <label>City</label>
+                    <input type="text" id="ship-city" required>
+                </div>
+                <div class="form-group">
+                    <label>State / Province (Abbreviation)</label>
+                    <input type="text" id="ship-state" placeholder="MI or ON" required>
+                </div>
+                <div class="form-group">
+                    <label>ZIP / Postal Code</label>
+                    <input type="text" id="ship-zip" required>
+                </div>
+                <div class="form-group">
+                    <label>Country</label>
+                    <select id="ship-country" required>
+                        <option value="US">United States</option>
+                        <option value="CA">Canada</option>
+                    </select>
+                </div>
             </div>
-            <button class="help-btn" data-product="${bird.product}" data-price="${bird.priceId}">Help This Bird</button>
-          </div>
+            <button type="submit" class="btn" id="calc-shipping-btn">Calculate Shipping Options</button>
+        </form>
+    </div>
+
+    <div class="checkout-section" id="rates-section" style="display: none;">
+        <h2>3. Select Delivery Speed</h2>
+        <div id="rates-container"></div>
+        <button id="pay-btn" class="btn" style="display: none;">Proceed to Secure Payment</button>
+    </div>
+
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    
+    // 1. Load Cart Data
+    const cartKey = 'nestegg_cart_v2';
+    const rawCart = JSON.parse(localStorage.getItem(cartKey) || '[]');
+    const itemsContainer = document.getElementById('checkout-items');
+    
+    if (rawCart.length === 0) {
+        itemsContainer.innerHTML = '<p>Your cart is empty. Please select a unit.</p>';
+        document.getElementById('shipping-form').style.display = 'none';
+        return;
+    }
+
+    rawCart.forEach(item => {
+        itemsContainer.innerHTML += `
+            <div class="cart-item">
+                <strong>${item.product}</strong>
+                <span>Qty: ${item.qty}</span>
+            </div>
         `;
-
-        // append and wire
-        scene.appendChild(card);
-        grid.appendChild(scene);
-
-        // rotation state: 0 -> front, 1 -> middle, 2 -> back
-        let state = 0;
-
-        scene.addEventListener('click', (e) => {
-  // If they clicked the help button, send them directly to Stripe
-  if (e.target.closest('.help-btn')) {
-    const btn = e.target.closest('.help-btn');
-    const priceId = btn.dataset.price; // Pulls the specific Stripe price ID for that bird's product
-    
-    btn.textContent = 'Securing...';
-    btn.disabled = true;
-
-    // Your live Stripe configuration
-    const stripe = Stripe('pk_live_51SAWWc4r07ISOh8OcVgregz2KMNhcOa3oiiTrc3Sbm6PSZWqudP4bjvHykoLY2Dvc8S6TgNjdBEW0vPJQtJjNBVx0029IAXZvE');
-    
-    stripe.redirectToCheckout({
-        lineItems: [{ price: priceId, quantity: 1 }],
-        mode: 'payment',
-        successUrl: window.location.origin + '/index.html?purchase=success',
-        cancelUrl: window.location.href,
     });
-    
-    e.stopPropagation();
-    return;
-  }
 
-          // flip behavior: cycle 0->1->2->0 using 120deg increments
-          state = (state + 1) % 3;
-          const angle = state * 120; // 0, 120, 240
-          // set CSS var instead of direct transform, keeps transitions consistent
-          card.style.setProperty('--rotation', angle + 'deg');
+    // 2. Format cart payload to match Vercel expectations (requires priceId and quantity)
+    const formattedCart = rawCart.map(item => ({
+        priceId: item.price,
+        quantity: item.qty
+    }));
 
-          // show flipping z-index to prevent neighbors overlapping visually
-          scene.classList.add('is-flipping');
-          setTimeout(()=> scene.classList.remove('is-flipping'), 750); // slightly less than animation time
-        });
-      });
+    // State variables
+    let verifiedAddress = null;
+    let selectedRate = null;
 
-      // initialize cart count from storage
-      (function initCartCount(){
-        const cart = JSON.parse(localStorage.getItem('nestegg_cart_v2') || '[]');
-        const total = cart.reduce((s,i)=>s+i.qty,0);
-        const el = document.getElementById('navCartCount');
-        if (el) el.textContent = total;
-      })();
+    // 3. Handle Shipping Calculation via Vercel EasyPost API
+    const shippingForm = document.getElementById('shipping-form');
+    const calcBtn = document.getElementById('calc-shipping-btn');
+    const ratesSection = document.getElementById('rates-section');
+    const ratesContainer = document.getElementById('rates-container');
+    const payBtn = document.getElementById('pay-btn');
+
+    shippingForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        calcBtn.textContent = "Calculating...";
+        calcBtn.disabled = true;
+
+        verifiedAddress = {
+            name: document.getElementById('ship-name').value,
+            street1: document.getElementById('ship-street1').value,
+            city: document.getElementById('ship-city').value,
+            state: document.getElementById('ship-state').value,
+            zip: document.getElementById('ship-zip').value,
+            country: document.getElementById('ship-country').value
+        };
+
+        try {
+            const res = await fetch('https://terradignus-api.vercel.app/api/get-shipping-rates', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    customerAddress: verifiedAddress,
+                    product: { size: 'VIP_UNIT_01' } // Triggers the 8x8x8 / 75oz profile
+                })
+            });
+
+            const rates = await res.json();
+            
+            if (!res.ok) throw new Error(rates.error || "Failed to fetch rates.");
+            
+            ratesContainer.innerHTML = '';
+            
+            if (rates.length === 0) {
+                ratesContainer.innerHTML = '<p style="color:red;">No shipping rates found for this address.</p>';
+            } else {
+                rates.forEach(rate => {
+                    const div = document.createElement('div');
+                    div.className = 'rate-option';
+                    div.innerHTML = `
+                        <div>
+                            <strong>${rate.carrier} - ${rate.service}</strong>
+                            <div style="font-size: 0.85rem; color: #666; margin-top: 4px;">Est. ${rate.delivery_days || '?'} Days</div>
+                        </div>
+                        <div style="font-weight: 700;">$${rate.rate}</div>
+                    `;
+                    
+                    div.addEventListener('click', () => {
+                        document.querySelectorAll('.rate-option').forEach(el => el.classList.remove('selected'));
+                        div.classList.add('selected');
+                        selectedRate = rate;
+                        payBtn.style.display = 'block';
+                    });
+                    
+                    ratesContainer.appendChild(div);
+                });
+            }
+            
+            ratesSection.style.display = 'block';
+            calcBtn.textContent = "Shipping Calculated";
+
+        } catch (error) {
+            alert(error.message);
+            calcBtn.textContent = "Calculate Shipping Options";
+            calcBtn.disabled = false;
+        }
     });
-  </script>
+
+    // 4. Handle Payment Redirect via Vercel Stripe API
+    payBtn.addEventListener('click', async () => {
+        if (!selectedRate || !verifiedAddress) return;
+        
+        payBtn.textContent = "Connecting to Secure Processor...";
+        payBtn.disabled = true;
+
+        try {
+            const res = await fetch('https://terradignus-api.vercel.app/api/create-checkout-session', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    cart: formattedCart,
+                    shippingRate: selectedRate,
+                    address: verifiedAddress
+                })
+            });
+
+            const data = await res.json();
+            
+            if (!res.ok) throw new Error(data.error || "Failed to initiate payment.");
+            
+            // Redirect to Stripe
+            window.location.href = data.url;
+
+        } catch (error) {
+            alert(error.message);
+            payBtn.textContent = "Proceed to Secure Payment";
+            payBtn.disabled = false;
+        }
+    });
+});
+</script>
+
 </body>
 </html>
