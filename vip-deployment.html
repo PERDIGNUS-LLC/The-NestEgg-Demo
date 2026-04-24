@@ -21,6 +21,9 @@
             color: var(--charcoal);
             font-family: var(--font);
             -webkit-font-smoothing: antialiased;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
 
         /* --- Header --- */
@@ -35,6 +38,7 @@
             display: grid;
             gap: 2rem;
             grid-template-columns: 1fr;
+            flex-grow: 1;
         }
 
         .checkout-section {
@@ -101,14 +105,24 @@
 
         /* --- Cart Summary --- */
         .cart-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center; /* Ensures names and quantities stay aligned */
-    padding: 12px 0;
-    border-bottom: 1px solid #eee;
-    font-size: 0.95rem;
-}
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #eee;
+            font-size: 0.95rem;
+        }
         .cart-item:last-child { border-bottom: none; }
+
+        /* --- Footer --- */
+        footer { 
+            text-align: center; 
+            padding: 3rem; 
+            background: #111; 
+            color: var(--bg); 
+            margin-top: 4rem; 
+        }
+        .footer-logo { opacity: 0.8; font-weight: 700; letter-spacing: 0.05em; margin-bottom: 10px; display: block; }
     </style>
 </head>
 <body>
@@ -119,14 +133,17 @@
              <img src="assets/TD HL BINDRUNE SMALLEST.png" alt="TerraDignus Logo" style="width: 48px; height: 48px; object-fit: contain;">
              <span style="font-weight: 700; font-size: 1.5rem; letter-spacing: -0.05em;">TerraDignus</span>
         </a>
-        <a href="index.html" style="text-decoration: none; color: #F4F4F0; font-weight: 600; letter-spacing: 0.05em;">Back to Home</a>
+        <a href="Birds.html" style="text-decoration: none; color: #F4F4F0; font-weight: 600; letter-spacing: 0.05em; transition: opacity 0.2s;" onmouseover="this.style.opacity=0.8" onmouseout="this.style.opacity=1">← Back to Birds</a>
     </nav>
 </header>
 
 <div class="checkout-wrapper">
     
     <div class="checkout-section">
-        <h2>1. Order Summary</h2>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; border-bottom: 2px solid var(--bg); padding-bottom: 10px;">
+            <h2 style="margin: 0; border: none; padding: 0;">1. Order Summary</h2>
+            <a href="Birds.html" style="text-decoration: none; color: var(--green); font-weight: 700; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.5px;">+ Add / Change Items</a>
+        </div>
         <div id="checkout-items">
             </div>
     </div>
@@ -175,6 +192,11 @@
 
 </div>
 
+<footer>
+    <span class="footer-logo">PERDIGNUS LLC</span>
+    <p style="font-size: 0.9rem; opacity: 0.6; margin: 0;">&copy; 2026 Perdignus LLC. All Rights Reserved.</p>
+</footer>
+
 <script>
 document.addEventListener("DOMContentLoaded", () => {
     
@@ -184,7 +206,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const itemsContainer = document.getElementById('checkout-items');
     
     if (rawCart.length === 0) {
-        itemsContainer.innerHTML = '<p>Your cart is empty. Please select a unit.</p>';
+        itemsContainer.innerHTML = '<p style="color:var(--muted);">Your cart is empty. <a href="Birds.html" style="color:var(--green); font-weight:700;">Return to Birds</a> to select a unit.</p>';
         document.getElementById('shipping-form').style.display = 'none';
         return;
     }
@@ -192,23 +214,20 @@ document.addEventListener("DOMContentLoaded", () => {
     rawCart.forEach(item => {
         itemsContainer.innerHTML += `
             <div class="cart-item">
-                <strong>${item.product}</strong>
-                <span>Qty: ${item.qty}</span>
+                <strong style="color:var(--charcoal);">${item.product}</strong>
+                <span style="font-weight:600;">Qty: ${item.qty}</span>
             </div>
         `;
     });
 
-    // 2. Format cart payload to match Vercel expectations (requires priceId and quantity)
     const formattedCart = rawCart.map(item => ({
         priceId: item.price,
         quantity: item.qty
     }));
 
-    // State variables
     let verifiedAddress = null;
     let selectedRate = null;
 
-    // 3. Handle Shipping Calculation via Vercel EasyPost API
     const shippingForm = document.getElementById('shipping-form');
     const calcBtn = document.getElementById('calc-shipping-btn');
     const ratesSection = document.getElementById('rates-section');
@@ -217,7 +236,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     shippingForm.addEventListener('submit', async (e) => {
         e.preventDefault();
-        calcBtn.textContent = "Calculating...";
+        calcBtn.textContent = "Calculating Rates...";
         calcBtn.disabled = true;
 
         verifiedAddress = {
@@ -235,7 +254,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     customerAddress: verifiedAddress,
-                    product: { size: 'VIP_UNIT_01' } // Triggers the 8x8x8 / 75oz profile
+                    product: { size: 'VIP_UNIT_01' }
                 })
             });
 
@@ -271,7 +290,8 @@ document.addEventListener("DOMContentLoaded", () => {
             }
             
             ratesSection.style.display = 'block';
-            calcBtn.textContent = "Shipping Calculated";
+            calcBtn.textContent = "Recalculate Shipping";
+            calcBtn.disabled = false;
 
         } catch (error) {
             alert(error.message);
@@ -280,7 +300,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // 4. Handle Payment Redirect via Vercel Stripe API
     payBtn.addEventListener('click', async () => {
         if (!selectedRate || !verifiedAddress) return;
         
@@ -299,10 +318,7 @@ document.addEventListener("DOMContentLoaded", () => {
             });
 
             const data = await res.json();
-            
             if (!res.ok) throw new Error(data.error || "Failed to initiate payment.");
-            
-            // Redirect to Stripe
             window.location.href = data.url;
 
         } catch (error) {
