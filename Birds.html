@@ -24,6 +24,9 @@
     
     header { background: #1A4D3E; box-shadow: 0 4px 12px rgba(0,0,0,0.15); position: sticky; top: 0; z-index: 1000; }
     nav { max-width: 1100px; margin: auto; display:flex; align-items:center; justify-content:space-between; padding:1rem 2rem; }
+    
+    /* HAND CURSOR FOR NAV & BUTTONS */
+    nav a, button, .btn, #cartBtn { cursor: pointer !important; }
 
     .page-hero { max-width: 1100px; margin: 1.4rem auto; text-align:center; }
     .page-hero h1 { font-family: var(--serif); font-size: 2.4rem; margin: 0; }
@@ -43,10 +46,18 @@
     @media (max-width: 760px) { .birds-grid { grid-template-columns: repeat(2, 1fr); } }
     @media (max-width: 480px) { .birds-grid { grid-template-columns: 1fr; } }
 
-    /* Card Styling */
-    .card-scene { perspective: 1400px; }
+    /* Card Styling - HAND CURSOR ADDED */
+    .card-scene { perspective: 1400px; cursor: pointer; }
     .card-scene.is-flipping { z-index: 30; position: relative; }
-    .card { width: 100%; height: 360px; position: relative; transform-style: preserve-3d; transition: transform 700ms cubic-bezier(.2,.9,.2,1); --rotation: 0deg; transform: rotateY(var(--rotation)); }
+    .card { 
+      width: 100%; 
+      height: 360px; 
+      position: relative; 
+      transform-style: preserve-3d; 
+      transition: transform 700ms cubic-bezier(.2,.9,.2,1); 
+      --rotation: 0deg; 
+      transform: rotateY(var(--rotation)); 
+    }
     .card-face { position: absolute; inset: 0; border-radius: 12px; background: var(--card); box-shadow: 0 6px 18px var(--shadow); backface-visibility: hidden; overflow: hidden; display: flex; flex-direction: column; justify-content: flex-start; }
     .card-face.front { padding: 0; transform: rotateY(0deg) translateZ(30px); }
     .card-face.front img { width: 100%; height: 220px; object-fit: cover; object-position: top; }
@@ -58,11 +69,11 @@
     .help-btn { background: var(--green); color: #fff; border: none; padding: 0.8rem; border-radius: 8px; font-weight: 700; width: 100%; cursor: pointer; transition: background .18s; font-size: 0.98rem; }
     .help-btn:hover { background: var(--blue); }
 
-    /* Updated Black Footer */
+    /* BLACK FOOTER */
     footer { text-align: center; padding: 3rem; background: #111; color: var(--bg); margin-top: auto; }
     .footer-logo { opacity: 0.8; font-weight: 700; letter-spacing: 0.05em; margin-bottom: 10px; display: block; text-transform: uppercase; }
 
-    /* Qty Controls in Sidebar */
+    /* Qty Controls */
     .qty-btn { background: #eee; border: none; width: 28px; height: 28px; border-radius: 4px; cursor: pointer; font-weight: 700; }
     .qty-btn:hover { background: #ddd; }
     .remove-btn { background: none; border: none; color: #cc0000; font-size: 0.75rem; cursor: pointer; text-decoration: underline; padding: 0; margin-top: 5px; }
@@ -72,13 +83,13 @@
 
 <header>
     <nav>
-        <a href="index.html" style="text-decoration: none; color: #F4F4F0; display: flex; align-items: center; gap: 12px;">
+        <a href="index.html" style="text-decoration: none; display: flex; align-items: center; gap: 12px; color: #F4F4F0;">
              <img src="assets/TD HL BINDRUNE SMALLEST.png" alt="TerraDignus Logo" style="width: 48px; height: 48px; object-fit: contain;">
              <span style="font-weight: 700; font-size: 1.5rem; letter-spacing: -0.05em;">TerraDignus</span>
         </a>
         <div style="display: flex; align-items: center; gap: 1.5rem;">
-            <a href="index.html" style="text-decoration: none; color: #F4F4F0; font-weight: 600;">Home</a>
-            <button id="cartBtn" style="background: #111; border: 1px solid rgba(244, 244, 240, 0.2); color: #F4F4F0; padding: 8px 16px; border-radius: 8px; cursor: pointer; font-weight: 700;">
+            <a href="index.html">Home</a>
+            <button id="cartBtn" style="background: #111; border: 1px solid rgba(244, 244, 240, 0.2); color: #F4F4F0; padding: 8px 16px; border-radius: 8px; font-weight: 700;">
                 Cart <span id="navCartCount" style="background: #D4AF37; color: #111; padding: 2px 8px; border-radius: 999px; font-size: 0.85rem;">0</span>
             </button>
         </div>
@@ -87,7 +98,8 @@
 
 <section class="page-hero"><h1>The Birds We Build For</h1></section>
 
-<main id="birdsGrid" class="birds-grid"></main>
+<main id="birdsGrid" class="birds-grid">
+    </main>
 
 <footer>
     <span class="footer-logo">PERDIGNUS LLC</span>
@@ -112,9 +124,15 @@
       const cartKey = 'nestegg_cart_v2';
       const grid = document.getElementById('birdsGrid');
       
+      // ERROR LOGGING: If cards don't show, check your browser console (F12)
+      if (typeof birdsData === 'undefined') {
+          console.error("❌ ERROR: bird-data.js was not found or has a syntax error.");
+          grid.innerHTML = "<p style='grid-column: 1/-1; text-align:center;'>Unable to load bird data. Please check bird-data.js.</p>";
+          return;
+      }
+
       // Render Grid
-      if (grid && typeof birdsData !== 'undefined') {
-        birdsData.forEach(bird => {
+      birdsData.forEach(bird => {
           const scene = document.createElement('div');
           scene.className = 'card-scene';
           const card = document.createElement('div');
@@ -124,12 +142,20 @@
             <div class="card-face front">
               <img src="${bird.imageUrl}" alt="${bird.name}">
               <div class="name-container"><h3>${bird.name}</h3></div>
+              <div style="font-size: 0.8rem; color:#888; text-align:center; padding-bottom:10px;">Tap to learn more</div>
             </div>
             <div class="card-face middle">
-              <div><h4 style="font-family:var(--serif);">${bird.name}</h4><p style="font-size:0.9rem;">${bird.blurb}</p></div>
+              <div>
+                <h4 style="font-family:var(--serif); margin:0 0 10px;">${bird.name}</h4>
+                <p style="font-size:0.9rem; line-height:1.4;">${bird.blurb}</p>
+              </div>
+              <div style="font-size: 0.8rem; color:#888; text-align:center;">Tap again for product</div>
             </div>
             <div class="card-face back">
-              <div style="text-align:center;"><strong>${bird.product}</strong><br>is recommended.</div>
+              <div style="text-align:center; padding:10px;">
+                <strong style="display:block; margin-bottom:5px;">${bird.product}</strong>
+                <span>is recommended for this species.</span>
+              </div>
               <button class="help-btn" data-product="${bird.product}" data-price="${bird.priceId}">Help This Bird</button>
             </div>
           `;
@@ -149,9 +175,9 @@
             state = (state + 1) % 3;
             card.style.setProperty('--rotation', (state * 120) + 'deg');
           });
-        });
-      }
+      });
 
+      // --- CART LOGIC ---
       function addToCart(product, price) {
         const cart = JSON.parse(localStorage.getItem(cartKey) || '[]');
         const found = cart.find(i => i.price === price);
@@ -182,7 +208,8 @@
 
       function updateNavCount() {
         const cart = JSON.parse(localStorage.getItem(cartKey) || '[]');
-        document.getElementById('navCartCount').textContent = cart.reduce((s,i)=>s+i.qty,0);
+        const countEl = document.getElementById('navCartCount');
+        if (countEl) countEl.textContent = cart.reduce((s,i)=>s+i.qty,0);
       }
 
       function renderCart() {
@@ -193,14 +220,14 @@
           return;
         }
         container.innerHTML = cart.map(item => `
-          <div style="display:flex; justify-content:space-between; align-items:center; background:#f9f9f9; padding:12px; border-radius:8px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; background:#f9f9f9; padding:12px; border-radius:8px; border:1px solid #eee;">
             <div>
               <strong style="display:block; font-size:0.95rem;">${item.product}</strong>
               <button class="remove-btn" onclick="removeItem('${item.price}')">Remove</button>
             </div>
             <div style="display:flex; align-items:center; gap:10px;">
               <button class="qty-btn" onclick="updateQty('${item.price}', -1)">-</button>
-              <span>${item.qty}</span>
+              <span style="font-weight:600;">${item.qty}</span>
               <button class="qty-btn" onclick="updateQty('${item.price}', 1)">+</button>
             </div>
           </div>
