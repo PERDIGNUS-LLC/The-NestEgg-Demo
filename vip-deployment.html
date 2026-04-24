@@ -101,11 +101,13 @@
 
         /* --- Cart Summary --- */
         .cart-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 10px 0;
-            border-bottom: 1px solid #eee;
-        }
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* Ensures names and quantities stay aligned */
+    padding: 12px 0;
+    border-bottom: 1px solid #eee;
+    font-size: 0.95rem;
+}
         .cart-item:last-child { border-bottom: none; }
     </style>
 </head>
