@@ -143,22 +143,23 @@
   </style>
 </head>
 <body>
-  <header>
-    <nav>
-      <a href="index.html" style="display:flex;align-items:center;gap:12px; text-decoration:none;">
-        <img src="OFFICIAL NE.png" alt="The NestEgg™ logo" style="width:48px;height:48px;object-fit:contain">
-        <span style="font-family:'Playfair Display',serif;font-size:1.25rem; color:var(--charcoal);">The NestEgg<sup>&trade;</sup></span>
-      </a>
-      <div style="display:flex;align-items:center;gap:1rem;">
-        <a href="index.html">Home</a>
-        <a href="Birds.html" aria-current="page">Birds</a>
-        <a href="founder.html">Founder</a>
-        <button id="cartBtn" style="background:rgba(44,44,44,0.06);border:none;color:var(--charcoal);padding:8px 12px;border-radius:8px;display:inline-flex;align-items:center;gap:8px;cursor:pointer;font-weight:700;">
-          Cart <span id="navCartCount" style="background:rgba(0,0,0,0.06);padding:4px 8px;border-radius:999px;">0</span>
-        </button>
-      </div>
+  <header style="background: #1A4D3E; box-shadow: 0 4px 12px rgba(0,0,0,0.15); position: sticky; top: 0; z-index: 100;">
+    <nav style="max-width: 1100px; margin: auto; display: flex; align-items: center; justify-content: space-between; padding: 1rem 2rem; flex-wrap: wrap;">
+        
+        <a href="index.html" style="text-decoration: none; color: #F4F4F0; display: flex; align-items: center; gap: 12px;">
+             <img src="assets/TD HL BINDRUNE SMALLEST.png" alt="TerraDignus Logo" style="width: 48px; height: 48px; object-fit: contain;">
+             <span style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 700; font-size: 1.5rem; letter-spacing: -0.05em;">TerraDignus</span>
+        </a>
+
+        <div style="display: flex; align-items: center; gap: 1.5rem;">
+            <a href="index.html" style="text-decoration: none; color: #F4F4F0; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 600; letter-spacing: 0.05em; transition: opacity 0.3s ease;" onmouseover="this.style.opacity=0.8" onmouseout="this.style.opacity=1">Home</a>
+            
+            <button id="cartBtn" style="background: #111; border: 1px solid rgba(244, 244, 240, 0.2); color: #F4F4F0; padding: 8px 16px; border-radius: 8px; display: inline-flex; align-items: center; gap: 8px; cursor: pointer; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 700; transition: all 0.2s ease;" onmouseover="this.style.transform='translateY(-1px)'" onmouseout="this.style.transform='translateY(0)'">
+                Cart <span id="navCartCount" style="background: #D4AF37; color: #111; padding: 2px 8px; border-radius: 999px; font-size: 0.85rem;">0</span>
+            </button>
+        </div>
     </nav>
-  </header>
+</header>
 
   <section class="page-hero"><h1>The Birds We Build For</h1></section>
 
