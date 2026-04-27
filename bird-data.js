@@ -14,7 +14,7 @@ const birdsData = [
     blurb: "A hardy resident of the cold northern forests, distinguished by its brown cap, grayish-brown back, and reddish-brown flanks.",
     imageUrl: "https://media.audubon.org/sfw_img_9895.jpg?width=1616&auto=webp&quality=90&fit=bounds&disable=upscale",
     product: "NutHatch™ / NestEgg™ Mini",
-    priceId: "price_NUT_example",
+    priceId: "price_1TQxmN4r07ISOh8O7ifI6wWm",
     mounting: "1-10 ft",
    product: "The NutHatch"
   },
@@ -33,7 +33,7 @@ const birdsData = [
     blurb: "A small, social songbird of southeastern pine forests, known for its squeaky, rubber-ducky-like calls.",
     imageUrl: "https://www.allaboutbirds.org/guide/assets/photo/308588531-480px.jpg",
     product: "NutHatch™ / NestEgg™ Mini",
-    priceId: "price_NUT_example",
+    priceId: "price_1TQxmN4r07ISOh8O7ifI6wWm",
     mounting: "5-15 ft",
     orientation: "South or East",
     proximity: "50-75 ft apart"
@@ -43,7 +43,7 @@ const birdsData = [
     blurb: "A small, active chickadee of the Pacific Northwest, identified by its rich chestnut-brown back and black cap.",
     imageUrl: "https://birdsdontpee.com/wp-content/uploads/2022/11/chickeroos-1-of-5.jpg",
     product: "NutHatch™ / NestEgg™ Mini",
-    priceId: "price_NUT_example",
+    priceId: "price_1TQxmN4r07ISOh8O7ifI6wWm",
     mounting: "1-15 ft",
     orientation: "Away from prevailing winds",
     proximity: "150 ft apart"
@@ -53,7 +53,7 @@ const birdsData = [
     blurb: "Including the familiar Black-capped and Mountain Chickadee, these acrobatic and curious birds are beloved visitors.",
     imageUrl: "https://www.allaboutbirds.org/guide/assets/photo/302473191-1900px.jpg",
     product: "NutHatch™ / NestEgg™ Mini",
-    priceId: "price_NUT_example",
+    priceId: "price_1TQxmN4r07ISOh8O7ifI6wWm",
     mounting: "4-15 ft",
     orientation: "Away from prevailing winds",
     proximity: "150 ft apart"
@@ -93,7 +93,7 @@ const birdsData = [
     blurb: "The smallest and palest North American warbler, unique for nesting in tree cavities within arid desert washes.",
     imageUrl: "https://www.allaboutbirds.org/guide/assets/og/75710941-1200px.jpg",
     product: "NutHatch™ / NestEgg™ Mini",
-    priceId: "price_NUT_example",
+    priceId: "price_1TQxmN4r07ISOh8O7ifI6wWm",
     mounting: "3-8 ft",
     orientation: "North or East",
     proximity: "50-100 ft apart"
@@ -113,7 +113,7 @@ const birdsData = [
     blurb: "A tiny, highly social nuthatch of western pine forests, often found moving in energetic, chattering flocks.",
     imageUrl: "https://nativeherenursery.org/wp-content/uploads/2022/06/Sitta-pygmaea-1.jpg",
     product: "NutHatch™ / NestEgg™ Mini",
-    priceId: "price_NUT_example",
+    priceId: "price_1TQxmN4r07ISOh8O7ifI6wWm",
     mounting: "10-30 ft",
     orientation: "South or Southwest",
     proximity: "50 ft apart"
