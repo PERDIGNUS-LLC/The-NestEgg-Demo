@@ -1,15 +1,20 @@
-// File: api/create-checkout-session.js
 import Stripe from "stripe";
 
-// Ensure Node.js runtime
 export const config = { runtime: "nodejs" };
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
+// Define CORS headers to appease the browser
+const corsHeaders = {
+    'Access-Control-Allow-Credentials': 'true',
+    'Access-Control-Allow-Origin': '*', // Allows requests from any origin
+    'Access-Control-Allow-Methods': 'GET,OPTIONS,PATCH,DELETE,POST,PUT',
+    'Access-Control-Allow-Headers': 'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
+};
+
 export default async function handler(req, res) {
-    // Handle CORS preflight
+    // 1. Handle the Preflight Request (The CORS check)
     if (req.method === 'OPTIONS') {
-        res.status(200).end();
-        return;
+        return res.status(200).set(corsHeaders).end();
     }
 
     if (req.method !== 'POST') {
@@ -20,16 +25,14 @@ export default async function handler(req, res) {
         const { cart, shippingRate } = req.body;
 
         if (!cart || !Array.isArray(cart) || cart.length === 0) {
-            return res.status(400).json({ error: "Cart is empty" });
+            return res.status(400).set(corsHeaders).json({ error: "Cart is empty" });
         }
 
-        // Map frontend cart to Stripe line items
         const line_items = cart.map(item => ({
             price: item.priceId, 
             quantity: item.quantity || 1
         }));
 
-        // Add shipping rate as a separate item
         if (shippingRate && shippingRate.rate) {
             const shippingAmount = Math.round(Number(shippingRate.rate) * 100);
             line_items.push({
@@ -44,7 +47,6 @@ export default async function handler(req, res) {
             });
         }
 
-        // Create Checkout Session with Hardcoded URLs
         const session = await stripe.checkout.sessions.create({
             mode: "payment",
             line_items,
@@ -53,10 +55,12 @@ export default async function handler(req, res) {
             shipping_address_collection: { allowed_countries: ["US", "CA"] },
         });
 
-        return res.status(200).json({ url: session.url });
+        // 2. Attach CORS headers to the successful response
+        return res.status(200).set(corsHeaders).json({ url: session.url });
 
     } catch (err) {
         console.error("Stripe Error:", err.message);
-        return res.status(500).json({ error: err.message });
+        // Attach CORS headers even if it fails, so the browser actually reads the error
+        return res.status(500).set(corsHeaders).json({ error: err.message });
     }
 }
