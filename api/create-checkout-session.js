@@ -1,31 +1,37 @@
 // File: api/create-checkout-session.js
-
 import Stripe from "stripe";
-export const config = { runtime: "nodejs" };
 
+// Ensure Node.js runtime
+export const config = { runtime: "nodejs" };
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
-export default async function handler(req) {
+export default async function handler(req, res) {
+    // Handle CORS preflight
+    if (req.method === 'OPTIONS') {
+        res.status(200).end();
+        return;
+    }
+
+    if (req.method !== 'POST') {
+        return res.status(405).json({ error: "Method not allowed" });
+    }
+
     try {
-        // ⬅️ Now also accept shippingRate (and optionally address, even if unused)
-        const { cart, shippingRate, address } = await req.json();
+        const { cart, shippingRate } = req.body;
 
         if (!cart || !Array.isArray(cart) || cart.length === 0) {
-            return new Response(JSON.stringify({ error: "Cart is empty" }), { status: 400 });
+            return res.status(400).json({ error: "Cart is empty" });
         }
 
-        // Build Stripe line_items using your actual priceId
+        // Map frontend cart to Stripe line items
         const line_items = cart.map(item => ({
-            price: item.priceId,   // Stripe price ID
+            price: item.priceId, 
             quantity: item.quantity || 1
         }));
 
-        // ---------------------------------------------
-        // ✅ Add shipping as a separate line item (if provided)
-        // ---------------------------------------------
+        // Add shipping rate as a separate item
         if (shippingRate && shippingRate.rate) {
-            const shippingAmount = Math.round(Number(shippingRate.rate) * 100); // dollars → cents
-
+            const shippingAmount = Math.round(Number(shippingRate.rate) * 100);
             line_items.push({
                 price_data: {
                     currency: "usd",
@@ -37,9 +43,8 @@ export default async function handler(req) {
                 quantity: 1
             });
         }
-        // ---------------------------------------------
 
-        // Create the Checkout Session
+        // Create Checkout Session with Hardcoded URLs
         const session = await stripe.checkout.sessions.create({
             mode: "payment",
             line_items,
@@ -48,12 +53,10 @@ export default async function handler(req) {
             shipping_address_collection: { allowed_countries: ["US", "CA"] },
         });
 
-        return new Response(JSON.stringify({ url: session.url }), {
-            status: 200,
-            headers: { "Content-Type": "application/json" },
-        });
+        return res.status(200).json({ url: session.url });
 
     } catch (err) {
-        return new Response(JSON.stringify({ error: err.message }), { status: 500 });
+        console.error("Stripe Error:", err.message);
+        return res.status(500).json({ error: err.message });
     }
 }
