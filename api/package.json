@@ -1,0 +1,13 @@
+{
+  "name": "terradignus-api",
+  "version": "1.0.0",
+  "description": "API backend for TerraDignus and Perdignus LLC habitation systems",
+  "main": "index.js",
+  "dependencies": {
+    "stripe": "^14.0.0",
+    "@easypost/api": "^7.0.0"
+  },
+  "engines": {
+    "node": "18.x"
+  }
+}
