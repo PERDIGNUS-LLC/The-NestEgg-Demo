@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>The Birds | TerraDignus</title>
+  <title>The Birds | TerraDignus Habitation Systems</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -140,6 +140,11 @@
     .card .click-hint { font-size: 0.82rem; color:var(--muted); text-align:center; margin-top:8px; }
 
     footer { text-align:center; padding: 2rem; color: #6e6e6e; font-size: 0.9rem; border-top: 1px solid rgba(0,0,0,0.03); }
+    
+    /* Styles for the new sidebar buttons */
+    .qty-control-btn { width: 24px; height: 24px; border: 1px solid #ccc; background: #fff; cursor: pointer; font-weight: bold; border-radius: 4px; display: inline-flex; align-items: center; justify-content: center; }
+    .qty-control-btn:hover { background: #eee; }
+    .remove-link { background: none; border: none; color: #cc0000; font-size: 0.75rem; cursor: pointer; text-decoration: underline; padding: 0; }
   </style>
 </head>
 <body>
@@ -177,8 +182,7 @@
           <button id="closeCartBtn" style="background:none; border:none; font-size:2rem; cursor:pointer; color: var(--muted); line-height: 1;">&times;</button>
       </div>
       
-      <div id="cartItemsContainer" style="flex-grow:1; overflow-y:auto; display:flex; flex-direction:column; gap:12px;">
-          </div>
+      <div id="cartItemsContainer" style="flex-grow:1; overflow-y:auto; display:flex; flex-direction:column; gap:12px;"></div>
       
       <div style="border-top:1px solid #eee; padding-top:15px; margin-top:15px;">
           <button id="checkoutBtn" style="width:100%; padding:16px; background:#1A4D3E; color:#fff; border:none; border-radius:8px; font-weight:700; font-size:1.05rem; cursor:pointer; transition:opacity 0.2s;" onmouseover="this.style.opacity=0.9" onmouseout="this.style.opacity=1">Proceed to Checkout</button>
@@ -244,8 +248,7 @@
               if (found) found.qty += 1; else cart.push({ product, price, qty: 1 });
               localStorage.setItem(cartKey, JSON.stringify(cart));
               
-              const total = cart.reduce((s,i)=>s+i.qty,0);
-              document.getElementById('navCartCount').textContent = total;
+              updateNavCount();
               
               btn.textContent = 'Added ✓';
               btn.disabled = true;
@@ -271,13 +274,37 @@
       const cartItemsContainer = document.getElementById('cartItemsContainer');
       const checkoutBtn = document.getElementById('checkoutBtn');
 
-      function initCartCount() {
+      function updateNavCount() {
         const cart = JSON.parse(localStorage.getItem('nestegg_cart_v2') || '[]');
         const total = cart.reduce((s,i)=>s+i.qty,0);
         const el = document.getElementById('navCartCount');
         if (el) el.textContent = total;
       }
-      initCartCount();
+      updateNavCount();
+
+      // Functions exposed to window for inline onclicks
+      window.removeItem = function(priceId) {
+        let cart = JSON.parse(localStorage.getItem('nestegg_cart_v2') || '[]');
+        cart = cart.filter(item => item.price !== priceId);
+        localStorage.setItem('nestegg_cart_v2', JSON.stringify(cart));
+        renderCart();
+        updateNavCount();
+      };
+
+      window.updateQty = function(priceId, delta) {
+        let cart = JSON.parse(localStorage.getItem('nestegg_cart_v2') || '[]');
+        const item = cart.find(i => i.price === priceId);
+        if (item) {
+            item.qty += delta;
+            if (item.qty <= 0) {
+                removeItem(priceId);
+                return;
+            }
+        }
+        localStorage.setItem('nestegg_cart_v2', JSON.stringify(cart));
+        renderCart();
+        updateNavCount();
+      };
 
       function renderCart() {
         const cart = JSON.parse(localStorage.getItem('nestegg_cart_v2') || '[]');
@@ -292,10 +319,15 @@
         checkoutBtn.style.pointerEvents = 'auto';
         
         cartItemsContainer.innerHTML = cart.map(item => `
-            <div style="display:flex; justify-content:space-between; align-items:center; background:var(--bg); padding:16px; border-radius:8px; border:1px solid rgba(0,0,0,0.05);">
+            <div style="display:flex; justify-content:space-between; align-items:center; background:var(--bg); padding:12px; border-radius:8px; border:1px solid rgba(0,0,0,0.05);">
                 <div>
-                    <strong style="display:block; color:var(--charcoal); font-family:var(--serif); font-size:1.1rem; margin-bottom:4px;">${item.product}</strong>
-                    <span style="font-size:0.85rem; color:var(--muted);">Qty: ${item.qty}</span>
+                    <strong style="display:block; color:var(--charcoal); font-family:var(--serif); font-size:1.0rem; margin-bottom:2px;">${item.product}</strong>
+                    <button class="remove-link" onclick="removeItem('${item.price}')">Remove</button>
+                </div>
+                <div style="display:flex; align-items:center; gap:10px;">
+                    <button class="qty-control-btn" onclick="updateQty('${item.price}', -1)">-</button>
+                    <span style="font-weight:bold; min-width:20px; text-align:center;">${item.qty}</span>
+                    <button class="qty-control-btn" onclick="updateQty('${item.price}', 1)">+</button>
                 </div>
             </div>
         `).join('');
@@ -316,12 +348,10 @@
         setTimeout(() => { cartOverlay.style.display = 'none'; }, 300);
       }
 
-      // Event Listeners
       if (cartBtn) cartBtn.addEventListener('click', openCart);
       if (closeCartBtn) closeCartBtn.addEventListener('click', closeCart);
       if (cartOverlay) cartOverlay.addEventListener('click', closeCart);
       
-      // Route to VIP Deployment Checkout
       if (checkoutBtn) {
           checkoutBtn.addEventListener('click', () => {
               window.location.href = 'vip-deployment.html';
