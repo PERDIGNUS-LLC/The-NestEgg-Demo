@@ -4,7 +4,7 @@ const birdsData = [
     blurb: "Including the Eastern, Western, and Mountain Bluebird, these beloved thrushes are a symbol of happiness and a major conservation success story.",
     imageUrl: "https://www.allaboutbirds.org/guide/assets/photo/303809721-1900px.jpg",
     product: "NestEgg™",
-    priceId: "price_1SAZoR4r07ISOh8O9rWFyXle",
+    priceId: "price_1TKhl64r07ISOh8OyeGPDJqJ",
     mounting: "4-7 ft",
     orientation: "East, South, or Southeast",
     proximity: "300 ft apart"
@@ -23,7 +23,7 @@ const birdsData = [
     blurb: "A small, crested songbird of oak and sycamore canyons, easily identified by its striking black-and-white striped face pattern.",
     imageUrl: "https://www.allaboutbirds.org/guide/assets/photo/302511961-480px.jpg",
     product: "NestEgg™",
-    priceId: "price_1SAZoR4r07ISOh8O9rWFyXle",
+    priceId: "price_1TKhl64r07ISOh8OyeGPDJqJ",
     mounting: "5-12 ft",
     orientation: "North or East",
     proximity: "100 ft apart"
@@ -63,7 +63,7 @@ const birdsData = [
     blurb: "A large, noisy flycatcher of eastern forests, with a bright lemon-yellow belly and a cinnamon-rufous tail.",
     imageUrl: "https://www.ocalagazette.com/wp-content/uploads/2024/06/great-crested-flycatcher-9296.jpg",
     product: "NestEgg™",
-    priceId: "price_1SAZoR4r07ISOh8O9rWFyXle",
+    priceId: "price_1TKhl64r07ISOh8OyeGPDJqJ",
     mounting: "6-20 ft",
     orientation: "Flexible",
     proximity: "200-300 ft apart"
@@ -73,7 +73,7 @@ const birdsData = [
     blurb: "A plain gray bird with a small crest, native to the arid pinyon-juniper woodlands of the Great Basin.",
     imageUrl: "https://upload.wikimedia.org/wikipedia/commons/b/ba/JuniperTitmouse.jpg",
     product: "NestEgg™",
-    priceId: "price_1SAZoR4r07ISOh8O9rWFyXle",
+    priceId: "price_1TKhl64r07ISOh8OyeGPDJqJ",
     mounting: "4-15 ft",
     orientation: "North or East",
     proximity: "150-200 ft apart"
@@ -83,7 +83,7 @@ const birdsData = [
     blurb: "A unique, crow-like woodpecker with a glossy greenish-black back and a pinkish belly.",
     imageUrl: "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/24948851/640",
     product: "NestEgg™",
-    priceId: "price_1SAZoR4r07ISOh8O9rWFyXle",
+    priceId: "price_1TKhl64r07ISOh8OyeGPDJqJ",
     mounting: "10-30 ft",
     orientation: "East or South",
     proximity: "300 ft apart"
@@ -103,7 +103,7 @@ const birdsData = [
     blurb: "Often called the 'swamp canary,' this brilliantly golden warbler is a jewel of southeastern wooded wetlands.",
     imageUrl: "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/225828321/1200",
     product: "NestEgg™",
-    priceId: "price_1SAZoR4r07ISOh8O9rWFyXle",
+    priceId: "price_1TKhl64r07ISOh8OyeGPDJqJ",
     mounting: "2-10 ft",
     orientation: "Flexible",
     proximity: "200 ft apart"
@@ -123,7 +123,7 @@ const birdsData = [
     blurb: "A rare, non-migratory woodpecker of the southeastern United States, unique for its complex social structure.",
     imageUrl: "https://encyclopediaofalabama.org/wp-content/uploads/2023/04/Red-cockaded-Woodpecker-1-984x1300.jpg",
     product: "NestEgg™",
-    priceId: "price_1SAZoR4r07ISOh8O9rWFyXle",
+    priceId: "price_1TKhl64r07ISOh8OyeGPDJqJ",
     mounting: "15-30 ft",
     orientation: "Flexible",
     proximity: "0.5 miles apart"
