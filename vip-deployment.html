@@ -103,7 +103,7 @@
         .rate-option:hover { border-color: var(--green); }
         .rate-option.selected { border-color: var(--green); background: rgba(26,77,62,0.05); }
 
-        /* --- Cart Summary --- */
+        /* --- Cart Summary Styling --- */
         .cart-item {
             display: flex;
             justify-content: space-between;
@@ -113,6 +113,11 @@
             font-size: 0.95rem;
         }
         .cart-item:last-child { border-bottom: none; }
+
+        /* Quantity controls in checkout */
+        .qty-btn { width: 22px; height: 22px; border: 1px solid #ccc; background: #fff; cursor: pointer; border-radius: 4px; font-weight: bold; }
+        .qty-btn:hover { background: #f0f0f0; }
+        .remove-link { background: none; border: none; color: #cc0000; font-size: 0.75rem; cursor: pointer; text-decoration: underline; padding: 0; }
 
         /* --- Footer --- */
         footer { 
@@ -142,10 +147,9 @@
     <div class="checkout-section">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; border-bottom: 2px solid var(--bg); padding-bottom: 10px;">
             <h2 style="margin: 0; border: none; padding: 0;">1. Order Summary</h2>
-            <a href="Birds.html" style="text-decoration: none; color: var(--green); font-weight: 700; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.5px;">+ Add / Change Items</a>
+            <a href="Birds.html" style="text-decoration: none; color: var(--green); font-weight: 700; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.5px;">+ Add More Items</a>
         </div>
-        <div id="checkout-items">
-            </div>
+        <div id="checkout-items"></div>
     </div>
 
     <div class="checkout-section">
@@ -200,35 +204,62 @@
 <script>
 document.addEventListener("DOMContentLoaded", () => {
     
-    // 1. Load Cart Data
     const cartKey = 'nestegg_cart_v2';
-    const rawCart = JSON.parse(localStorage.getItem(cartKey) || '[]');
     const itemsContainer = document.getElementById('checkout-items');
-    
-    if (rawCart.length === 0) {
-        itemsContainer.innerHTML = '<p style="color:var(--muted);">Your cart is empty. <a href="Birds.html" style="color:var(--green); font-weight:700;">Return to Birds</a> to select a unit.</p>';
-        document.getElementById('shipping-form').style.display = 'none';
-        return;
+    const shippingForm = document.getElementById('shipping-form');
+
+    // EXPOSED GLOBAL FUNCTIONS FOR THE BUTTONS
+    window.removeItem = function(priceId) {
+        let cart = JSON.parse(localStorage.getItem(cartKey) || '[]');
+        cart = cart.filter(item => item.price !== priceId);
+        localStorage.setItem(cartKey, JSON.stringify(cart));
+        renderSummary();
+    };
+
+    window.updateQty = function(priceId, delta) {
+        let cart = JSON.parse(localStorage.getItem(cartKey) || '[]');
+        const item = cart.find(i => i.price === priceId);
+        if (item) {
+            item.qty += delta;
+            if (item.qty <= 0) {
+                removeItem(priceId);
+                return;
+            }
+        }
+        localStorage.setItem(cartKey, JSON.stringify(cart));
+        renderSummary();
+    };
+
+    function renderSummary() {
+        const rawCart = JSON.parse(localStorage.getItem(cartKey) || '[]');
+        
+        if (rawCart.length === 0) {
+            itemsContainer.innerHTML = '<p style="color:var(--muted);">Your cart is empty. <a href="Birds.html" style="color:var(--green); font-weight:700;">Return to Birds</a> to select a unit.</p>';
+            shippingForm.style.display = 'none';
+            return;
+        }
+
+        shippingForm.style.display = 'block';
+        itemsContainer.innerHTML = rawCart.map(item => `
+            <div class="cart-item">
+                <div>
+                    <strong style="color:var(--charcoal);">${item.product}</strong>
+                    <br><button class="remove-link" onclick="removeItem('${item.price}')">Remove</button>
+                </div>
+                <div style="display:flex; align-items:center; gap:8px;">
+                    <button class="qty-btn" onclick="updateQty('${item.price}', -1)">-</button>
+                    <span style="font-weight:600; min-width:15px; text-align:center;">${item.qty}</span>
+                    <button class="qty-btn" onclick="updateQty('${item.price}', 1)">+</button>
+                </div>
+            </div>
+        `).join('');
     }
 
-    rawCart.forEach(item => {
-        itemsContainer.innerHTML += `
-            <div class="cart-item">
-                <strong style="color:var(--charcoal);">${item.product}</strong>
-                <span style="font-weight:600;">Qty: ${item.qty}</span>
-            </div>
-        `;
-    });
-
-    const formattedCart = rawCart.map(item => ({
-        priceId: item.price,
-        quantity: item.qty
-    }));
+    renderSummary();
 
     let verifiedAddress = null;
     let selectedRate = null;
 
-    const shippingForm = document.getElementById('shipping-form');
     const calcBtn = document.getElementById('calc-shipping-btn');
     const ratesSection = document.getElementById('rates-section');
     const ratesContainer = document.getElementById('rates-container');
@@ -259,13 +290,11 @@ document.addEventListener("DOMContentLoaded", () => {
             });
 
             const rates = await res.json();
-            
             if (!res.ok) throw new Error(rates.error || "Failed to fetch rates.");
             
             ratesContainer.innerHTML = '';
-            
             if (rates.length === 0) {
-                ratesContainer.innerHTML = '<p style="color:red;">No shipping rates found for this address.</p>';
+                ratesContainer.innerHTML = '<p style="color:red;">No shipping rates found.</p>';
             } else {
                 rates.forEach(rate => {
                     const div = document.createElement('div');
@@ -277,22 +306,18 @@ document.addEventListener("DOMContentLoaded", () => {
                         </div>
                         <div style="font-weight: 700;">$${rate.rate}</div>
                     `;
-                    
                     div.addEventListener('click', () => {
                         document.querySelectorAll('.rate-option').forEach(el => el.classList.remove('selected'));
                         div.classList.add('selected');
                         selectedRate = rate;
                         payBtn.style.display = 'block';
                     });
-                    
                     ratesContainer.appendChild(div);
                 });
             }
-            
             ratesSection.style.display = 'block';
             calcBtn.textContent = "Recalculate Shipping";
             calcBtn.disabled = false;
-
         } catch (error) {
             alert(error.message);
             calcBtn.textContent = "Calculate Shipping Options";
@@ -306,12 +331,17 @@ document.addEventListener("DOMContentLoaded", () => {
         payBtn.textContent = "Connecting to Secure Processor...";
         payBtn.disabled = true;
 
+        const cartForPayload = JSON.parse(localStorage.getItem(cartKey) || '[]').map(item => ({
+            priceId: item.price,
+            quantity: item.qty
+        }));
+
         try {
             const res = await fetch('https://terradignus-api.vercel.app/api/create-checkout-session', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    cart: formattedCart,
+                    cart: cartForPayload,
                     shippingRate: selectedRate,
                     address: verifiedAddress
                 })
@@ -320,7 +350,6 @@ document.addEventListener("DOMContentLoaded", () => {
             const data = await res.json();
             if (!res.ok) throw new Error(data.error || "Failed to initiate payment.");
             window.location.href = data.url;
-
         } catch (error) {
             alert(error.message);
             payBtn.textContent = "Proceed to Secure Payment";
@@ -329,6 +358,5 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 </script>
-
 </body>
 </html>
