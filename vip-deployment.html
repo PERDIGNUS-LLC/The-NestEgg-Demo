@@ -21,9 +21,6 @@
             color: var(--charcoal);
             font-family: var(--font);
             -webkit-font-smoothing: antialiased;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
         }
 
         /* --- Header --- */
@@ -38,7 +35,6 @@
             display: grid;
             gap: 2rem;
             grid-template-columns: 1fr;
-            flex-grow: 1;
         }
 
         .checkout-section {
@@ -105,24 +101,14 @@
 
         /* --- Cart Summary --- */
         .cart-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px 0;
-            border-bottom: 1px solid #eee;
-            font-size: 0.95rem;
-        }
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* Ensures names and quantities stay aligned */
+    padding: 12px 0;
+    border-bottom: 1px solid #eee;
+    font-size: 0.95rem;
+}
         .cart-item:last-child { border-bottom: none; }
-
-        /* --- Footer --- */
-        footer { 
-            text-align: center; 
-            padding: 3rem; 
-            background: #111; 
-            color: var(--bg); 
-            margin-top: 4rem; 
-        }
-        .footer-logo { opacity: 0.8; font-weight: 700; letter-spacing: 0.05em; margin-bottom: 10px; display: block; }
     </style>
 </head>
 <body>
@@ -133,17 +119,14 @@
              <img src="assets/TD HL BINDRUNE SMALLEST.png" alt="TerraDignus Logo" style="width: 48px; height: 48px; object-fit: contain;">
              <span style="font-weight: 700; font-size: 1.5rem; letter-spacing: -0.05em;">TerraDignus</span>
         </a>
-        <a href="Birds.html" style="text-decoration: none; color: #F4F4F0; font-weight: 600; letter-spacing: 0.05em; transition: opacity 0.2s;" onmouseover="this.style.opacity=0.8" onmouseout="this.style.opacity=1">← Back to Birds</a>
+        <a href="index.html" style="text-decoration: none; color: #F4F4F0; font-weight: 600; letter-spacing: 0.05em;">Back to Home</a>
     </nav>
 </header>
 
 <div class="checkout-wrapper">
     
     <div class="checkout-section">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; border-bottom: 2px solid var(--bg); padding-bottom: 10px;">
-            <h2 style="margin: 0; border: none; padding: 0;">1. Order Summary</h2>
-            <a href="Birds.html" style="text-decoration: none; color: var(--green); font-weight: 700; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.5px;">+ Add / Change Items</a>
-        </div>
+        <h2>1. Order Summary</h2>
         <div id="checkout-items">
             </div>
     </div>
@@ -192,11 +175,6 @@
 
 </div>
 
-<footer>
-    <span class="footer-logo">PERDIGNUS LLC</span>
-    <p style="font-size: 0.9rem; opacity: 0.6; margin: 0;">&copy; 2026 Perdignus LLC. All Rights Reserved.</p>
-</footer>
-
 <script>
 document.addEventListener("DOMContentLoaded", () => {
     
@@ -206,7 +184,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const itemsContainer = document.getElementById('checkout-items');
     
     if (rawCart.length === 0) {
-        itemsContainer.innerHTML = '<p style="color:var(--muted);">Your cart is empty. <a href="Birds.html" style="color:var(--green); font-weight:700;">Return to Birds</a> to select a unit.</p>';
+        itemsContainer.innerHTML = '<p>Your cart is empty. Please select a unit.</p>';
         document.getElementById('shipping-form').style.display = 'none';
         return;
     }
@@ -214,20 +192,23 @@ document.addEventListener("DOMContentLoaded", () => {
     rawCart.forEach(item => {
         itemsContainer.innerHTML += `
             <div class="cart-item">
-                <strong style="color:var(--charcoal);">${item.product}</strong>
-                <span style="font-weight:600;">Qty: ${item.qty}</span>
+                <strong>${item.product}</strong>
+                <span>Qty: ${item.qty}</span>
             </div>
         `;
     });
 
+    // 2. Format cart payload to match Vercel expectations (requires priceId and quantity)
     const formattedCart = rawCart.map(item => ({
         priceId: item.price,
         quantity: item.qty
     }));
 
+    // State variables
     let verifiedAddress = null;
     let selectedRate = null;
 
+    // 3. Handle Shipping Calculation via Vercel EasyPost API
     const shippingForm = document.getElementById('shipping-form');
     const calcBtn = document.getElementById('calc-shipping-btn');
     const ratesSection = document.getElementById('rates-section');
@@ -236,7 +217,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     shippingForm.addEventListener('submit', async (e) => {
         e.preventDefault();
-        calcBtn.textContent = "Calculating Rates...";
+        calcBtn.textContent = "Calculating...";
         calcBtn.disabled = true;
 
         verifiedAddress = {
@@ -254,7 +235,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     customerAddress: verifiedAddress,
-                    product: { size: 'VIP_UNIT_01' }
+                    product: { size: 'VIP_UNIT_01' } // Triggers the 8x8x8 / 75oz profile
                 })
             });
 
@@ -290,8 +271,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
             
             ratesSection.style.display = 'block';
-            calcBtn.textContent = "Recalculate Shipping";
-            calcBtn.disabled = false;
+            calcBtn.textContent = "Shipping Calculated";
 
         } catch (error) {
             alert(error.message);
@@ -300,6 +280,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
+    // 4. Handle Payment Redirect via Vercel Stripe API
     payBtn.addEventListener('click', async () => {
         if (!selectedRate || !verifiedAddress) return;
         
@@ -318,7 +299,327 @@ document.addEventListener("DOMContentLoaded", () => {
             });
 
             const data = await res.json();
+            
             if (!res.ok) throw new Error(data.error || "Failed to initiate payment.");
+            
+            // Redirect to Stripe
+            window.location.href = data.url;
+
+        } catch (error) {
+            alert(error.message);
+            payBtn.textContent = "Proceed to Secure Payment";
+            payBtn.disabled = false;
+        }
+    });
+});
+</script>
+
+</body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VIP Checkout | TerraDignus</title>
+    <style>
+        :root {
+            --green: #1A4D3E;
+            --gold: #D4AF37;
+            --bg: #F4F4F0;
+            --charcoal: #111;
+            --muted: #6e6e6e;
+            --card: #ffffff;
+            --font: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--charcoal);
+            font-family: var(--font);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* --- Header --- */
+        header { background: var(--green); box-shadow: 0 4px 12px rgba(0,0,0,0.15); position: sticky; top: 0; z-index: 100; }
+        nav { max-width: 1100px; margin: auto; display: flex; align-items: center; justify-content: space-between; padding: 1rem 2rem; flex-wrap: wrap; }
+        
+        /* --- Checkout Container --- */
+        .checkout-wrapper {
+            max-width: 800px;
+            margin: 3rem auto;
+            padding: 0 1.5rem;
+            display: grid;
+            gap: 2rem;
+            grid-template-columns: 1fr;
+        }
+
+        .checkout-section {
+            background: var(--card);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        h2 { font-size: 1.5rem; margin-top: 0; margin-bottom: 1.5rem; border-bottom: 2px solid var(--bg); padding-bottom: 10px; }
+
+        /* --- Form Elements --- */
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        .form-group { display: flex; flex-direction: column; }
+        .form-group.full { grid-column: 1 / -1; }
+        
+        label { font-weight: 700; font-size: 0.9rem; margin-bottom: 6px; color: var(--charcoal); }
+        input, select {
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-family: var(--font);
+            outline: none;
+        }
+        input:focus, select:focus { border-color: var(--green); box-shadow: 0 0 0 3px rgba(26,77,62,0.1); }
+
+        /* --- Buttons --- */
+        .btn {
+            background: var(--green);
+            color: #fff;
+            border: none;
+            padding: 14px 20px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 1.05rem;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.2s ease;
+            margin-top: 20px;
+        }
+        .btn:hover { background: #12382c; transform: translateY(-1px); }
+        .btn:disabled { background: #ccc; cursor: not-allowed; transform: none; }
+
+        /* --- Rates List --- */
+        .rate-option {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .rate-option:hover { border-color: var(--green); }
+        .rate-option.selected { border-color: var(--green); background: rgba(26,77,62,0.05); }
+
+        /* --- Cart Summary --- */
+        .cart-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* Ensures names and quantities stay aligned */
+    padding: 12px 0;
+    border-bottom: 1px solid #eee;
+    font-size: 0.95rem;
+}
+        .cart-item:last-child { border-bottom: none; }
+    </style>
+</head>
+<body>
+
+<header>
+    <nav>
+        <a href="index.html" style="text-decoration: none; color: #F4F4F0; display: flex; align-items: center; gap: 12px;">
+             <img src="assets/TD HL BINDRUNE SMALLEST.png" alt="TerraDignus Logo" style="width: 48px; height: 48px; object-fit: contain;">
+             <span style="font-weight: 700; font-size: 1.5rem; letter-spacing: -0.05em;">TerraDignus</span>
+        </a>
+        <a href="index.html" style="text-decoration: none; color: #F4F4F0; font-weight: 600; letter-spacing: 0.05em;">Back to Home</a>
+    </nav>
+</header>
+
+<div class="checkout-wrapper">
+    
+    <div class="checkout-section">
+        <h2>1. Order Summary</h2>
+        <div id="checkout-items">
+            </div>
+    </div>
+
+    <div class="checkout-section">
+        <h2>2. Shipping Details</h2>
+        <form id="shipping-form">
+            <div class="form-grid">
+                <div class="form-group full">
+                    <label>Full Name</label>
+                    <input type="text" id="ship-name" required>
+                </div>
+                <div class="form-group full">
+                    <label>Address Line 1</label>
+                    <input type="text" id="ship-street1" required>
+                </div>
+                <div class="form-group">
+                    <label>City</label>
+                    <input type="text" id="ship-city" required>
+                </div>
+                <div class="form-group">
+                    <label>State / Province (Abbreviation)</label>
+                    <input type="text" id="ship-state" placeholder="MI or ON" required>
+                </div>
+                <div class="form-group">
+                    <label>ZIP / Postal Code</label>
+                    <input type="text" id="ship-zip" required>
+                </div>
+                <div class="form-group">
+                    <label>Country</label>
+                    <select id="ship-country" required>
+                        <option value="US">United States</option>
+                        <option value="CA">Canada</option>
+                    </select>
+                </div>
+            </div>
+            <button type="submit" class="btn" id="calc-shipping-btn">Calculate Shipping Options</button>
+        </form>
+    </div>
+
+    <div class="checkout-section" id="rates-section" style="display: none;">
+        <h2>3. Select Delivery Speed</h2>
+        <div id="rates-container"></div>
+        <button id="pay-btn" class="btn" style="display: none;">Proceed to Secure Payment</button>
+    </div>
+
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    
+    // 1. Load Cart Data
+    const cartKey = 'nestegg_cart_v2';
+    const rawCart = JSON.parse(localStorage.getItem(cartKey) || '[]');
+    const itemsContainer = document.getElementById('checkout-items');
+    
+    if (rawCart.length === 0) {
+        itemsContainer.innerHTML = '<p>Your cart is empty. Please select a unit.</p>';
+        document.getElementById('shipping-form').style.display = 'none';
+        return;
+    }
+
+    rawCart.forEach(item => {
+        itemsContainer.innerHTML += `
+            <div class="cart-item">
+                <strong>${item.product}</strong>
+                <span>Qty: ${item.qty}</span>
+            </div>
+        `;
+    });
+
+    // 2. Format cart payload to match Vercel expectations (requires priceId and quantity)
+    const formattedCart = rawCart.map(item => ({
+        priceId: item.price,
+        quantity: item.qty
+    }));
+
+    // State variables
+    let verifiedAddress = null;
+    let selectedRate = null;
+
+    // 3. Handle Shipping Calculation via Vercel EasyPost API
+    const shippingForm = document.getElementById('shipping-form');
+    const calcBtn = document.getElementById('calc-shipping-btn');
+    const ratesSection = document.getElementById('rates-section');
+    const ratesContainer = document.getElementById('rates-container');
+    const payBtn = document.getElementById('pay-btn');
+
+    shippingForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        calcBtn.textContent = "Calculating...";
+        calcBtn.disabled = true;
+
+        verifiedAddress = {
+            name: document.getElementById('ship-name').value,
+            street1: document.getElementById('ship-street1').value,
+            city: document.getElementById('ship-city').value,
+            state: document.getElementById('ship-state').value,
+            zip: document.getElementById('ship-zip').value,
+            country: document.getElementById('ship-country').value
+        };
+
+        try {
+            const res = await fetch('https://terradignus-api.vercel.app/api/get-shipping-rates', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    customerAddress: verifiedAddress,
+                    product: { size: 'VIP_UNIT_01' } // Triggers the 8x8x8 / 75oz profile
+                })
+            });
+
+            const rates = await res.json();
+            
+            if (!res.ok) throw new Error(rates.error || "Failed to fetch rates.");
+            
+            ratesContainer.innerHTML = '';
+            
+            if (rates.length === 0) {
+                ratesContainer.innerHTML = '<p style="color:red;">No shipping rates found for this address.</p>';
+            } else {
+                rates.forEach(rate => {
+                    const div = document.createElement('div');
+                    div.className = 'rate-option';
+                    div.innerHTML = `
+                        <div>
+                            <strong>${rate.carrier} - ${rate.service}</strong>
+                            <div style="font-size: 0.85rem; color: #666; margin-top: 4px;">Est. ${rate.delivery_days || '?'} Days</div>
+                        </div>
+                        <div style="font-weight: 700;">$${rate.rate}</div>
+                    `;
+                    
+                    div.addEventListener('click', () => {
+                        document.querySelectorAll('.rate-option').forEach(el => el.classList.remove('selected'));
+                        div.classList.add('selected');
+                        selectedRate = rate;
+                        payBtn.style.display = 'block';
+                    });
+                    
+                    ratesContainer.appendChild(div);
+                });
+            }
+            
+            ratesSection.style.display = 'block';
+            calcBtn.textContent = "Shipping Calculated";
+
+        } catch (error) {
+            alert(error.message);
+            calcBtn.textContent = "Calculate Shipping Options";
+            calcBtn.disabled = false;
+        }
+    });
+
+    // 4. Handle Payment Redirect via Vercel Stripe API
+    payBtn.addEventListener('click', async () => {
+        if (!selectedRate || !verifiedAddress) return;
+        
+        payBtn.textContent = "Connecting to Secure Processor...";
+        payBtn.disabled = true;
+
+        try {
+            const res = await fetch('https://terradignus-api.vercel.app/api/create-checkout-session', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    cart: formattedCart,
+                    shippingRate: selectedRate,
+                    address: verifiedAddress
+                })
+            });
+
+            const data = await res.json();
+            
+            if (!res.ok) throw new Error(data.error || "Failed to initiate payment.");
+            
+            // Redirect to Stripe
             window.location.href = data.url;
 
         } catch (error) {
