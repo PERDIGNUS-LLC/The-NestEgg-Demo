@@ -43,8 +43,8 @@ export default async function handler(req) {
         const session = await stripe.checkout.sessions.create({
             mode: "payment",
             line_items,
-            success_url: `${process.env.NEXT_PUBLIC_DOMAIN}/success.html`,
-            cancel_url: `${process.env.NEXT_PUBLIC_DOMAIN}/shop.html`,
+            success_url: "https://terradignus.org/success.html",
+            cancel_url: "https://terradignus.org/Birds.html",
             shipping_address_collection: { allowed_countries: ["US", "CA"] },
         });
 
