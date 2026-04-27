@@ -208,7 +208,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const itemsContainer = document.getElementById('checkout-items');
     const shippingForm = document.getElementById('shipping-form');
 
-    // EXPOSED GLOBAL FUNCTIONS FOR THE BUTTONS
+    // 1. Order Summary Controls
     window.removeItem = function(priceId) {
         let cart = JSON.parse(localStorage.getItem(cartKey) || '[]');
         cart = cart.filter(item => item.price !== priceId);
@@ -257,6 +257,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     renderSummary();
 
+    // 2. Shipping & Payment Logic
     let verifiedAddress = null;
     let selectedRate = null;
 
@@ -319,7 +320,7 @@ document.addEventListener("DOMContentLoaded", () => {
             calcBtn.textContent = "Recalculate Shipping";
             calcBtn.disabled = false;
         } catch (error) {
-            alert(error.message);
+            alert("Shipping Error: " + error.message);
             calcBtn.textContent = "Calculate Shipping Options";
             calcBtn.disabled = false;
         }
@@ -331,7 +332,8 @@ document.addEventListener("DOMContentLoaded", () => {
         payBtn.textContent = "Connecting to Secure Processor...";
         payBtn.disabled = true;
 
-        const cartForPayload = JSON.parse(localStorage.getItem(cartKey) || '[]').map(item => ({
+        // Capture FRESH cart data including any +/- adjustments
+        const finalCart = JSON.parse(localStorage.getItem(cartKey) || '[]').map(item => ({
             priceId: item.price,
             quantity: item.qty
         }));
@@ -341,17 +343,24 @@ document.addEventListener("DOMContentLoaded", () => {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    cart: cartForPayload,
+                    cart: finalCart,
                     shippingRate: selectedRate,
                     address: verifiedAddress
                 })
             });
 
             const data = await res.json();
-            if (!res.ok) throw new Error(data.error || "Failed to initiate payment.");
+            
+            if (!res.ok) {
+                throw new Error(data.error || `Server responded with ${res.status}`);
+            }
+
+            // SUCCESS: Move to Stripe
             window.location.href = data.url;
+
         } catch (error) {
-            alert(error.message);
+            // FAILURE: Reset the button so the user isn't "stuck"
+            alert("Checkout System Error: " + error.message);
             payBtn.textContent = "Proceed to Secure Payment";
             payBtn.disabled = false;
         }
