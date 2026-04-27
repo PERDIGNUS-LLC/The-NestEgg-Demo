@@ -3,18 +3,16 @@ import Stripe from "stripe";
 export const config = { runtime: "nodejs" };
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
-// Define CORS headers to appease the browser
-const corsHeaders = {
-    'Access-Control-Allow-Credentials': 'true',
-    'Access-Control-Allow-Origin': '*', // Allows requests from any origin
-    'Access-Control-Allow-Methods': 'GET,OPTIONS,PATCH,DELETE,POST,PUT',
-    'Access-Control-Allow-Headers': 'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
-};
-
 export default async function handler(req, res) {
-    // 1. Handle the Preflight Request (The CORS check)
+    // 1. Correct Vercel-native CORS Headers
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT');
+    res.setHeader('Access-Control-Allow-Headers', 'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version');
+
+    // 2. Handle the Preflight Request (The CORS check)
     if (req.method === 'OPTIONS') {
-        return res.status(200).set(corsHeaders).end();
+        return res.status(200).end();
     }
 
     if (req.method !== 'POST') {
@@ -25,7 +23,7 @@ export default async function handler(req, res) {
         const { cart, shippingRate } = req.body;
 
         if (!cart || !Array.isArray(cart) || cart.length === 0) {
-            return res.status(400).set(corsHeaders).json({ error: "Cart is empty" });
+            return res.status(400).json({ error: "Cart is empty" });
         }
 
         const line_items = cart.map(item => ({
@@ -55,12 +53,11 @@ export default async function handler(req, res) {
             shipping_address_collection: { allowed_countries: ["US", "CA"] },
         });
 
-        // 2. Attach CORS headers to the successful response
-        return res.status(200).set(corsHeaders).json({ url: session.url });
+        // 3. Successful response
+        return res.status(200).json({ url: session.url });
 
     } catch (err) {
         console.error("Stripe Error:", err.message);
-        // Attach CORS headers even if it fails, so the browser actually reads the error
-        return res.status(500).set(corsHeaders).json({ error: err.message });
+        return res.status(500).json({ error: err.message });
     }
 }
