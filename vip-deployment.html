@@ -15,119 +15,108 @@
             --font: 'Helvetica Neue', Helvetica, Arial, sans-serif;
         }
 
-        body {
-            margin: 0;
-            background: var(--bg);
-            color: var(--charcoal);
-            font-family: var(--font);
-            -webkit-font-smoothing: antialiased;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-
+        body { margin: 0; background: var(--bg); color: var(--charcoal); font-family: var(--font); -webkit-font-smoothing: antialiased; display: flex; flex-direction: column; min-height: 100vh; }
+        
         /* --- Header --- */
         header { background: var(--green); box-shadow: 0 4px 12px rgba(0,0,0,0.15); position: sticky; top: 0; z-index: 100; }
         nav { max-width: 1100px; margin: auto; display: flex; align-items: center; justify-content: space-between; padding: 1rem 2rem; flex-wrap: wrap; }
         
-        /* --- Checkout Container --- */
-        .checkout-wrapper {
-            max-width: 800px;
-            margin: 3rem auto;
-            padding: 0 1.5rem;
+        /* --- The Manifesto Section --- */
+        .manifesto-section {
+            background: var(--charcoal);
+            color: var(--bg);
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+        .manifesto-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .manifesto-content h1 {
+            font-size: 2.2rem;
+            margin-top: 0;
+            margin-bottom: 1rem;
+            color: #fff;
+            letter-spacing: -0.02em;
+        }
+        .manifesto-lead {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #aaa;
+            margin-bottom: 3rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .value-grid {
             display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 2rem;
-            grid-template-columns: 1fr;
-            flex-grow: 1;
+            text-align: left;
+        }
+        .value-pillar h3 {
+            color: var(--gold);
+            font-size: 1.1rem;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+            padding-bottom: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        .value-pillar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            color: #ddd;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+        .value-pillar li {
+            margin-bottom: 0.75rem;
+            position: relative;
+            padding-left: 1.2rem;
+        }
+        .value-pillar li::before {
+            content: "•";
+            color: var(--gold);
+            position: absolute;
+            left: 0;
         }
 
-        .checkout-section {
-            background: var(--card);
-            padding: 2rem;
-            border-radius: 12px;
-            box-shadow: 0 6px 18px rgba(0,0,0,0.06);
-            border: 1px solid rgba(0,0,0,0.05);
-        }
-
+        /* --- Checkout Container --- */
+        .checkout-wrapper { max-width: 800px; margin: -2rem auto 3rem auto; padding: 0 1.5rem; display: grid; gap: 2rem; grid-template-columns: 1fr; flex-grow: 1; position: relative; z-index: 10; }
+        .checkout-section { background: var(--card); padding: 2rem; border-radius: 12px; box-shadow: 0 6px 18px rgba(0,0,0,0.1); border: 1px solid rgba(0,0,0,0.05); }
         h2 { font-size: 1.5rem; margin-top: 0; margin-bottom: 1.5rem; border-bottom: 2px solid var(--bg); padding-bottom: 10px; }
 
         /* --- Form Elements --- */
-        .form-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-        }
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
         .form-group { display: flex; flex-direction: column; }
         .form-group.full { grid-column: 1 / -1; }
-        
         label { font-weight: 700; font-size: 0.9rem; margin-bottom: 6px; color: var(--charcoal); }
-        input, select {
-            padding: 12px;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            font-size: 1rem;
-            font-family: var(--font);
-            outline: none;
-        }
+        input, select { padding: 12px; border: 1px solid #ccc; border-radius: 6px; font-size: 1rem; font-family: var(--font); outline: none; }
         input:focus, select:focus { border-color: var(--green); box-shadow: 0 0 0 3px rgba(26,77,62,0.1); }
 
         /* --- Buttons --- */
-        .btn {
-            background: var(--green);
-            color: #fff;
-            border: none;
-            padding: 14px 20px;
-            border-radius: 8px;
-            font-weight: 700;
-            font-size: 1.05rem;
-            cursor: pointer;
-            width: 100%;
-            transition: all 0.2s ease;
-            margin-top: 20px;
-        }
+        .btn { background: var(--green); color: #fff; border: none; padding: 14px 20px; border-radius: 8px; font-weight: 700; font-size: 1.05rem; cursor: pointer; width: 100%; transition: all 0.2s ease; margin-top: 20px; text-transform: uppercase; letter-spacing: 0.5px; }
         .btn:hover { background: #12382c; transform: translateY(-1px); }
         .btn:disabled { background: #ccc; cursor: not-allowed; transform: none; }
 
         /* --- Rates List --- */
-        .rate-option {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            margin-bottom: 10px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
+        .rate-option { display: flex; justify-content: space-between; align-items: center; padding: 15px; border: 1px solid #ddd; border-radius: 8px; margin-bottom: 10px; cursor: pointer; transition: all 0.2s ease; }
         .rate-option:hover { border-color: var(--green); }
         .rate-option.selected { border-color: var(--green); background: rgba(26,77,62,0.05); }
 
-        /* --- Cart Summary Styling --- */
-        .cart-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px 0;
-            border-bottom: 1px solid #eee;
-            font-size: 0.95rem;
-        }
-        .cart-item:last-child { border-bottom: none; }
-
-        /* Quantity controls in checkout */
+        /* --- Cart Summary & Totals --- */
+        .cart-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid #eee; font-size: 0.95rem; }
         .qty-btn { width: 22px; height: 22px; border: 1px solid #ccc; background: #fff; cursor: pointer; border-radius: 4px; font-weight: bold; }
         .qty-btn:hover { background: #f0f0f0; }
         .remove-link { background: none; border: none; color: #cc0000; font-size: 0.75rem; cursor: pointer; text-decoration: underline; padding: 0; }
+        
+        .totals-container { margin-top: 1.5rem; padding-top: 1.5rem; border-top: 2px solid var(--charcoal); }
+        .total-line { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 1.05rem; }
+        .grand-total { font-weight: 800; font-size: 1.3rem; color: var(--green); border-top: 1px solid #ddd; padding-top: 10px; margin-top: 10px; }
 
         /* --- Footer --- */
-        footer { 
-            text-align: center; 
-            padding: 3rem; 
-            background: #111; 
-            color: var(--bg); 
-            margin-top: 4rem; 
-        }
-        .footer-logo { opacity: 0.8; font-weight: 700; letter-spacing: 0.05em; margin-bottom: 10px; display: block; }
+        footer { text-align: center; padding: 3rem; background: #111; color: var(--bg); margin-top: 4rem; }
+        .footer-logo { opacity: 0.8; font-weight: 700; letter-spacing: 0.05em; margin-bottom: 10px; display: block; text-transform: uppercase; }
     </style>
 </head>
 <body>
@@ -142,6 +131,40 @@
     </nav>
 </header>
 
+<div class="manifesto-section">
+    <div class="manifesto-content">
+        <h1>Ecological Infrastructure, Not Decoration.</h1>
+        <p class="manifesto-lead">You are not purchasing a traditional birdhouse. You are investing in a research-backed habitat system designed to support wildlife without compromising the environment it exists within. Before you finalize your order, understand exactly what this represents.</p>
+        
+        <div class="value-grid">
+            <div class="value-pillar">
+                <h3>Engineered for the Species</h3>
+                <ul>
+                    <li>Internal volumes, apertures, and placements derived from established ornithological research.</li>
+                    <li>Precision-calibrated entrance systems to deter predators and competitors.</li>
+                    <li>Engineered thermal regulation and integrated drainage to eliminate nest failure.</li>
+                </ul>
+            </div>
+            <div class="value-pillar">
+                <h3>Material Integrity</h3>
+                <ul>
+                    <li>Sustainably sourced, ultra-low emission manufacturing.</li>
+                    <li>Non-toxic, inert composition safe for the ecosystem at every stage.</li>
+                    <li>A truly compostable afterlife—breaking down only when its role is complete.</li>
+                </ul>
+            </div>
+            <div class="value-pillar">
+                <h3>The End of Hypocrisy</h3>
+                <ul>
+                    <li>Functional over decorative: every decision prioritizes animal welfare over human aesthetics.</li>
+                    <li>Actively interrupts the waste cycle of disposable, short-lived wooden birdhouses.</li>
+                    <li>Full lifecycle responsibility from creation to soil integration.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="checkout-wrapper">
     
     <div class="checkout-section">
@@ -150,32 +173,21 @@
             <a href="Birds.html" style="text-decoration: none; color: var(--green); font-weight: 700; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.5px;">+ Add More Items</a>
         </div>
         <div id="checkout-items"></div>
+        <div id="subtotal-display" class="total-line" style="font-weight: 700; margin-top: 15px; display: none;">
+            <span>Subtotal:</span>
+            <span id="subtotal-amount">$0.00</span>
+        </div>
     </div>
 
-    <div class="checkout-section">
+    <div class="checkout-section" id="shipping-section">
         <h2>2. Shipping Details</h2>
         <form id="shipping-form">
             <div class="form-grid">
-                <div class="form-group full">
-                    <label>Full Name</label>
-                    <input type="text" id="ship-name" required>
-                </div>
-                <div class="form-group full">
-                    <label>Address Line 1</label>
-                    <input type="text" id="ship-street1" required>
-                </div>
-                <div class="form-group">
-                    <label>City</label>
-                    <input type="text" id="ship-city" required>
-                </div>
-                <div class="form-group">
-                    <label>State / Province (Abbreviation)</label>
-                    <input type="text" id="ship-state" placeholder="MI or ON" required>
-                </div>
-                <div class="form-group">
-                    <label>ZIP / Postal Code</label>
-                    <input type="text" id="ship-zip" required>
-                </div>
+                <div class="form-group full"><label>Full Name</label><input type="text" id="ship-name" required></div>
+                <div class="form-group full"><label>Address Line 1</label><input type="text" id="ship-street1" required></div>
+                <div class="form-group"><label>City</label><input type="text" id="ship-city" required></div>
+                <div class="form-group"><label>State / Province</label><input type="text" id="ship-state" placeholder="MI or ON" required></div>
+                <div class="form-group"><label>ZIP / Postal Code</label><input type="text" id="ship-zip" required></div>
                 <div class="form-group">
                     <label>Country</label>
                     <select id="ship-country" required>
@@ -191,7 +203,13 @@
     <div class="checkout-section" id="rates-section" style="display: none;">
         <h2>3. Select Delivery Speed</h2>
         <div id="rates-container"></div>
-        <button id="pay-btn" class="btn" style="display: none;">Proceed to Secure Payment</button>
+        
+        <div class="totals-container" id="final-totals-container" style="display: none;">
+            <div class="total-line"><span>Items Subtotal:</span> <span id="final-subtotal">$0.00</span></div>
+            <div class="total-line"><span>Shipping:</span> <span id="final-shipping">$0.00</span></div>
+            <div class="total-line grand-total"><span>Grand Total:</span> <span id="final-grand-total">$0.00</span></div>
+            <button id="pay-btn" class="btn">Proceed to Secure Payment</button>
+        </div>
     </div>
 
 </div>
@@ -207,6 +225,32 @@ document.addEventListener("DOMContentLoaded", () => {
     const cartKey = 'nestegg_cart_v2';
     const itemsContainer = document.getElementById('checkout-items');
     const shippingForm = document.getElementById('shipping-form');
+    const shippingSection = document.getElementById('shipping-section');
+    
+    // Fallback dictionary just in case your cart logic doesn't store numerical prices yet
+    // Update these with your ACTUAL Stripe IDs if needed to ensure the math is flawless
+    const priceLookup = {
+        'price_1YOUR_STANDARD_ID': 85.00,
+        'price_1YOUR_MINI_ID': 68.00
+    };
+
+    function getPriceValue(priceId, productName) {
+        // First try to look it up in our dictionary
+        if (priceLookup[priceId]) return priceLookup[priceId];
+        // Fallback guess based on name if dictionary isn't updated
+        if (productName.toLowerCase().includes('mini') || productName.toLowerCase().includes('nuthatch')) return 68.00;
+        return 85.00; // Default to standard NestEgg
+    }
+
+    function calculateCartSubtotal() {
+        const cart = JSON.parse(localStorage.getItem(cartKey) || '[]');
+        let total = 0;
+        cart.forEach(item => {
+            const unitPrice = getPriceValue(item.price, item.product);
+            total += (unitPrice * item.qty);
+        });
+        return total;
+    }
 
     // 1. Order Summary Controls
     window.removeItem = function(priceId) {
@@ -221,10 +265,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const item = cart.find(i => i.price === priceId);
         if (item) {
             item.qty += delta;
-            if (item.qty <= 0) {
-                removeItem(priceId);
-                return;
-            }
+            if (item.qty <= 0) { removeItem(priceId); return; }
         }
         localStorage.setItem(cartKey, JSON.stringify(cart));
         renderSummary();
@@ -235,27 +276,40 @@ document.addEventListener("DOMContentLoaded", () => {
         
         if (rawCart.length === 0) {
             itemsContainer.innerHTML = '<p style="color:var(--muted);">Your cart is empty. <a href="Birds.html" style="color:var(--green); font-weight:700;">Return to Birds</a> to select a unit.</p>';
-            shippingForm.style.display = 'none';
+            shippingSection.style.display = 'none';
+            document.getElementById('subtotal-display').style.display = 'none';
             return;
         }
 
-        shippingForm.style.display = 'block';
-        itemsContainer.innerHTML = rawCart.map(item => `
+        shippingSection.style.display = 'block';
+        itemsContainer.innerHTML = rawCart.map(item => {
+            const unitPrice = getPriceValue(item.price, item.product);
+            const lineTotal = (unitPrice * item.qty).toFixed(2);
+            return `
             <div class="cart-item">
                 <div>
                     <strong style="color:var(--charcoal);">${item.product}</strong>
-                    <br><button class="remove-link" onclick="removeItem('${item.price}')">Remove</button>
+                    <div style="font-size: 0.85rem; color: var(--muted); margin-top: 4px;">$${unitPrice.toFixed(2)} each</div>
+                    <button class="remove-link" style="margin-top:4px;" onclick="removeItem('${item.price}')">Remove</button>
                 </div>
-                <div style="display:flex; align-items:center; gap:8px;">
-                    <button class="qty-btn" onclick="updateQty('${item.price}', -1)">-</button>
-                    <span style="font-weight:600; min-width:15px; text-align:center;">${item.qty}</span>
-                    <button class="qty-btn" onclick="updateQty('${item.price}', 1)">+</button>
+                <div style="display:flex; align-items:center; gap:12px;">
+                    <div style="display:flex; align-items:center; gap:8px;">
+                        <button class="qty-btn" onclick="updateQty('${item.price}', -1)">-</button>
+                        <span style="font-weight:600; min-width:15px; text-align:center;">${item.qty}</span>
+                        <button class="qty-btn" onclick="updateQty('${item.price}', 1)">+</button>
+                    </div>
+                    <div style="font-weight: 700; min-width: 60px; text-align: right;">$${lineTotal}</div>
                 </div>
             </div>
-        `).join('');
-    }
+        `}).join('');
 
-    renderSummary();
+        const currentSubtotal = calculateCartSubtotal();
+        document.getElementById('subtotal-amount').textContent = `$${currentSubtotal.toFixed(2)}`;
+        document.getElementById('subtotal-display').style.display = 'flex';
+        
+        // Update the grand total live if they click +/- AFTER selecting shipping
+        updateGrandTotalDisplay(); 
+    }
 
     // 2. Shipping & Payment Logic
     let verifiedAddress = null;
@@ -264,7 +318,19 @@ document.addEventListener("DOMContentLoaded", () => {
     const calcBtn = document.getElementById('calc-shipping-btn');
     const ratesSection = document.getElementById('rates-section');
     const ratesContainer = document.getElementById('rates-container');
+    const totalsContainer = document.getElementById('final-totals-container');
     const payBtn = document.getElementById('pay-btn');
+
+    function updateGrandTotalDisplay() {
+        if (!selectedRate) return;
+        const subtotal = calculateCartSubtotal();
+        const shippingCost = Number(selectedRate.rate);
+        const grandTotal = subtotal + shippingCost;
+        
+        document.getElementById('final-subtotal').textContent = `$${subtotal.toFixed(2)}`;
+        document.getElementById('final-shipping').textContent = `$${shippingCost.toFixed(2)}`;
+        document.getElementById('final-grand-total').textContent = `$${grandTotal.toFixed(2)}`;
+    }
 
     shippingForm.addEventListener('submit', async (e) => {
         e.preventDefault();
@@ -311,7 +377,10 @@ document.addEventListener("DOMContentLoaded", () => {
                         document.querySelectorAll('.rate-option').forEach(el => el.classList.remove('selected'));
                         div.classList.add('selected');
                         selectedRate = rate;
-                        payBtn.style.display = 'block';
+                        
+                        // Show the Grand Total math
+                        totalsContainer.style.display = 'block';
+                        updateGrandTotalDisplay();
                     });
                     ratesContainer.appendChild(div);
                 });
@@ -332,7 +401,6 @@ document.addEventListener("DOMContentLoaded", () => {
         payBtn.textContent = "Connecting to Secure Processor...";
         payBtn.disabled = true;
 
-        // Capture FRESH cart data including any +/- adjustments
         const finalCart = JSON.parse(localStorage.getItem(cartKey) || '[]').map(item => ({
             priceId: item.price,
             quantity: item.qty
@@ -351,20 +419,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const data = await res.json();
             
-            if (!res.ok) {
-                throw new Error(data.error || `Server responded with ${res.status}`);
-            }
+            if (!res.ok) throw new Error(data.error || `Server responded with ${res.status}`);
 
-            // SUCCESS: Move to Stripe
             window.location.href = data.url;
 
         } catch (error) {
-            // FAILURE: Reset the button so the user isn't "stuck"
             alert("Checkout System Error: " + error.message);
             payBtn.textContent = "Proceed to Secure Payment";
             payBtn.disabled = false;
         }
     });
+    
+    // Initial render
+    renderSummary();
 });
 </script>
 </body>
