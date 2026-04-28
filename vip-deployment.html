@@ -29,7 +29,7 @@
             text-align: center;
         }
         .manifesto-content {
-            max-width: 900px;
+            max-width: 1200px; /* Widened to let all 4 columns breathe */
             margin: 0 auto;
         }
         .manifesto-content h1 {
@@ -50,9 +50,21 @@
         }
         .value-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(4, 1fr); /* Forces exactly 4 side-by-side */
             gap: 2rem;
             text-align: left;
+        }
+
+        /* This ensures it still looks good if they view it on a phone or tablet */
+        @media (max-width: 992px) {
+            .value-grid {
+                grid-template-columns: repeat(2, 1fr); /* 2x2 square on tablets */
+            }
+        }
+        @media (max-width: 600px) {
+            .value-grid {
+                grid-template-columns: 1fr; /* Single stacked column on phones */
+            }
         }
         .value-pillar h3 {
             color: var(--gold);
