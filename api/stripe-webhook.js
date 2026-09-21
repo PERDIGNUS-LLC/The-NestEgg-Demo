@@ -22,7 +22,7 @@ export default async function handler(req, res) {
     const event = stripe.webhooks.constructEvent(
       rawBody,
       signature,
-      process.env.STRIPE_WEBHOOK_SECRET
+      process.env.STRIPE_CHECKOUT_WEBHOOK_SECRET
     );
 
     // We only care about completed Checkout purchases
