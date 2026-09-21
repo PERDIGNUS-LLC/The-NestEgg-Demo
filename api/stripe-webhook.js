@@ -6,7 +6,10 @@ export const config = {
   runtime: "nodejs"
 };
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+const liveStripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+const sandboxStripe = process.env.STRIPE_SANDBOX_SECRET_KEY
+  ? new Stripe(process.env.STRIPE_SANDBOX_SECRET_KEY)
+  : null;
 
 export default async function handler(req, res) {
   if (req.method !== "POST") {
@@ -14,37 +17,65 @@ export default async function handler(req, res) {
   }
 
   try {
-    // Stripe requires the RAW request body for webhook verification
+    // Stripe requires the RAW request body for webhook verification.
     const rawBody = await getRawBody(req);
-
     const signature = req.headers["stripe-signature"];
 
-    const event = stripe.webhooks.constructEvent(
-      rawBody,
-      signature,
-      process.env.STRIPE_CHECKOUT_WEBHOOK_SECRET
-    );
+    // Production events are verified with the production destination secret.
+    // If configured, sandbox events can hit this same endpoint too.
+    let event;
+    let stripeClient = liveStripe;
 
-    // We only care about completed Checkout purchases
+    try {
+      event = liveStripe.webhooks.constructEvent(
+        rawBody,
+        signature,
+        process.env.STRIPE_CHECKOUT_WEBHOOK_SECRET
+      );
+    } catch (liveError) {
+      if (
+        !process.env.STRIPE_CHECKOUT_WEBHOOK_SECRET_SANDBOX ||
+        !sandboxStripe
+      ) {
+        throw liveError;
+      }
+
+      event = sandboxStripe.webhooks.constructEvent(
+        rawBody,
+        signature,
+        process.env.STRIPE_CHECKOUT_WEBHOOK_SECRET_SANDBOX
+      );
+      stripeClient = sandboxStripe;
+    }
+
+    // We only care about completed Checkout purchases.
     if (event.type !== "checkout.session.completed") {
       return res.status(200).json({ received: true });
     }
 
     const session = event.data.object;
 
-    // Extra safety: don't fulfill an unpaid transaction
+    // Fulfill only successfully paid Checkout Sessions.
     if (session.payment_status !== "paid") {
       return res.status(200).json({ received: true });
     }
 
-    // Retrieve what was actually purchased
-    const lineItems = await stripe.checkout.sessions.listLineItems(
+    // Retrieve what was actually purchased using the matching
+    // live or sandbox Stripe API key.
+    const lineItems = await stripeClient.checkout.sessions.listLineItems(
       session.id,
       { limit: 100 }
     );
 
     const customer = session.customer_details || {};
-    const shipping = session.shipping_details || {};
+
+    // Stripe API 2025-03-31.basil and later moved shipping_details
+    // under collected_information. Keep the legacy fallback for older events.
+    const shipping =
+      session.collected_information?.shipping_details ||
+      session.shipping_details ||
+      {};
+
     const address = shipping.address || {};
 
     const products = lineItems.data
@@ -66,6 +97,9 @@ export default async function handler(req, res) {
 
     const emailText = `
 NEW TERRADIGNUS ORDER
+
+Environment:
+${event.livemode ? "LIVE" : "SANDBOX TEST"}
 
 Customer:
 ${shipping.name || customer.name || "Not provided"}
@@ -105,7 +139,7 @@ ${session.id}
       body: JSON.stringify({
         from: process.env.ORDER_FROM_EMAIL,
         to: [process.env.ORDER_NOTIFICATION_EMAIL],
-        subject: `New TerraDignus Order — ${
+        subject: `${event.livemode ? "" : "[TEST] "}New TerraDignus Order — ${
           lineItems.data[0]?.description || "New Purchase"
         }`,
         text: emailText
