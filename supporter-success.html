@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thank You for Supporting TerraDignus</title>
+  <style>
+    :root {
+      --green:#1A4D3E;
+      --bg:#F4F4F0;
+      --charcoal:#111;
+      --muted:#5f6b66;
+    }
+    * { box-sizing:border-box; }
+    body {
+      margin:0;
+      background:var(--bg);
+      color:var(--charcoal);
+      font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;
+      min-height:100vh;
+      display:flex;
+      flex-direction:column;
+    }
+    header {
+      background:var(--green);
+      color:#fff;
+      padding:1rem 2rem;
+    }
+    nav {
+      max-width:1100px;
+      margin:auto;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:12px;
+    }
+    nav img { width:48px; height:48px; object-fit:contain; }
+    .card {
+      width:min(92%,680px);
+      margin:5rem auto;
+      background:#fff;
+      border:1px solid rgba(17,17,17,.08);
+      border-radius:14px;
+      box-shadow:0 8px 24px rgba(0,0,0,.07);
+      padding:3rem;
+      text-align:center;
+      flex:1 0 auto;
+    }
+    h1 { color:var(--green); margin:0 0 1rem; font-size:2.2rem; }
+    p { color:#444; line-height:1.7; }
+    .note {
+      margin:1.5rem auto 2rem;
+      padding:1rem 1.2rem;
+      border-radius:10px;
+      background:#f3f6f4;
+      color:var(--muted);
+      max-width:540px;
+      font-size:.95rem;
+    }
+    .btn {
+      display:inline-block;
+      background:var(--green);
+      color:#fff;
+      text-decoration:none;
+      padding:13px 24px;
+      border-radius:8px;
+      font-weight:700;
+    }
+    footer {
+      text-align:center;
+      padding:2.5rem;
+      background:#111;
+      color:var(--bg);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <img src="assets/TD HL BINDRUNE SMALLEST.png" alt="TerraDignus Logo">
+      <strong style="font-size:1.45rem;">TerraDignus</strong>
+    </nav>
+  </header>
+
+  <main class="card">
+    <div style="font-size:3.5rem; margin-bottom:.8rem;">🌿</div>
+    <h1>Thank You for Supporting the Work.</h1>
+    <p>
+      Your contribution goes directly toward TerraDignus research, prototyping,
+      material testing, field validation, and continued development.
+    </p>
+    <div class="note">
+      If you selected an exclusive Supporter sticker, we received the mailing
+      address you entered during checkout and will use it only to fulfill your reward.
+      Stripe will email your payment receipt separately.
+    </div>
+    <a class="btn" href="index.html">Return to TerraDignus</a>
+  </main>
+
+  <footer>
+    <strong>PERDIGNUS LLC</strong>
+    <p style="opacity:.6; margin:.6rem 0 0;">&copy; 2026 Perdignus LLC. All Rights Reserved.</p>
+  </footer>
+</body>
+</html>
