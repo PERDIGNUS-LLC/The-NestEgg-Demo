@@ -389,7 +389,7 @@
     /* --- R&D Support Section --- */
     .support-container {
       margin-top: 3rem;
-      padding: 2rem;
+      padding: 2.25rem;
       background-color: #f4f6f8;
       border-radius: 12px;
       text-align: center;
@@ -401,27 +401,27 @@
     }
 
     .support-text h4 {
-      margin: 0 0 0.5rem 0;
+      margin: 0 0 0.6rem 0;
       color: var(--navy);
-      font-size: 1.1rem;
+      font-size: 1.15rem;
       text-transform: uppercase;
       letter-spacing: 0.05em;
     }
 
     .support-text p {
-      margin: 0 auto 1.25rem auto;
+      margin: 0 auto 1rem auto;
       color: var(--slate);
-      font-size: 0.95rem;
+      font-size: 0.97rem;
       line-height: 1.6;
-      max-width: 720px;
+      max-width: 760px;
     }
 
     .support-rewards {
       display: grid;
-      grid-template-columns: repeat(3, minmax(0,1fr));
-      gap: 0.85rem;
-      margin: 1.5rem 0;
-      text-align: left;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap: 1.25rem;
+      max-width: 760px;
+      margin: 1.8rem auto 1rem;
     }
 
     .support-reward {
@@ -438,11 +438,16 @@
 
     .support-reward-card {
       height: 100%;
-      padding: 1rem;
-      border-radius: 12px;
+      min-height: 250px;
+      padding: 1.15rem 1.15rem 1.2rem;
+      border-radius: 14px;
       border: 2px solid rgba(17,17,17,0.10);
       background: #fff;
       transition: border-color .18s ease, transform .18s ease, box-shadow .18s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
     }
 
     .support-reward input:checked + .support-reward-card {
@@ -454,22 +459,50 @@
     .support-reward-card img {
       display: block;
       width: 100%;
-      max-height: 96px;
+      max-width: 310px;
+      height: auto;
+      max-height: 155px;
       object-fit: contain;
-      margin: 0 auto 0.75rem;
+      margin: 0 auto 1rem;
     }
 
     .support-reward-card strong {
       display: block;
       color: var(--navy);
-      margin-bottom: .35rem;
+      font-size: 1rem;
+      margin-bottom: .4rem;
     }
 
     .support-reward-card span {
       display: block;
       color: var(--muted);
-      font-size: .86rem;
-      line-height: 1.4;
+      font-size: .88rem;
+      line-height: 1.45;
+    }
+
+    .support-no-reward {
+      max-width: 760px;
+      margin: 0.25rem auto 1.4rem;
+      text-align: left;
+    }
+
+    .support-no-reward label {
+      display: flex;
+      align-items: flex-start;
+      gap: .65rem;
+      padding: .9rem 1rem;
+      border-radius: 10px;
+      border: 1px solid rgba(17,17,17,.10);
+      background: rgba(255,255,255,.72);
+      cursor: pointer;
+      color: var(--slate);
+      font-size: .9rem;
+      line-height: 1.45;
+    }
+
+    .support-no-reward input {
+      margin-top: .15rem;
+      accent-color: var(--forest-green);
     }
 
     .support-amount-row {
@@ -477,7 +510,7 @@
       justify-content: center;
       align-items: center;
       gap: .6rem;
-      margin: 1.25rem auto;
+      margin: 1.2rem auto;
     }
 
     .support-amount-wrap {
@@ -538,14 +571,17 @@
     }
 
     @media (max-width: 720px) {
+      .support-container { padding: 1.5rem 1rem; }
       .support-rewards { grid-template-columns: 1fr; }
-      .support-reward-card {
-        display: grid;
-        grid-template-columns: 120px 1fr;
-        gap: 1rem;
-        align-items: center;
+      .support-reward-card { min-height: 0; }
+      .support-reward-card img {
+        max-width: 320px;
+        max-height: 150px;
       }
-      .support-reward-card img { margin:0; }
+      .support-amount-row {
+        flex-direction: column;
+        gap: .35rem;
+      }
     }
 
     /* --- PATENT SECTION --- */
@@ -878,27 +914,17 @@
         prototyping, field validation, and continued habitat development.
       </p>
       <p>
-        Contribute <strong>$10 or more</strong> and, if you want one, choose an exclusive
-        NestEgg™ or NutHatch™ Supporter sticker. These supporter designs are not sold separately
-        and are available nowhere else.
+        Contribute <strong>$10 or more</strong> and choose one of two exclusive Supporter badges.
+        These designs are not sold separately and are available nowhere else.
       </p>
     </div>
 
     <form id="support-form">
       <div class="support-rewards" aria-label="Choose supporter reward">
         <label class="support-reward">
-          <input type="radio" name="support-reward" value="none" checked>
+          <input type="radio" name="support-reward" value="nestegg" checked>
           <span class="support-reward-card">
-            <span style="font-size:2rem; text-align:center; margin-bottom:.55rem;" aria-hidden="true">🌿</span>
-            <strong>No Sticker</strong>
-            <span>Support the R&amp;D directly. No mailing address required.</span>
-          </span>
-        </label>
-
-        <label class="support-reward">
-          <input type="radio" name="support-reward" value="nestegg">
-          <span class="support-reward-card">
-            <img src="assets/TNE SUPPORTER.png" alt="NestEgg Supporter sticker">
+            <img src="assets/NE SUPP BADGE.png" alt="NestEgg Supporter badge sticker">
             <strong>NestEgg™ Supporter</strong>
             <span>Exclusive supporter sticker with a contribution of $10 or more.</span>
           </span>
@@ -907,10 +933,17 @@
         <label class="support-reward">
           <input type="radio" name="support-reward" value="nuthatch">
           <span class="support-reward-card">
-            <img src="assets/TNH SUPPORTER.png" alt="NutHatch Supporter sticker">
+            <img src="assets/NH SUPP BADGE.png" alt="NutHatch Supporter badge sticker">
             <strong>NutHatch™ Supporter</strong>
             <span>Exclusive supporter sticker with a contribution of $10 or more.</span>
           </span>
+        </label>
+      </div>
+
+      <div class="support-no-reward">
+        <label>
+          <input type="radio" name="support-reward" value="none">
+          <span><strong>No sticker, thanks.</strong> Support TerraDignus R&amp;D directly without a physical reward or mailing address.</span>
         </label>
       </div>
 
