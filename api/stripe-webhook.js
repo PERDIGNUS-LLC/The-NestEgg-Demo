@@ -95,7 +95,52 @@ export default async function handler(req, res) {
     const tax = money(session.total_details?.amount_tax || 0);
     const total = money(session.amount_total);
 
-    const emailText = `
+    const isSupport = session.metadata?.purpose === "r_and_d_support";
+    const rewardLabel =
+      session.metadata?.supporter_reward_label || "No sticker requested";
+
+    const shippingLines = [
+      shipping.name || customer.name || "",
+      address.line1 || "",
+      address.line2 || "",
+      [address.city || "", address.state || "", address.postal_code || ""]
+        .filter(Boolean)
+        .join(" "),
+      address.country || ""
+    ]
+      .filter(Boolean)
+      .join("\n");
+
+    const emailText = isSupport
+      ? `
+NEW TERRADIGNUS R&D SUPPORT
+
+Environment:
+${event.livemode ? "LIVE" : "SANDBOX TEST"}
+
+Support amount:
+${total}
+
+Reward:
+${rewardLabel}
+
+Supporter:
+${shipping.name || customer.name || "Not provided"}
+
+Email:
+${customer.email || "Not provided"}
+
+${session.metadata?.supporter_reward === "none"
+  ? "MAILING ADDRESS:\nNot required — no physical reward requested."
+  : `MAIL SUPPORTER STICKER TO:\n${shippingLines || "Address not available"}`}
+
+Stripe Payment ID:
+${session.payment_intent || "Not available"}
+
+Stripe Checkout Session:
+${session.id}
+`.trim()
+      : `
 NEW TERRADIGNUS ORDER
 
 Environment:
@@ -108,11 +153,7 @@ Email:
 ${customer.email || "Not provided"}
 
 SHIP TO:
-${shipping.name || customer.name || ""}
-${address.line1 || ""}
-${address.line2 || ""}
-${address.city || ""}, ${address.state || ""} ${address.postal_code || ""}
-${address.country || ""}
+${shippingLines}
 
 ORDER:
 ${products}
@@ -139,9 +180,11 @@ ${session.id}
       body: JSON.stringify({
         from: process.env.ORDER_FROM_EMAIL,
         to: [process.env.ORDER_NOTIFICATION_EMAIL],
-        subject: `${event.livemode ? "" : "[TEST] "}New TerraDignus Order — ${
-          lineItems.data[0]?.description || "New Purchase"
-        }`,
+        subject: isSupport
+          ? `${event.livemode ? "" : "[TEST] "}New TerraDignus R&D Support — ${total} — ${rewardLabel}`
+          : `${event.livemode ? "" : "[TEST] "}New TerraDignus Order — ${
+              lineItems.data[0]?.description || "New Purchase"
+            }`,
         text: emailText
       })
     });
